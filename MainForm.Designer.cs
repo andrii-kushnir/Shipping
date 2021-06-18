@@ -52,6 +52,9 @@
             this._tpDocuments = new System.Windows.Forms.TabPage();
             this._tcDocuments = new System.Windows.Forms.TabControl();
             this._tpDocumentList = new System.Windows.Forms.TabPage();
+            this.button7 = new System.Windows.Forms.Button();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -73,12 +76,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this._tbCreateTTN = new System.Windows.Forms.TabPage();
             this.button6 = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.button7 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this._tcMain.SuspendLayout();
             this._tpAddress.SuspendLayout();
             this._tcAddress.SuspendLayout();
@@ -362,6 +362,32 @@
             this._tpDocumentList.TabIndex = 0;
             this._tpDocumentList.Text = "Одержати список ЕН";
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(861, 74);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(247, 50);
+            this.button7.TabIndex = 23;
+            this.button7.Text = "DELETE!!!";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(749, 14);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(433, 29);
+            this.textBox11.TabIndex = 22;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(641, 17);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(102, 24);
+            this.label15.TabIndex = 21;
+            this.label15.Text = "Видалити:";
+            // 
             // dataGridView3
             // 
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -399,6 +425,7 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(132, 29);
             this.textBox7.TabIndex = 16;
+            this.textBox7.Text = "31.12.2021";
             // 
             // textBox6
             // 
@@ -406,6 +433,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(132, 29);
             this.textBox6.TabIndex = 15;
+            this.textBox6.Text = "01.01.2021";
             // 
             // label13
             // 
@@ -432,27 +460,27 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(30, 157);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(160, 24);
+            this.label12.Size = new System.Drawing.Size(153, 24);
             this.label12.TabIndex = 4;
-            this.label12.Text = "Конкретна дата*";
+            this.label12.Text = "Конкретна дата";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(51, 122);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(139, 24);
+            this.label11.Size = new System.Drawing.Size(132, 24);
             this.label11.TabIndex = 3;
-            this.label11.Text = "Посторінкаво*";
+            this.label11.Text = "Посторінкаво";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(94, 87);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(96, 24);
+            this.label10.Size = new System.Drawing.Size(89, 24);
             this.label10.TabIndex = 2;
-            this.label10.Text = "Сторінка*";
+            this.label10.Text = "Сторінка";
             // 
             // label9
             // 
@@ -549,18 +577,6 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Номер документа";
             // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.button2.Location = new System.Drawing.Point(1259, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(124, 29);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Logout";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
             // _tbCreateTTN
             // 
             this._tbCreateTTN.BackColor = System.Drawing.Color.Silver;
@@ -581,31 +597,17 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // label15
+            // button2
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(641, 17);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(102, 24);
-            this.label15.TabIndex = 21;
-            this.label15.Text = "Видалити:";
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(749, 14);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(433, 29);
-            this.textBox11.TabIndex = 22;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(861, 74);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(247, 50);
-            this.button7.TabIndex = 23;
-            this.button7.Text = "DELETE!!!";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.button2.Location = new System.Drawing.Point(1259, 12);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(124, 29);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Logout";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // MainForm
             // 

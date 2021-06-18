@@ -47,6 +47,7 @@ namespace NovaPost
             dataGridView1.DataSource = result.Response.data;
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 dataGridView1.Rows[i].HeaderCell.Value = (i + 1).ToString();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             //var info = JsonConvert.DeserializeObject<Info>(response.info.ToString());
         }
 
@@ -71,6 +72,7 @@ namespace NovaPost
             }
 
             dataGridView2.DataSource = result.Response.data;
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             //var warning = result.Response.warnings[0].ID_20400048799000;
         }
 
@@ -143,6 +145,7 @@ namespace NovaPost
             }
 
             dataGridView3.DataSource = result.Response.data;
+            dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -155,6 +158,7 @@ namespace NovaPost
             }
 
             dataGridView4.DataSource = result.Response.data;
+            dataGridView4.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -167,6 +171,7 @@ namespace NovaPost
             }
 
             dataGridView5.DataSource = result.Response.data;
+            dataGridView5.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void button6_Click(object sender, EventArgs e)
