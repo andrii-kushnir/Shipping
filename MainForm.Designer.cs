@@ -77,7 +77,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this._tbCreateTTN = new System.Windows.Forms.TabPage();
-            this.button6 = new System.Windows.Forms.Button();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.GenTTN = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this._tcMain.SuspendLayout();
             this._tpAddress.SuspendLayout();
@@ -95,6 +98,7 @@
             this._tpTracking.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this._tbCreateTTN.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // _tcMain
@@ -580,22 +584,50 @@
             // _tbCreateTTN
             // 
             this._tbCreateTTN.BackColor = System.Drawing.Color.Silver;
-            this._tbCreateTTN.Controls.Add(this.button6);
+            this._tbCreateTTN.Controls.Add(this.textBox12);
+            this._tbCreateTTN.Controls.Add(this.pictureBox1);
+            this._tbCreateTTN.Controls.Add(this.button8);
+            this._tbCreateTTN.Controls.Add(this.GenTTN);
             this._tbCreateTTN.Location = new System.Drawing.Point(4, 33);
             this._tbCreateTTN.Name = "_tbCreateTTN";
             this._tbCreateTTN.Size = new System.Drawing.Size(1231, 590);
             this._tbCreateTTN.TabIndex = 2;
             this._tbCreateTTN.Text = "Створення ТТН";
             // 
-            // button6
+            // textBox12
             // 
-            this.button6.Location = new System.Drawing.Point(501, 42);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(247, 50);
-            this.button6.TabIndex = 14;
-            this.button6.Text = "Send";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.textBox12.Location = new System.Drawing.Point(32, 177);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(488, 29);
+            this.textBox12.TabIndex = 17;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(577, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(651, 584);
+            this.pictureBox1.TabIndex = 16;
+            this.pictureBox1.TabStop = false;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(32, 212);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(247, 50);
+            this.button8.TabIndex = 15;
+            this.button8.Text = "Get Pdf-file";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.GetPdf_Click);
+            // 
+            // GenTTN
+            // 
+            this.GenTTN.Location = new System.Drawing.Point(32, 22);
+            this.GenTTN.Name = "GenTTN";
+            this.GenTTN.Size = new System.Drawing.Size(247, 50);
+            this.GenTTN.TabIndex = 14;
+            this.GenTTN.Text = "Generate TTN";
+            this.GenTTN.UseVisualStyleBackColor = true;
+            this.GenTTN.Click += new System.EventHandler(this.GenTTN_Click);
             // 
             // button2
             // 
@@ -641,6 +673,8 @@
             this._tpTracking.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this._tbCreateTTN.ResumeLayout(false);
+            this._tbCreateTTN.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -693,10 +727,13 @@
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TabPage _tbCreateTTN;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button GenTTN;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox textBox12;
     }
 }
 

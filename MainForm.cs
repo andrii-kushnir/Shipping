@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Api;
 using Documents = Api.Requests.Documents;
+using GemBox.Pdf;
 
 
 namespace NovaPost
@@ -174,17 +176,6 @@ namespace NovaPost
             dataGridView5.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            var result = _controller.SendInternetDocumentSave();
-            if (!result.Success)
-            {
-                if (result.Message.Length < message_long) MessageBox.Show(result.Message);
-                return;
-            }
-            var ttt = result.Response;
-        }
-
         private void button7_Click(object sender, EventArgs e)
         {
             if (textBox11.Text.Trim() != "")
@@ -197,6 +188,30 @@ namespace NovaPost
                 }
                 MessageBox.Show("Видалено успішно: " + result.Response.data.First().Ref);
             }
+        }
+
+        private void GenTTN_Click(object sender, EventArgs e)
+        {
+            var result = _controller.SendInternetDocumentSave();
+            if (!result.Success)
+            {
+                if (result.Message.Length < message_long) MessageBox.Show(result.Message);
+                return;
+            }
+            var ttt = result.Response;
+        }
+
+        private void GetPdf_Click(object sender, EventArgs e)
+        {
+            //_controller.PrintMarking(textBox12.Text.Trim());
+
+            ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+            using (PdfDocument document = PdfDocument.Load(@"c:\temp\111.pdf"))
+            {
+                document.Save(@"c:\temp\111.jpg");
+            }
+            pictureBox1.Image = Image.FromFile(@"c:\temp\111.jpg");
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Web;
 using Api.Base;
 using Api.Requests;
 using Api.Responses;
 using Newtonsoft.Json;
+using System.Drawing;
 
 namespace Api
 {
@@ -205,6 +209,57 @@ namespace Api
             success = true;
             message = "";
             return result;
+        }
+
+
+        public void PrintMarking(string nomer)
+        {
+            var url = "https://my.novaposhta.ua/orders/printMarking85x85/orders[]/" + nomer + "/type/pdf8/apiKey/" + _apiKey;
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            var response = (HttpWebResponse)request.GetResponse();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                using (Stream inputStream = response.GetResponseStream())
+                {
+                    using (Stream outputStream = File.OpenWrite(@"c:\temp\111.pdf"))
+                    {
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        do
+                        {
+                            bytesRead = inputStream.Read(buffer, 0, buffer.Length);
+                            outputStream.Write(buffer, 0, bytesRead);
+                        } while (bytesRead != 0);
+                    }
+                }
+            }
+
+        }
+
+        public void PrintDocument(string nomer)
+        {
+            var url = "https://my.novaposhta.ua/orders/printDocument/orders[]/" + nomer + "/type/pdf/apiKey/" + _apiKey;
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            var response = (HttpWebResponse)request.GetResponse();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                using (Stream inputStream = response.GetResponseStream())
+                {
+                    using (Stream outputStream = File.OpenWrite(@"c:\temp\111.pdf"))
+                    {
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+                        do
+                        {
+                            bytesRead = inputStream.Read(buffer, 0, buffer.Length);
+                            outputStream.Write(buffer, 0, bytesRead);
+                        } while (bytesRead != 0);
+                    }
+                }
+            }
+
         }
     }
 }
