@@ -17,6 +17,8 @@ namespace Api
     public class Controller
     {
         private const string ApiLink = "https://api.novaposhta.ua/v2.0/json/";
+        private const string GetMarking = "https://my.novaposhta.ua/orders/printMarking85x85/orders[]/{0}/type/pdf8/apiKey/{1}";
+        private const string GetDocument = "https://my.novaposhta.ua/orders/printDocument/orders[]/{0}/type/pdf/apiKey/{1}";
         private static readonly HttpClient Client = new HttpClient();
         private readonly string _apiKey;
 
@@ -214,13 +216,13 @@ namespace Api
 
         public Image PrintMarking(string nomer)
         {
-            var url = string.Format("https://my.novaposhta.ua/orders/printMarking85x85/orders[]/{0}/type/pdf8/apiKey/{1}", nomer, _apiKey);
+            var url = string.Format(GetMarking, nomer, _apiKey);
             return GetPdf(url);
         }
 
         public Image PrintDocument(string nomer)
         {
-            var url = string.Format("https://my.novaposhta.ua/orders/printDocument/orders[]/{0}/type/pdf/apiKey/{1}", nomer, _apiKey);
+            var url = string.Format(GetDocument, nomer, _apiKey);
             return GetPdf(url);
          }
 
