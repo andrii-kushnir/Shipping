@@ -82,6 +82,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.GenTTN = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this._tcMain.SuspendLayout();
             this._tpAddress.SuspendLayout();
             this._tcAddress.SuspendLayout();
@@ -584,6 +585,7 @@
             // _tbCreateTTN
             // 
             this._tbCreateTTN.BackColor = System.Drawing.Color.Silver;
+            this._tbCreateTTN.Controls.Add(this.button6);
             this._tbCreateTTN.Controls.Add(this.textBox12);
             this._tbCreateTTN.Controls.Add(this.pictureBox1);
             this._tbCreateTTN.Controls.Add(this.button8);
@@ -615,7 +617,7 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(247, 50);
             this.button8.TabIndex = 15;
-            this.button8.Text = "Get Pdf-file";
+            this.button8.Text = "Print Document (PDF)";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.GetPdf_Click);
             // 
@@ -640,6 +642,16 @@
             this.button2.Text = "Logout";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(32, 268);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(247, 50);
+            this.button6.TabIndex = 18;
+            this.button6.Text = "Print Marking (PDF)";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.GetMarking_Click);
             // 
             // MainForm
             // 
@@ -734,6 +746,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.Button button6;
     }
 }
 

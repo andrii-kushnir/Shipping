@@ -10,6 +10,7 @@ using Api.Requests;
 using Api.Responses;
 using Newtonsoft.Json;
 using System.Drawing;
+using GemBox.Pdf;
 
 namespace Api
 {
@@ -211,35 +212,30 @@ namespace Api
             return result;
         }
 
-
-        public void PrintMarking(string nomer)
+        public Image PrintMarking(string nomer)
         {
-            var url = "https://my.novaposhta.ua/orders/printMarking85x85/orders[]/" + nomer + "/type/pdf8/apiKey/" + _apiKey;
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            var response = (HttpWebResponse)request.GetResponse();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                using (Stream inputStream = response.GetResponseStream())
-                {
-                    using (Stream outputStream = File.OpenWrite(@"c:\temp\111.pdf"))
-                    {
-                        byte[] buffer = new byte[4096];
-                        int bytesRead;
-                        do
-                        {
-                            bytesRead = inputStream.Read(buffer, 0, buffer.Length);
-                            outputStream.Write(buffer, 0, bytesRead);
-                        } while (bytesRead != 0);
-                    }
-                }
-            }
-
+            var url = string.Format("https://my.novaposhta.ua/orders/printMarking85x85/orders[]/{0}/type/pdf8/apiKey/{1}", nomer, _apiKey);
+            return GetPdf(url);
         }
 
-        public void PrintDocument(string nomer)
+        public Image PrintDocument(string nomer)
         {
-            var url = "https://my.novaposhta.ua/orders/printDocument/orders[]/" + nomer + "/type/pdf/apiKey/" + _apiKey;
+            var url = string.Format("https://my.novaposhta.ua/orders/printDocument/orders[]/{0}/type/pdf/apiKey/{1}", nomer, _apiKey);
+            return GetPdf(url);
+         }
+
+        private Image GetPdf(string url)
+        {
+            var temp = Path.GetTempPath();
+            var fileNamePDF = temp + @"NovaPost.pdf";
+            var fileNameJPG = temp + @"NovaPost.jpg";
+
+            try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
+            catch { fileNamePDF = temp + @"NovaPost1.pdf"; }
+
+            try { if (File.Exists(fileNameJPG)) File.Delete(fileNameJPG); }
+            catch { fileNameJPG = temp + @"NovaPost1.jpg"; }
+
             var request = (HttpWebRequest)WebRequest.Create(url);
             var response = (HttpWebResponse)request.GetResponse();
 
@@ -247,7 +243,7 @@ namespace Api
             {
                 using (Stream inputStream = response.GetResponseStream())
                 {
-                    using (Stream outputStream = File.OpenWrite(@"c:\temp\111.pdf"))
+                    using (Stream outputStream = File.OpenWrite(fileNamePDF))
                     {
                         byte[] buffer = new byte[4096];
                         int bytesRead;
@@ -258,8 +254,17 @@ namespace Api
                         } while (bytesRead != 0);
                     }
                 }
+
+                ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+                using (PdfDocument document = PdfDocument.Load(fileNamePDF))
+                {
+                    document.Save(fileNameJPG);
+                }
+                var image = Image.FromFile(fileNameJPG);
+                return image;
             }
 
+            return null;
         }
     }
 }

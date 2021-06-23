@@ -203,14 +203,13 @@ namespace NovaPost
 
         private void GetPdf_Click(object sender, EventArgs e)
         {
-            //_controller.PrintMarking(textBox12.Text.Trim());
+            pictureBox1.Image = _controller.PrintDocument(textBox12.Text.Trim());
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
 
-            ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-            using (PdfDocument document = PdfDocument.Load(@"c:\temp\111.pdf"))
-            {
-                document.Save(@"c:\temp\111.jpg");
-            }
-            pictureBox1.Image = Image.FromFile(@"c:\temp\111.jpg");
+        private void GetMarking_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = _controller.PrintMarking(textBox12.Text.Trim());
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
     }
