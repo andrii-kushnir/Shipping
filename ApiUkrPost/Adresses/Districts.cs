@@ -13,7 +13,7 @@ namespace ApiUkrPost.Adresses
         public string REGIONID { get; set; }
 
         [JsonProperty("DISTRICT_EN")]
-        public object DISTRICTEN { get; set; }
+        public string DISTRICTEN { get; set; }
 
         [JsonProperty("REGION_UA")]
         public string REGIONUA { get; set; }
@@ -37,7 +37,7 @@ namespace ApiUkrPost.Adresses
         public string REGIONRU { get; set; }
 
         [JsonProperty("DISTRICT_RU")]
-        public object DISTRICTRU { get; set; }
+        public string DISTRICTRU { get; set; }
 
         [JsonProperty("NEW_DISTRICT_UA")]
         public string NEWDISTRICTUA { get; set; }

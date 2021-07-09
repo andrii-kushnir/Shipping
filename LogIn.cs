@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace NovaPost
+namespace PostAPI
 {
     public partial class LogIn : Form
     {
-        private List<User> _users;
-
         public LogIn()
         {
             InitializeComponent();
@@ -15,14 +13,9 @@ namespace NovaPost
             _cbOperator.SelectedIndex = 1;
         }
 
-        public LogIn(List<User> users) : this()
-        {
-            _users = users;
-        }
-
         private void _btLogIn_Click(object sender, EventArgs e)
         {
-            var user = _users.Find(u => u.Login == _tbLogin.Text.Trim() && u.Password == HashPassword.Hash(_tbPassword.Text.Trim()));
+            var user = Program._users.Find(u => u.Login == _tbLogin.Text.Trim() && u.Password == HashPassword.Hash(_tbPassword.Text.Trim()));
             if (user == null)
             {
                 MessageBox.Show("Логін або пароль не вірний!");
@@ -31,7 +24,7 @@ namespace NovaPost
             {
                 if (_cbOperator.SelectedIndex == 0)
                 {
-                    Form main = new MainForm(user);
+                    Form main = new NovaPostMain(user);
                     this.Visible = false;
                     main.ShowDialog();
                     Close();
@@ -48,7 +41,7 @@ namespace NovaPost
 
         private void _btRegistration_Click(object sender, EventArgs e)
         {
-            Form reg = new Registration(_users);
+            Form reg = new Registration();
             reg.ShowDialog();
         }
 

@@ -4,21 +4,15 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
-namespace NovaPost
+namespace PostAPI
 {
     public partial class Registration : Form
     {
-        private List<User> _users;
-
         public Registration()
         {
             InitializeComponent();
-        }
-
-        public Registration(List<User> users) :this()
-        {
-            _users = users;
         }
 
         private void _btExit_Click(object sender, EventArgs e)
@@ -42,23 +36,18 @@ namespace NovaPost
                 {
                     Login = _tbLogin.Text.Trim(),
                     Password = HashPassword.Hash(_tbPassword.Text.Trim()),
-                    ApiKeyNovaPost = _tbApiKey.Text.Trim()
+                    ApiKeyNovaPost = _tbApiKey.Text.Trim() == "" ? null : _tbApiKey.Text.Trim(),
+                    AuthorizationBearer = _tbBearer.Text.Trim() == "" ? null : _tbBearer.Text.Trim(),
+                    UserToken = _tbToken.Text.Trim() == "" ? null : _tbToken.Text.Trim()
                 };
-                if (_users.Any(u => u.Login == user.Login))
+                if (Program._users.Any(u => u.Login == user.Login))
                 {
                     MessageBox.Show("Такий користувач уже існує!");
                 }
                 else
                 {
-                    _users.Add(user);
-                    string pathCurrent = Directory.GetCurrentDirectory();
-                    var fileUsers = pathCurrent + "\\users.txt";
-                    using (StreamWriter w = new StreamWriter(fileUsers, true, Encoding.GetEncoding(1251)))
-                    {
-                        w.WriteLine(user.Login);
-                        w.WriteLine(user.Password);
-                        w.WriteLine(user.ApiKeyNovaPost);
-                    }
+                    Program._users.Add(user);
+                    File.WriteAllText(Path.GetTempPath() + Program.FileUsers, JsonConvert.SerializeObject(Program._users));
                     Close();
                 }
             }

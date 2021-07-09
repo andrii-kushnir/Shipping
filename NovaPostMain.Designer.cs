@@ -1,6 +1,6 @@
-﻿namespace NovaPost
+﻿namespace PostAPI
 {
-    partial class MainForm
+    partial class NovaPostMain
     {
         /// <summary>
         /// Required designer variable.

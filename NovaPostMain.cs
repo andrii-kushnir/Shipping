@@ -8,21 +8,20 @@ using Documents = ApiNovaPost.Requests.Documents;
 using GemBox.Pdf;
 
 
-namespace NovaPost
+namespace PostAPI
 {
-    public partial class MainForm : Form
+    public partial class NovaPostMain : Form
     {
         private readonly User _user;
         private readonly Controller _controller;
         private readonly int message_long = 800;
-        private object tbl_cart_categories;
 
-        public MainForm()
+        public NovaPostMain()
         {
             InitializeComponent();
         }
 
-        public MainForm(User user) : this()
+        public NovaPostMain(User user) : this()
         {
             _user = user;
             _controller = new Controller(_user.ApiKeyNovaPost);

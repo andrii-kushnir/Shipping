@@ -22,10 +22,10 @@ namespace ApiUkrPost.Adresses
         public string POREGIONID { get; set; }
 
         [JsonProperty("SHORTPDCITYTYPE_RU")]
-        public object SHORTPDCITYTYPERU { get; set; }
+        public string SHORTPDCITYTYPERU { get; set; }
 
         [JsonProperty("DISTRICT_EN")]
-        public object DISTRICTEN { get; set; }
+        public string DISTRICTEN { get; set; }
 
         [JsonProperty("PDCITYTYPE_EN")]
         public string PDCITYTYPEEN { get; set; }
@@ -34,7 +34,7 @@ namespace ApiUkrPost.Adresses
         public string POSTINDEX { get; set; }
 
         [JsonProperty("SHORTCITYTYPE_EN")]
-        public object SHORTCITYTYPEEN { get; set; }
+        public string SHORTCITYTYPEEN { get; set; }
 
         [JsonProperty("MEREZA_NUMBER")]
         public string MEREZANUMBER { get; set; }
@@ -115,7 +115,7 @@ namespace ApiUkrPost.Adresses
         public string LOCKEN { get; set; }
 
         [JsonProperty("PDOLDCITYNAME_EN")]
-        public object PDOLDCITYNAMEEN { get; set; }
+        public string PDOLDCITYNAMEEN { get; set; }
 
         [JsonProperty("POSTCODE")]
         public string POSTCODE { get; set; }
@@ -151,7 +151,7 @@ namespace ApiUkrPost.Adresses
         public string ISVPZ { get; set; }
 
         [JsonProperty("PDOLDCITYNAME_UA")]
-        public object PDOLDCITYNAMEUA { get; set; }
+        public string PDOLDCITYNAMEUA { get; set; }
 
         [JsonProperty("CITY_EN")]
         public string CITYEN { get; set; }
@@ -163,7 +163,7 @@ namespace ApiUkrPost.Adresses
         public string LOCKCODE { get; set; }
 
         [JsonProperty("PDOLDCITYNAME_RU")]
-        public object PDOLDCITYNAMERU { get; set; }
+        public string PDOLDCITYNAMERU { get; set; }
 
         [JsonProperty("CITYTYPE_RU")]
         public string CITYTYPERU { get; set; }
@@ -178,16 +178,16 @@ namespace ApiUkrPost.Adresses
         public string PDCITYRU { get; set; }
 
         [JsonProperty("RESTRICTED_ACCESS")]
-        public object RESTRICTEDACCESS { get; set; }
+        public string RESTRICTEDACCESS { get; set; }
 
         [JsonProperty("PDCITYTYPE_UA")]
         public string PDCITYTYPEUA { get; set; }
 
         [JsonProperty("SHORTCITYTYPE_RU")]
-        public object SHORTCITYTYPERU { get; set; }
+        public string SHORTCITYTYPERU { get; set; }
 
         [JsonProperty("SHORTPDCITYTYPE_EN")]
-        public object SHORTPDCITYTYPEEN { get; set; }
+        public string SHORTPDCITYTYPEEN { get; set; }
 
         [JsonProperty("STREETTYPE_EN")]
         public string STREETTYPEEN { get; set; }
@@ -205,13 +205,13 @@ namespace ApiUkrPost.Adresses
         public string LATTITUDE { get; set; }
 
         [JsonProperty("STREET_RU")]
-        public object STREETRU { get; set; }
+        public string STREETRU { get; set; }
 
         [JsonProperty("CITY_UA")]
         public string CITYUA { get; set; }
 
         [JsonProperty("DISTRICT_RU")]
-        public object DISTRICTRU { get; set; }
+        public string DISTRICTRU { get; set; }
     }
 
     public class Postoffices

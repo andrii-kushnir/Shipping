@@ -1,11 +1,13 @@
 ﻿using System;
 
-namespace NovaPost
+namespace PostAPI
 {
     public class User
     {
         public string Login;
         public string Password;
         public string ApiKeyNovaPost;
+        public string AuthorizationBearer;
+        public string UserToken;
     }
 }

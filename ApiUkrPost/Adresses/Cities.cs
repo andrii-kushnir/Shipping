@@ -25,22 +25,22 @@ namespace ApiUkrPost.Adresses
         public string CITYRU { get; set; }
 
         [JsonProperty("DISTRICT_EN")]
-        public object DISTRICTEN { get; set; }
+        public string DISTRICTEN { get; set; }
 
         [JsonProperty("REGION_EN")]
         public string REGIONEN { get; set; }
 
         [JsonProperty("OLDCITY_RU")]
-        public object OLDCITYRU { get; set; }
+        public string OLDCITYRU { get; set; }
 
         [JsonProperty("SHORTCITYTYPE_EN")]
-        public object SHORTCITYTYPEEN { get; set; }
+        public string SHORTCITYTYPEEN { get; set; }
 
         [JsonProperty("CITYTYPE_UA")]
         public string CITYTYPEUA { get; set; }
 
         [JsonProperty("OLDCITY_UA")]
-        public object OLDCITYUA { get; set; }
+        public string OLDCITYUA { get; set; }
 
         [JsonProperty("NEW_DISTRICT_UA")]
         public string NEWDISTRICTUA { get; set; }
@@ -64,10 +64,10 @@ namespace ApiUkrPost.Adresses
         public string REGIONUA { get; set; }
 
         [JsonProperty("OLDCITY_EN")]
-        public object OLDCITYEN { get; set; }
+        public string OLDCITYEN { get; set; }
 
         [JsonProperty("SHORTCITYTYPE_RU")]
-        public object SHORTCITYTYPERU { get; set; }
+        public string SHORTCITYTYPERU { get; set; }
 
         [JsonProperty("CITY_ID")]
         public string CITYID { get; set; }
@@ -91,7 +91,7 @@ namespace ApiUkrPost.Adresses
         public string OWNOF { get; set; }
 
         [JsonProperty("DISTRICT_RU")]
-        public object DISTRICTRU { get; set; }
+        public string DISTRICTRU { get; set; }
     }
 
     public class Cities

@@ -127,15 +127,41 @@ namespace ApiUkrPost
             return false;
         }
 
-        public Postoffice GetPostoffice(long postindex)
+        public List<AddressDto> GetAddressByPostcode(long postindex)
         {
-            var result = new Postoffice();
-            var response = GetFromAddress($"/get_postoffices_by_postindex?pi={postindex}", out bool success, out string message);
+            var result = new List<AddressDto>();
+            var response = GetFromAddress($"/get_address_by_postcode?postcode={postindex}&lang=UA", out bool success, out string message);
             if (success)
             {
                 try
                 {
-                    result = JsonConvert.DeserializeObject<PostofficesRoot>(response).Entries.Entry[0];
+                    throw new Exception("Отримаються усі адреси по індексу, але парсінг не реалізовано.");
+                    //result = JsonConvert.DeserializeObject<PostofficesRoot>(response).Entries.Entry[0];
+                }
+                catch { }
+            }
+            return result;
+        }
+
+        public City GetCityByPostcode(long postindex)
+        {
+            City result = null;
+            var response = GetFromAddress($"/get_city_details_by_postcode?postcode={postindex}&lang=UA", out bool success, out string message);
+            if (success)
+            {
+                try
+                {
+                    var r = JsonConvert.DeserializeObject<CitiesFromIndexRoot>(response).Entries.Entry[0];
+                    result = new City()
+                    {
+                        CITYID = r.CITYID,
+                        CITYUA = r.CITYNAME,
+                        CITYTYPEUA = r.CITYTYPENAME,
+                        DISTRICTID = r.DISTRICTID,
+                        DISTRICTUA = r.DISTRICTNAME,
+                        REGIONID = r.REGIONID,
+                        REGIONUA = r.REGIONNAME
+                    };
                 }
                 catch { }
             }

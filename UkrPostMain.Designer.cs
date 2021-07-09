@@ -1,5 +1,5 @@
 ﻿
-namespace NovaPost
+namespace PostAPI
 {
     partial class UkrPostMain
     {

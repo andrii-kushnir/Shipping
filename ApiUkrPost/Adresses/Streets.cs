@@ -13,7 +13,7 @@ namespace ApiUkrPost.Adresses
         public string REGIONID { get; set; }
 
         [JsonProperty("OLDSTREET_EN")]
-        public object OLDSTREETEN { get; set; }
+        public string OLDSTREETEN { get; set; }
 
         [JsonProperty("DISTRICT_ID")]
         public string DISTRICTID { get; set; }
@@ -28,7 +28,7 @@ namespace ApiUkrPost.Adresses
         public string SHORTSTREETTYPEUA { get; set; }
 
         [JsonProperty("DISTRICT_EN")]
-        public object DISTRICTEN { get; set; }
+        public string DISTRICTEN { get; set; }
 
         [JsonProperty("REGION_EN")]
         public string REGIONEN { get; set; }
@@ -40,13 +40,13 @@ namespace ApiUkrPost.Adresses
         public string STREETTYPEUA { get; set; }
 
         [JsonProperty("SHORTSTREETTYPE_RU")]
-        public object SHORTSTREETTYPERU { get; set; }
+        public string SHORTSTREETTYPERU { get; set; }
 
         [JsonProperty("STREETTYPE_RU")]
         public string STREETTYPERU { get; set; }
 
         [JsonProperty("OLDSTREET_UA")]
-        public object OLDSTREETUA { get; set; }
+        public string OLDSTREETUA { get; set; }
 
         [JsonProperty("NEW_DISTRICT_UA")]
         public string NEWDISTRICTUA { get; set; }
@@ -58,7 +58,7 @@ namespace ApiUkrPost.Adresses
         public string STREETEN { get; set; }
 
         [JsonProperty("OLDSTREET_RU")]
-        public object OLDSTREETRU { get; set; }
+        public string OLDSTREETRU { get; set; }
 
         [JsonProperty("REGION_RU")]
         public string REGIONRU { get; set; }
@@ -67,7 +67,7 @@ namespace ApiUkrPost.Adresses
         public string REGIONUA { get; set; }
 
         [JsonProperty("SHORTSTREETTYPE_EN")]
-        public object SHORTSTREETTYPEEN { get; set; }
+        public string SHORTSTREETTYPEEN { get; set; }
 
         [JsonProperty("STREETTYPE_EN")]
         public string STREETTYPEEN { get; set; }
@@ -79,13 +79,13 @@ namespace ApiUkrPost.Adresses
         public string DISTRICTUA { get; set; }
 
         [JsonProperty("STREET_RU")]
-        public object STREETRU { get; set; }
+        public string STREETRU { get; set; }
 
         [JsonProperty("CITY_UA")]
         public string CITYUA { get; set; }
 
         [JsonProperty("DISTRICT_RU")]
-        public object DISTRICTRU { get; set; }
+        public string DISTRICTRU { get; set; }
     }
 
     public class Streets

@@ -1,4 +1,4 @@
-﻿namespace NovaPost
+﻿namespace PostAPI
 {
     partial class LogIn
     {

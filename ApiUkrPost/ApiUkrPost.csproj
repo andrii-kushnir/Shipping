@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adresses\Cities.cs" />
+    <Compile Include="Adresses\CitiesFromIndex.cs" />
     <Compile Include="Adresses\Courierarea.cs" />
     <Compile Include="Adresses\Districts.cs" />
     <Compile Include="Adresses\Houses.cs" />

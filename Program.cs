@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
-namespace NovaPost
+namespace PostAPI
 {
     static class Program
     {
+        internal const string FileUsers = "file015.dat";
         public static List<User> _users;
         /// <summary>
         /// The main entry point for the application.
@@ -18,32 +20,25 @@ namespace NovaPost
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LogIn(_users));
+            Application.Run(new LogIn());
         }
 
         static void Previously()
         {
-            _users = new List<User>();
-
-            string pathCurrent = Directory.GetCurrentDirectory();
-            var fileUsers = pathCurrent + "\\users.txt";
+            var fileUsers = Path.GetTempPath() + FileUsers;
             if (!File.Exists(fileUsers))
             {
-                File.Create(fileUsers);
+                MessageBox.Show("File Users not found");
             }
             else
             {
-                var ln = File.ReadAllLines(fileUsers);
-                for (int i = 0; i < ln.Length; i++)
+                try
                 {
-                    var user = new User
-                    {
-                        Login = ln[i],
-                        Password = ln[i + 1],
-                        ApiKeyNovaPost = ln[i + 2]
-                    };
-                    _users.Add(user);
-                    i += 2;
+                    _users = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(fileUsers));
+                }
+                catch
+                {
+                    MessageBox.Show("File Users not reading");
                 }
             }
         }
