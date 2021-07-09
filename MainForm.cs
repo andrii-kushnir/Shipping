@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Api;
-using Documents = Api.Requests.Documents;
+using ApiNovaPost;
+using Documents = ApiNovaPost.Requests.Documents;
 using GemBox.Pdf;
 
 
@@ -15,6 +15,8 @@ namespace NovaPost
         private readonly User _user;
         private readonly Controller _controller;
         private readonly int message_long = 800;
+        private object tbl_cart_categories;
+
         public MainForm()
         {
             InitializeComponent();
@@ -23,7 +25,7 @@ namespace NovaPost
         public MainForm(User user) : this()
         {
             _user = user;
-            _controller = new Controller(_user.ApiKey);
+            _controller = new Controller(_user.ApiKeyNovaPost);
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -10,8 +10,8 @@
     <ProjectGuid>{C8651A7C-6FBF-4503-B929-29D165735FB0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Api</RootNamespace>
-    <AssemblyName>Api</AssemblyName>
+    <RootNamespace>ApiNovaPost</RootNamespace>
+    <AssemblyName>ApiNovaPost</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -39,9 +39,11 @@
     <Reference Include="GemBox.Pdf, Version=15.0.0.1160, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
       <HintPath>..\packages\GemBox.Pdf.15.0.1160\lib\net35\GemBox.Pdf.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
-    <Reference Include="Pkcs11Interop, Version=5.1.1.0, Culture=neutral, PublicKeyToken=c10e9c2d8c006d2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Pkcs11Interop.5.1.1\lib\net45\Pkcs11Interop.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Pkcs11Interop, Version=5.1.2.0, Culture=neutral, PublicKeyToken=c10e9c2d8c006d2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pkcs11Interop.5.1.2\lib\net45\Pkcs11Interop.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -83,6 +85,7 @@
     <Compile Include="ResponseWrap.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

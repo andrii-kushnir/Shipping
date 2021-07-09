@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Api.Base;
+using ApiNovaPost.Base;
 
-namespace Api
+namespace ApiNovaPost
 {
     public class ResponseWrap<TResponse>
     {

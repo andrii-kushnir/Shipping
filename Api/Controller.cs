@@ -5,14 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web;
-using Api.Base;
-using Api.Requests;
-using Api.Responses;
+using ApiNovaPost.Base;
+using ApiNovaPost.Requests;
+using ApiNovaPost.Responses;
 using Newtonsoft.Json;
 using System.Drawing;
 using GemBox.Pdf;
 
-namespace Api
+namespace ApiNovaPost
 {
     public class Controller
     {

@@ -40,7 +40,7 @@ namespace NovaPost
                     {
                         Login = ln[i],
                         Password = ln[i + 1],
-                        ApiKey = ln[i + 2]
+                        ApiKeyNovaPost = ln[i + 2]
                     };
                     _users.Add(user);
                     i += 2;

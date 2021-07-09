@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Api.Base
+namespace ApiNovaPost.Base
 {
     public class Response<T>
     {

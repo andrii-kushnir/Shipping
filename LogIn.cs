@@ -11,6 +11,8 @@ namespace NovaPost
         public LogIn()
         {
             InitializeComponent();
+
+            _cbOperator.SelectedIndex = 1;
         }
 
         public LogIn(List<User> users) : this()
@@ -27,10 +29,20 @@ namespace NovaPost
             }
             else
             {
-                Form main = new MainForm(user);
-                this.Visible = false;
-                main.ShowDialog();
-                Close();
+                if (_cbOperator.SelectedIndex == 0)
+                {
+                    Form main = new MainForm(user);
+                    this.Visible = false;
+                    main.ShowDialog();
+                    Close();
+                }
+                else
+                {
+                    Form main = new UkrPostMain(user);
+                    this.Visible = false;
+                    main.ShowDialog();
+                    Close();
+                }
             }
         }
 

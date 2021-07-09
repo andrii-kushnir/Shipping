@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Api.Base
+namespace ApiNovaPost.Base
 {
     public class Request<T>
     {

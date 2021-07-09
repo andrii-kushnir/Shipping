@@ -42,7 +42,7 @@ namespace NovaPost
                 {
                     Login = _tbLogin.Text.Trim(),
                     Password = HashPassword.Hash(_tbPassword.Text.Trim()),
-                    ApiKey = _tbApiKey.Text.Trim()
+                    ApiKeyNovaPost = _tbApiKey.Text.Trim()
                 };
                 if (_users.Any(u => u.Login == user.Login))
                 {
@@ -57,7 +57,7 @@ namespace NovaPost
                     {
                         w.WriteLine(user.Login);
                         w.WriteLine(user.Password);
-                        w.WriteLine(user.ApiKey);
+                        w.WriteLine(user.ApiKeyNovaPost);
                     }
                     Close();
                 }

@@ -41,13 +41,18 @@
     <StartupObject>NovaPost.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiUkrPost">
+      <HintPath>ApiUkrPost\bin\Debug\ApiUkrPost.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="GemBox.Pdf, Version=15.0.0.1160, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
       <HintPath>packages\GemBox.Pdf.15.0.1160\lib\net35\GemBox.Pdf.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Pkcs11Interop, Version=5.1.1.0, Culture=neutral, PublicKeyToken=c10e9c2d8c006d2a, processorArchitecture=MSIL">
       <HintPath>packages\Pkcs11Interop.5.1.1\lib\net45\Pkcs11Interop.dll</HintPath>
     </Reference>
@@ -70,6 +75,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UkrPostMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UkrPostMain.Designer.cs">
+      <DependentUpon>UkrPostMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="UtilityClass\HashPassword.cs" />
     <Compile Include="LogIn.cs">
       <SubType>Form</SubType>
@@ -111,6 +122,9 @@
     <EmbeddedResource Include="Registration.resx">
       <DependentUpon>Registration.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UkrPostMain.resx">
+      <DependentUpon>UkrPostMain.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -126,9 +140,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Api\Api.csproj">
+    <ProjectReference Include="Api\ApiNovaPost.csproj">
       <Project>{c8651a7c-6fbf-4503-b929-29d165735fb0}</Project>
-      <Name>Api</Name>
+      <Name>ApiNovaPost</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

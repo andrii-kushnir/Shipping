@@ -1,0 +1,37 @@
+{
+    "id": 3358659,
+    "postcode": "07401",
+    "region": "Київська",
+    "district": "Київський",
+    "city": "Бровари",
+    "street": "Котляревського",
+    "houseNumber": "12",
+    "apartmentNumber": "33",
+    "description": null,
+    "countryside": false,
+    "posteRestante": false,
+    "foreignStreetHouseApartment": null,
+    "detailedInfo": "Україна, 07401, Київська, Київський, Бровари, Котляревського 12, 33",
+    "created": "2021-07-06T17:23:53",
+    "lastModified": "2021-07-06T17:23:53",
+    "country": "UA"
+}
+
+{
+    "id": 3358744,
+    "postcode": "07401",
+    "region": "Київська",
+    "district": "Київський",
+    "city": "Бровари",
+    "street": "Котляревського",
+    "houseNumber": "12",
+    "apartmentNumber": "55",
+    "description": null,
+    "countryside": false,
+    "posteRestante": false,
+    "foreignStreetHouseApartment": null,
+    "detailedInfo": "Україна, 07401, Київська, Київський, Бровари, Котляревського 12, 55",
+    "created": "2021-07-06T18:16:09",
+    "lastModified": "2021-07-06T18:16:09",
+    "country": "UA"
+}

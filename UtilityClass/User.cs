@@ -6,6 +6,6 @@ namespace NovaPost
     {
         public string Login;
         public string Password;
-        public string ApiKey;
+        public string ApiKeyNovaPost;
     }
 }

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NovaPost", "NovaPost.csproj", "{98F9D09E-01DF-4771-AE88-3D4109DDC490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{C8651A7C-6FBF-4503-B929-29D165735FB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiNovaPost", "Api\ApiNovaPost.csproj", "{C8651A7C-6FBF-4503-B929-29D165735FB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiUkrPost", "ApiUkrPost\ApiUkrPost.csproj", "{F8734FFD-238B-4FA3-AD9E-3404BB04D33A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C8651A7C-6FBF-4503-B929-29D165735FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8651A7C-6FBF-4503-B929-29D165735FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8651A7C-6FBF-4503-B929-29D165735FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8734FFD-238B-4FA3-AD9E-3404BB04D33A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8734FFD-238B-4FA3-AD9E-3404BB04D33A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8734FFD-238B-4FA3-AD9E-3404BB04D33A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8734FFD-238B-4FA3-AD9E-3404BB04D33A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
