@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NovaPost", "NovaPost.csproj", "{98F9D09E-01DF-4771-AE88-3D4109DDC490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiNovaPost", "Api\ApiNovaPost.csproj", "{C8651A7C-6FBF-4503-B929-29D165735FB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiNovaPost", "ApiNovaPost\ApiNovaPost.csproj", "{C8651A7C-6FBF-4503-B929-29D165735FB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiUkrPost", "ApiUkrPost\ApiUkrPost.csproj", "{F8734FFD-238B-4FA3-AD9E-3404BB04D33A}"
 EndProject

@@ -41,6 +41,9 @@
     <StartupObject>NovaPost.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiNovaPost">
+      <HintPath>ApiNovaPost\bin\Debug\ApiNovaPost.dll</HintPath>
+    </Reference>
     <Reference Include="ApiUkrPost">
       <HintPath>ApiUkrPost\bin\Debug\ApiUkrPost.dll</HintPath>
     </Reference>
@@ -140,10 +143,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Api\ApiNovaPost.csproj">
-      <Project>{c8651a7c-6fbf-4503-b929-29d165735fb0}</Project>
-      <Name>ApiNovaPost</Name>
-    </ProjectReference>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
