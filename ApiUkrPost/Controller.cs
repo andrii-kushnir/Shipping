@@ -33,6 +33,50 @@ namespace ApiUkrPost
             Client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
+        public AddressDto CreateAddress(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber)
+        {
+            var address = new AddressDto()
+            {
+                postcode = postcode,
+                country = "UA",
+                region = region,
+                district = district,
+                city = city,
+                street = street,
+                houseNumber = houseNumber,
+                apartmentNumber = apartmentNumber
+            };
+            var response = SendPost("/addresses", address.ToJson(), out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<AddressDto>(response);
+            return result;
+        }
+
+        public AddressDto GetAddressByID(long id)
+        {
+            var response = SendGet($"/addresses/{id}", out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<AddressDto>(response);
+            return result;
+        }
+
+        public ClientDto CreateClient(string firstName, string lastName, long addressId, string phoneNumber, string type)
+        {
+            var client = new ClientDto()
+            {
+                firstName = firstName,
+                lastName = lastName,
+                addressId = addressId,
+                phoneNumber = phoneNumber,
+                type = type
+            };
+            var response = SendPost($"/clients?token={_userToken}", client.ToJson(), out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<ClientDto>(response);
+            return result;
+        }
+
+        #region Address Methods
         public List<Region> GetRegions(string region)
         {
             var result = new List<Region>();
@@ -183,33 +227,6 @@ namespace ApiUkrPost
             return result;
         }
 
-        public AddressDto CreateAddress(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber)
-        {
-            var address = new AddressDto()
-            {
-                postcode = postcode,
-                country = "UA",
-                region = region,
-                district = district,
-                city = city,
-                street = street,
-                houseNumber = houseNumber,
-                apartmentNumber = apartmentNumber
-            };
-            var response = SendPost("/addresses", address.ToJson(), out bool success, out string message);
-            if (!success) return null;
-            var result = JsonConvert.DeserializeObject<AddressDto>(response);
-            return result;
-        }
-
-        public AddressDto GetAddressByID(long id)
-        {
-            var response = SendGet($"/addresses/{id}", out bool success, out string message);
-            if (!success) return null;
-            var result = JsonConvert.DeserializeObject<AddressDto>(response);
-            return result;
-        }
-
         private string GetFromAddress(string url, out bool success, out string message)
         {
             HttpResponseMessage response;
@@ -225,7 +242,9 @@ namespace ApiUkrPost
             }
             return ParseResponse(response, out success, out message);
         }
+        #endregion
 
+        #region Base Method: GET, POST, PUT, DELETE
         private string SendGet(string url, out bool success, out string message)
         {
             HttpResponseMessage response;
@@ -317,6 +336,7 @@ namespace ApiUkrPost
             message = "";
             return responseBody;
         }
+        #endregion
 
         //private Image GetPdf(string url)
         //{
