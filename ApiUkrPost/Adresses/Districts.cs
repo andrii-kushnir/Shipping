@@ -41,6 +41,10 @@ namespace ApiUkrPost.Adresses
 
         [JsonProperty("NEW_DISTRICT_UA")]
         public string NEWDISTRICTUA { get; set; }
+        public new string ToString()
+        {
+            return DISTRICTUA;
+        }
     }
 
     public class Districts

@@ -17,6 +17,10 @@ namespace ApiUkrPost.Adresses
 
         [JsonProperty("HOUSENUMBER_UA")]
         public string HOUSENUMBERUA { get; set; }
+        public new string ToString()
+        {
+            return HOUSENUMBERUA;
+        }
     }
 
     public class Houses

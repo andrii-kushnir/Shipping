@@ -92,6 +92,10 @@ namespace ApiUkrPost.Adresses
 
         [JsonProperty("DISTRICT_RU")]
         public string DISTRICTRU { get; set; }
+        public new string ToString()
+        {
+            return CITYUA;
+        }
     }
 
     public class Cities
