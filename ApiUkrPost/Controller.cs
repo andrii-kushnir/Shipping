@@ -60,7 +60,7 @@ namespace ApiUkrPost
             return result;
         }
 
-        public ClientDto CreateClient(string firstName, string lastName, long addressId, string phoneNumber, string type)
+        public ClientDto CreateClient(string firstName, string lastName, long addressId, string phoneNumber, ClientIndivType type)
         {
             var client = new ClientDto()
             {
@@ -75,6 +75,51 @@ namespace ApiUkrPost
             var result = JsonConvert.DeserializeObject<ClientDto>(response);
             return result;
         }
+
+        public ClientDto ChangeClient(string uuid, string firstName, string lastName, long addressId, string phoneNumber, ClientIndivType type)
+        {
+            var client = new ClientDto()
+            {
+                firstName = firstName,
+                lastName = lastName,
+                addressId = addressId,
+                phoneNumber = phoneNumber,
+                type = type
+            };
+            var response = SendPut($"/clients/{uuid}?token={_userToken}", client.ToJson(), out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<ClientDto>(response);
+            return result;
+        }
+
+        public ClientDto GetClient(string uuid)
+        {
+            var response = SendGet($"/clients/{uuid}?token={_userToken}", out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<ClientDto>(response);
+            return result;
+        }
+
+        public ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType shipmentType, int weight, int length, string description)
+        {
+            string DeliveryTypeDescription = DeliveryType.W2W.GetDescription();
+             
+            var shipment = new ShipmentDto()
+            {
+                sender = new Sender { uuid = sender }, 
+                recipient = new Recipient { uuid = recipient },
+                deliveryType = deliveryType,
+                shipmentType = shipmentType,
+                weight = weight,
+                length = length,
+                description = description
+            };
+            var response = SendPost($"​/shipments?token ={_userToken}", shipment.ToJson(), out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<ShipmentDto>(response);
+            return result;
+        }
+
 
         #region Address Methods
         public List<Region> GetRegions(string region)

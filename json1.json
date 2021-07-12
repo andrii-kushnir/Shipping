@@ -1,20 +1,8 @@
 {
-    "Entries": {
-        "Entry": [
-            {
-                "REGION_ID": "19",
-                "DISTRICT_NAME": "Тернопільський",
-                "NEW_DISTRICT_NAME": "Тернопільський",
-                "CITY_ID": "10761",
-                "REGION_NAME": "Тернопільська",
-                "POSTCODE": "46016",
-                "DISTRICT_ID": "997",
-                "CITY_NAME": "Тернопіль",
-                "CITYTYPE_NAME": "м.",
-                "OLDSTREET_NAME": null,
-                "OLDCITY_NAME": null,
-                "CITYTYPE_ID": "1"
-            }
-        ]
-    }
+    "addressId": 188075379,
+    "email": null,
+    "firstName": "Анд",
+    "lastName": "Куш",
+    "phoneNumber": "+380969623565",
+    "type": "INDIVIDUAL"
 }
