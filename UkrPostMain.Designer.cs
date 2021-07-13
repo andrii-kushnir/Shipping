@@ -70,10 +70,10 @@ namespace PostAPI
             this._btCreateClient = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this._btCreateShipment = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this._tbHeight = new System.Windows.Forms.TextBox();
+            this._tbWidth = new System.Windows.Forms.TextBox();
+            this._tbLength = new System.Windows.Forms.TextBox();
+            this._tbWeight = new System.Windows.Forms.TextBox();
             this._cbDeliveryType = new System.Windows.Forms.ComboBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -86,6 +86,12 @@ namespace PostAPI
             this.label16 = new System.Windows.Forms.Label();
             this._cbShipmentType = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
+            this._tbShipmentUuid = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this._tbMiddleName = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this._tbDeclaredPrice = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -319,6 +325,8 @@ namespace PostAPI
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this._tbMiddleName);
+            this.tabPage2.Controls.Add(this.label25);
             this.tabPage2.Controls.Add(this._btGetClient);
             this.tabPage2.Controls.Add(this._btClientChange);
             this.tabPage2.Controls.Add(this._tbClienеIdChange);
@@ -350,7 +358,7 @@ namespace PostAPI
             this._btGetClient.Location = new System.Drawing.Point(935, 268);
             this._btGetClient.Name = "_btGetClient";
             this._btGetClient.Size = new System.Drawing.Size(338, 44);
-            this._btGetClient.TabIndex = 36;
+            this._btGetClient.TabIndex = 38;
             this._btGetClient.Text = "Отримати клієнта";
             this._btGetClient.UseVisualStyleBackColor = true;
             this._btGetClient.Click += new System.EventHandler(this._btGetClient_Click);
@@ -361,7 +369,7 @@ namespace PostAPI
             this._btClientChange.Location = new System.Drawing.Point(935, 152);
             this._btClientChange.Name = "_btClientChange";
             this._btClientChange.Size = new System.Drawing.Size(338, 44);
-            this._btClientChange.TabIndex = 33;
+            this._btClientChange.TabIndex = 35;
             this._btClientChange.Text = "Змінити дані клієнта";
             this._btClientChange.UseVisualStyleBackColor = true;
             this._btClientChange.Click += new System.EventHandler(this._btClientChange_Click);
@@ -372,7 +380,7 @@ namespace PostAPI
             this._tbClienеIdChange.Location = new System.Drawing.Point(875, 219);
             this._tbClienеIdChange.Name = "_tbClienеIdChange";
             this._tbClienеIdChange.Size = new System.Drawing.Size(398, 29);
-            this._tbClienеIdChange.TabIndex = 35;
+            this._tbClienеIdChange.TabIndex = 37;
             // 
             // label15
             // 
@@ -381,80 +389,80 @@ namespace PostAPI
             this.label15.Location = new System.Drawing.Point(752, 225);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(117, 20);
-            this.label15.TabIndex = 34;
+            this.label15.TabIndex = 36;
             this.label15.Text = "uuid клієнта:";
             // 
             // _tbClientId
             // 
             this._tbClientId.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbClientId.Location = new System.Drawing.Point(226, 358);
+            this._tbClientId.Location = new System.Drawing.Point(226, 400);
             this._tbClientId.Name = "_tbClientId";
             this._tbClientId.Size = new System.Drawing.Size(398, 29);
-            this._tbClientId.TabIndex = 32;
+            this._tbClientId.TabIndex = 34;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label14.Location = new System.Drawing.Point(3, 364);
+            this.label14.Location = new System.Drawing.Point(3, 406);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(219, 20);
-            this.label14.TabIndex = 31;
+            this.label14.TabIndex = 33;
             this.label14.Text = "uuid створеного клієнта:";
             // 
             // _cbClientType
             // 
             this._cbClientType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbClientType.FormattingEnabled = true;
-            this._cbClientType.Location = new System.Drawing.Point(414, 222);
+            this._cbClientType.Location = new System.Drawing.Point(414, 264);
             this._cbClientType.Name = "_cbClientType";
             this._cbClientType.Size = new System.Drawing.Size(210, 28);
-            this._cbClientType.TabIndex = 29;
+            this._cbClientType.TabIndex = 31;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(282, 225);
+            this.label13.Location = new System.Drawing.Point(282, 267);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(113, 20);
-            this.label13.TabIndex = 28;
+            this.label13.TabIndex = 30;
             this.label13.Text = "Тип клієнта:";
             // 
             // _tbPhone
             // 
             this._tbPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbPhone.Location = new System.Drawing.Point(414, 170);
+            this._tbPhone.Location = new System.Drawing.Point(414, 212);
             this._tbPhone.Name = "_tbPhone";
             this._tbPhone.Size = new System.Drawing.Size(210, 29);
-            this._tbPhone.TabIndex = 27;
+            this._tbPhone.TabIndex = 29;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label12.Location = new System.Drawing.Point(245, 176);
+            this.label12.Location = new System.Drawing.Point(245, 218);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(159, 20);
-            this.label12.TabIndex = 26;
+            this.label12.TabIndex = 28;
             this.label12.Text = "Номер телефону:";
             // 
             // _tbClientAddressId
             // 
             this._tbClientAddressId.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbClientAddressId.Location = new System.Drawing.Point(414, 119);
+            this._tbClientAddressId.Location = new System.Drawing.Point(414, 161);
             this._tbClientAddressId.Name = "_tbClientAddressId";
             this._tbClientAddressId.Size = new System.Drawing.Size(131, 29);
-            this._tbClientAddressId.TabIndex = 25;
+            this._tbClientAddressId.TabIndex = 27;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(309, 125);
+            this.label11.Location = new System.Drawing.Point(309, 167);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(99, 20);
-            this.label11.TabIndex = 24;
+            this.label11.TabIndex = 26;
             this.label11.Text = "ID адреси:";
             // 
             // _tbLastName
@@ -496,23 +504,27 @@ namespace PostAPI
             // _btCreateClient
             // 
             this._btCreateClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btCreateClient.Location = new System.Drawing.Point(286, 281);
+            this._btCreateClient.Location = new System.Drawing.Point(286, 323);
             this._btCreateClient.Name = "_btCreateClient";
             this._btCreateClient.Size = new System.Drawing.Size(338, 44);
-            this._btCreateClient.TabIndex = 30;
+            this._btCreateClient.TabIndex = 32;
             this._btCreateClient.Text = "Створити клієнта";
             this._btCreateClient.UseVisualStyleBackColor = true;
             this._btCreateClient.Click += new System.EventHandler(this._btCreateClient_Click);
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this._tbDeclaredPrice);
+            this.tabPage3.Controls.Add(this.label26);
+            this.tabPage3.Controls.Add(this._tbShipmentUuid);
+            this.tabPage3.Controls.Add(this.label24);
             this.tabPage3.Controls.Add(this._cbShipmentType);
             this.tabPage3.Controls.Add(this.label23);
             this.tabPage3.Controls.Add(this._btCreateShipment);
-            this.tabPage3.Controls.Add(this.textBox4);
-            this.tabPage3.Controls.Add(this.textBox3);
-            this.tabPage3.Controls.Add(this.textBox2);
-            this.tabPage3.Controls.Add(this.textBox1);
+            this.tabPage3.Controls.Add(this._tbHeight);
+            this.tabPage3.Controls.Add(this._tbWidth);
+            this.tabPage3.Controls.Add(this._tbLength);
+            this.tabPage3.Controls.Add(this._tbWeight);
             this.tabPage3.Controls.Add(this._cbDeliveryType);
             this.tabPage3.Controls.Add(this.label22);
             this.tabPage3.Controls.Add(this.label21);
@@ -537,70 +549,70 @@ namespace PostAPI
             this._btCreateShipment.Location = new System.Drawing.Point(669, 42);
             this._btCreateShipment.Name = "_btCreateShipment";
             this._btCreateShipment.Size = new System.Drawing.Size(338, 44);
-            this._btCreateShipment.TabIndex = 53;
+            this._btCreateShipment.TabIndex = 55;
             this._btCreateShipment.Text = "Створити відправлення";
             this._btCreateShipment.UseVisualStyleBackColor = true;
             this._btCreateShipment.Click += new System.EventHandler(this._btCreateShipment_Click);
             // 
-            // textBox4
+            // _tbHeight
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox4.Location = new System.Drawing.Point(210, 419);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(128, 29);
-            this.textBox4.TabIndex = 52;
+            this._tbHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbHeight.Location = new System.Drawing.Point(210, 418);
+            this._tbHeight.Name = "_tbHeight";
+            this._tbHeight.Size = new System.Drawing.Size(128, 29);
+            this._tbHeight.TabIndex = 54;
             // 
-            // textBox3
+            // _tbWidth
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox3.Location = new System.Drawing.Point(210, 364);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(128, 29);
-            this.textBox3.TabIndex = 50;
+            this._tbWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbWidth.Location = new System.Drawing.Point(210, 365);
+            this._tbWidth.Name = "_tbWidth";
+            this._tbWidth.Size = new System.Drawing.Size(128, 29);
+            this._tbWidth.TabIndex = 52;
             // 
-            // textBox2
+            // _tbLength
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(210, 309);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(128, 29);
-            this.textBox2.TabIndex = 48;
+            this._tbLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbLength.Location = new System.Drawing.Point(210, 312);
+            this._tbLength.Name = "_tbLength";
+            this._tbLength.Size = new System.Drawing.Size(128, 29);
+            this._tbLength.TabIndex = 50;
             // 
-            // textBox1
+            // _tbWeight
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(210, 254);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(128, 29);
-            this.textBox1.TabIndex = 46;
+            this._tbWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbWeight.Location = new System.Drawing.Point(210, 259);
+            this._tbWeight.Name = "_tbWeight";
+            this._tbWeight.Size = new System.Drawing.Size(128, 29);
+            this._tbWeight.TabIndex = 48;
             // 
             // _cbDeliveryType
             // 
             this._cbDeliveryType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbDeliveryType.FormattingEnabled = true;
-            this._cbDeliveryType.Location = new System.Drawing.Point(210, 200);
+            this._cbDeliveryType.Location = new System.Drawing.Point(210, 207);
             this._cbDeliveryType.Name = "_cbDeliveryType";
             this._cbDeliveryType.Size = new System.Drawing.Size(398, 28);
-            this._cbDeliveryType.TabIndex = 44;
+            this._cbDeliveryType.TabIndex = 46;
             // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label22.Location = new System.Drawing.Point(131, 425);
+            this.label22.Location = new System.Drawing.Point(131, 419);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(73, 20);
-            this.label22.TabIndex = 51;
+            this.label22.TabIndex = 53;
             this.label22.Text = "висота:";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label21.Location = new System.Drawing.Point(126, 370);
+            this.label21.Location = new System.Drawing.Point(126, 367);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(78, 20);
-            this.label21.TabIndex = 49;
+            this.label21.TabIndex = 51;
             this.label21.Text = "ширина:";
             // 
             // label20
@@ -610,45 +622,45 @@ namespace PostAPI
             this.label20.Location = new System.Drawing.Point(116, 315);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(88, 20);
-            this.label20.TabIndex = 47;
+            this.label20.TabIndex = 49;
             this.label20.Text = "довжина:";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label19.Location = new System.Drawing.Point(152, 260);
+            this.label19.Location = new System.Drawing.Point(67, 263);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(52, 20);
-            this.label19.TabIndex = 45;
-            this.label19.Text = "вага:";
+            this.label19.Size = new System.Drawing.Size(137, 20);
+            this.label19.TabIndex = 47;
+            this.label19.Text = "вага(в грамах):";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label18.Location = new System.Drawing.Point(75, 203);
+            this.label18.Location = new System.Drawing.Point(75, 211);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(129, 20);
-            this.label18.TabIndex = 43;
+            this.label18.TabIndex = 45;
             this.label18.Text = "тип доставки:";
             // 
             // _tbRecipient
             // 
             this._tbRecipient.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbRecipient.Location = new System.Drawing.Point(210, 104);
+            this._tbRecipient.Location = new System.Drawing.Point(210, 102);
             this._tbRecipient.Name = "_tbRecipient";
             this._tbRecipient.Size = new System.Drawing.Size(398, 29);
-            this._tbRecipient.TabIndex = 40;
+            this._tbRecipient.TabIndex = 42;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label17.Location = new System.Drawing.Point(49, 110);
+            this.label17.Location = new System.Drawing.Point(49, 107);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(155, 20);
-            this.label17.TabIndex = 39;
+            this.label17.TabIndex = 41;
             this.label17.Text = "uuid одержувача:";
             // 
             // _tbSender
@@ -657,7 +669,7 @@ namespace PostAPI
             this._tbSender.Location = new System.Drawing.Point(210, 49);
             this._tbSender.Name = "_tbSender";
             this._tbSender.Size = new System.Drawing.Size(398, 29);
-            this._tbSender.TabIndex = 38;
+            this._tbSender.TabIndex = 40;
             // 
             // label16
             // 
@@ -666,27 +678,81 @@ namespace PostAPI
             this.label16.Location = new System.Drawing.Point(46, 55);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(158, 20);
-            this.label16.TabIndex = 37;
+            this.label16.TabIndex = 39;
             this.label16.Text = "uuid відправника:";
             // 
             // _cbShipmentType
             // 
             this._cbShipmentType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbShipmentType.FormattingEnabled = true;
-            this._cbShipmentType.Location = new System.Drawing.Point(210, 151);
+            this._cbShipmentType.Location = new System.Drawing.Point(210, 155);
             this._cbShipmentType.Name = "_cbShipmentType";
             this._cbShipmentType.Size = new System.Drawing.Size(398, 28);
-            this._cbShipmentType.TabIndex = 42;
+            this._cbShipmentType.TabIndex = 44;
             // 
             // label23
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label23.Location = new System.Drawing.Point(38, 154);
+            this.label23.Location = new System.Drawing.Point(38, 159);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(166, 20);
-            this.label23.TabIndex = 41;
+            this.label23.TabIndex = 43;
             this.label23.Text = "тип відправлення:";
+            // 
+            // _tbShipmentUuid
+            // 
+            this._tbShipmentUuid.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbShipmentUuid.Location = new System.Drawing.Point(848, 110);
+            this._tbShipmentUuid.Name = "_tbShipmentUuid";
+            this._tbShipmentUuid.Size = new System.Drawing.Size(398, 29);
+            this._tbShipmentUuid.TabIndex = 57;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label24.Location = new System.Drawing.Point(672, 116);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(170, 20);
+            this.label24.TabIndex = 56;
+            this.label24.Text = "uuid відправлення:";
+            // 
+            // _tbMiddleName
+            // 
+            this._tbMiddleName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbMiddleName.Location = new System.Drawing.Point(414, 114);
+            this._tbMiddleName.Name = "_tbMiddleName";
+            this._tbMiddleName.Size = new System.Drawing.Size(210, 29);
+            this._tbMiddleName.TabIndex = 25;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label25.Location = new System.Drawing.Point(288, 120);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(116, 20);
+            this.label25.TabIndex = 24;
+            this.label25.Text = "По-батькові:";
+            // 
+            // _tbDeclaredPrice
+            // 
+            this._tbDeclaredPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbDeclaredPrice.Location = new System.Drawing.Point(210, 473);
+            this._tbDeclaredPrice.Name = "_tbDeclaredPrice";
+            this._tbDeclaredPrice.Size = new System.Drawing.Size(128, 29);
+            this._tbDeclaredPrice.TabIndex = 59;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label26.Location = new System.Drawing.Point(19, 479);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(185, 20);
+            this.label26.TabIndex = 58;
+            this.label26.Text = "оголошена вартість:";
             // 
             // UkrPostMain
             // 
@@ -754,10 +820,10 @@ namespace PostAPI
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox _tbRecipient;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox _tbHeight;
+        private System.Windows.Forms.TextBox _tbWidth;
+        private System.Windows.Forms.TextBox _tbLength;
+        private System.Windows.Forms.TextBox _tbWeight;
         private System.Windows.Forms.ComboBox _cbDeliveryType;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
@@ -767,5 +833,11 @@ namespace PostAPI
         private System.Windows.Forms.Button _btCreateShipment;
         private System.Windows.Forms.ComboBox _cbShipmentType;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox _tbShipmentUuid;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox _tbMiddleName;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox _tbDeclaredPrice;
+        private System.Windows.Forms.Label label26;
     }
 }

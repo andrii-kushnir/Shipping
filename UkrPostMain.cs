@@ -19,6 +19,9 @@ namespace PostAPI
         private readonly Controller _controller;
         //private readonly int message_long = 800;
 
+        private const string SenderUuid = "1bd2e07e-52a6-4eda-bd48-60624153d5d8";
+        private const string SenderAddress = "188358418";
+
         private List<Region> _regions;
         private List<District> _districts;
         private List<City> _cities;
@@ -27,6 +30,7 @@ namespace PostAPI
 
         public AddressDto Address;
         public ClientDto Client;
+        public ShipmentDto Shipment;
 
         public UkrPostMain()
         {
@@ -44,6 +48,14 @@ namespace PostAPI
 
             _cbClientType.Items.AddRange(Enum.GetValues(typeof(ClientIndivType)).Cast<ClientIndivType>().Select(c => c.ToString()).ToArray());
             _cbClientType.SelectedIndex = 0;
+
+            _cbShipmentType.Items.AddRange(Enum.GetValues(typeof(ShipmentType)).Cast<ShipmentType>().Select(c => c.ToString()).ToArray());
+            _cbShipmentType.SelectedIndex = 1;
+
+            _cbDeliveryType.Items.AddRange(Enum.GetValues(typeof(DeliveryType)).Cast<DeliveryType>().Select(c => c.ToString()).ToArray());
+            _cbDeliveryType.SelectedIndex = 0;
+
+            _tbSender.Text = SenderUuid;
         }
 
         private void _bLogOut_Click(object sender, EventArgs e)
@@ -133,10 +145,11 @@ namespace PostAPI
         {
             if (_tbFirstName.Text.Trim() != "" && _tbLastName.Text.Trim() != "" && _tbClientAddressId.Text != "" && _tbPhone.Text.Trim() != "" && _cbClientType.Text != "")
             {
-                Client = _controller.CreateClient(_tbFirstName.Text.Trim(), _tbLastName.Text.Trim(), Convert.ToInt64(_tbClientAddressId.Text), _tbPhone.Text.Trim(), (ClientIndivType)_cbClientType.SelectedIndex);
+                Client = _controller.CreateClient(_tbFirstName.Text.Trim(), _tbLastName.Text.Trim(), _tbMiddleName.Text.Trim(), Convert.ToInt64(_tbClientAddressId.Text), _tbPhone.Text.Trim(), (ClientIndivType)_cbClientType.SelectedIndex);
                 if (Client != null)
                 {
                     _tbClientId.Text = Client.uuid.ToString();
+                    _tbRecipient.Text = Client.uuid.ToString();
                 }
                 else
                 {
@@ -149,7 +162,7 @@ namespace PostAPI
         {
             if (_tbClienеIdChange.Text.Trim() != "" && _tbFirstName.Text.Trim() != "" && _tbLastName.Text.Trim() != "" && _tbClientAddressId.Text != "" && _tbPhone.Text.Trim() != "" && _cbClientType.Text != "")
             {
-                Client = _controller.ChangeClient(_tbClienеIdChange.Text.Trim(), _tbFirstName.Text.Trim(), _tbLastName.Text.Trim(), Convert.ToInt64(_tbClientAddressId.Text), _tbPhone.Text.Trim(), (ClientIndivType)_cbClientType.SelectedIndex);
+                Client = _controller.ChangeClient(_tbClienеIdChange.Text.Trim(), _tbFirstName.Text.Trim(), _tbLastName.Text.Trim(), _tbMiddleName.Text.Trim(), Convert.ToInt64(_tbClientAddressId.Text), _tbPhone.Text.Trim(), (ClientIndivType)_cbClientType.SelectedIndex);
                 if (Client == null)
                 {
                     MessageBox.Show("Дані клієнта не змінені");
@@ -174,6 +187,7 @@ namespace PostAPI
                 {
                     _tbFirstName.Text = Client.firstName;
                     _tbLastName.Text = Client.lastName;
+                    _tbMiddleName.Text = Client.middleName;
                     _tbClientAddressId.Text = Client.addressId.ToString();
                     _tbPhone.Text = Client.phoneNumber;
                     _cbClientType.Text = Client.type.ToString();
@@ -183,7 +197,18 @@ namespace PostAPI
 
         private void _btCreateShipment_Click(object sender, EventArgs e)
         {
-            //Створити відправлення!!!!!!!!!!!!!!!
+            if (_tbSender.Text.Trim() != "" && _tbRecipient.Text.Trim() != "" && _cbShipmentType.Text != "" && _cbDeliveryType.Text != "" && int.TryParse(_tbWeight.Text.Trim(), out int weight) && int.TryParse(_tbLength.Text.Trim(), out int length))
+            {
+                Shipment = _controller.CreateShipment(_tbSender.Text.Trim(), _tbRecipient.Text.Trim(), (DeliveryType)_cbDeliveryType.SelectedIndex, (ShipmentType)_cbShipmentType.SelectedIndex, weight, length, Convert.ToInt32(_tbWidth.Text), Convert.ToInt32(_tbHeight.Text), Convert.ToInt32(_tbDeclaredPrice.Text), "Test!! Test");
+                if (Shipment == null)
+                {
+                    MessageBox.Show("Відправлення не створено!");
+                }
+                else
+                {
+                    _tbShipmentUuid.Text = Shipment.uuid.ToString();
+                }
+            }
         }
     }
 }

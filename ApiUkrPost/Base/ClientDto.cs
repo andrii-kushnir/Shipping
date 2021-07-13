@@ -12,39 +12,34 @@ namespace ApiUkrPost.Base
     {
         public string uuid { get; set; }
         public bool ShouldSerializeuuid() { return false; }
+        public string name { get; set; } // Обов"язкове для юр. особи
+        public string firstName { get; set; } // Для фіз. особи
+        public string lastName { get; set; } // Для фіз. особи
+        public long addressId { get; set; }
+        public string edrpou { get; set; } // Обов"язкове для юр. особи
+        public string tin { get; set; } // Обов"язкове для юр. особи
+        public string phoneNumber { get; set; }
+        public string latinName { get; set; }
+        public string middleName { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ClientIndivType type { get; set; }
+        public string uniqueRegistrationNumber { get; set; }
+        public string email { get; set; }
+        public string externalId { get; set; }
+        public string contactPersonName { get; set; }
         public bool GDPRAccept { get; set; } //True if client accept Terms of Use
         public bool ShouldSerializeGDPRAccept() { return false; }
         public bool GDPRRead { get; set; } //True if client read Terms of Use
         public bool ShouldSerializeGDPRRead() { return false; }
-        public long addressId { get; set; }
-        public string contactPersonName { get; set; }
-        public bool ShouldSerializecontactPersonName() { return false; }
         public string counterpartyUuid { get; set; }
         public bool ShouldSerializecounterpartyUuid() { return false; }
-        public string email { get; set; }
-        public bool ShouldSerializeuuemail() { return false; }
-        public string externalId { get; set; }
-        public bool ShouldSerializeexternalId() { return false; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string latinName { get; set; }
-        public bool ShouldSerializelatinName() { return false; }
-        public string middleName { get; set; }
-        public bool ShouldSerializemiddleName() { return false; }
-        public string name { get; set; }
-        public bool ShouldSerializename() { return false; }
         public bool personalDataApproved { get; set; } //True if client accept Terms of Use
         public bool ShouldSerializepersonalDataApproved() { return false; }
-        public string phoneNumber { get; set; }
         public string postId { get; set; }
         public bool ShouldSerializepostId() { return false; }
         [JsonConverter(typeof(StringEnumConverter))]
         public PostPayPaymentType postPayPaymentType { get; set; }
         public bool ShouldSerializepostPayPaymentType() { return false; }
-        [JsonConverter(typeof(StringEnumConverter))]
-        public ClientIndivType type { get; set; }
-        public string uniqueRegistrationNumber { get; set; }
-        public bool ShouldSerializeuniqueRegistrationNumber() { return false; }
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this);

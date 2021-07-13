@@ -19,17 +19,14 @@ namespace ApiUkrPost.Base
         public DeliveryType deliveryType { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public ShipmentType shipmentType { get; set; }
-        public int weight { get; set; }
-        public int length { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
+        public List<ParcelDto> parcels { get; set; }
         public int postPay { get; set; }
         public bool recommended { get; set; }
         public bool sms { get; set; }
         public bool paidByRecipient { get; set; }
         public string description { get; set; }
 
-
+        // Не дописано!
 
         public string ToJson()
         {

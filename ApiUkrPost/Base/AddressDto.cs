@@ -19,14 +19,13 @@ namespace ApiUkrPost.Base
         public string street { get; set; } //maxLength: 255
         public string houseNumber { get; set; } //maxLength: 15
         public string apartmentNumber { get; set; } //maxLength: 15
+        public string description { get; set; } //maxLength: 255
         public bool countryside { internal get; set; } //True if address located in countryside
         public bool ShouldSerializecountryside() { return false; }
         public bool posteRestante { internal get; set; } //Address for letters delivered with tag by request on sticker
         public bool ShouldSerializeposteRestante() { return false; }
         public string created { internal get; set; } //This address creation time
         public bool ShouldSerializecreated() { return false; }
-        public string description { internal get; set; } //maxLength: 255
-        public bool ShouldSerializedescription() { return false; }
         public string detailedInfo { internal get; set; }
         public bool ShouldSerializedetailedInfo() { return false; }
         public string foreignStreetHouseApartment { internal get; set; }

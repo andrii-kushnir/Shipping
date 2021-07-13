@@ -33,7 +33,7 @@ namespace ApiUkrPost
             Client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
-        public AddressDto CreateAddress(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber)
+        public AddressDto CreateAddress(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
         {
             var address = new AddressDto()
             {
@@ -44,7 +44,8 @@ namespace ApiUkrPost
                 city = city,
                 street = street,
                 houseNumber = houseNumber,
-                apartmentNumber = apartmentNumber
+                apartmentNumber = apartmentNumber,
+                description = description
             };
             var response = SendPost("/addresses", address.ToJson(), out bool success, out string message);
             if (!success) return null;
@@ -60,12 +61,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public ClientDto CreateClient(string firstName, string lastName, long addressId, string phoneNumber, ClientIndivType type)
+        public ClientDto CreateClient(string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
         {
             var client = new ClientDto()
             {
                 firstName = firstName,
                 lastName = lastName,
+                middleName = middleName,
                 addressId = addressId,
                 phoneNumber = phoneNumber,
                 type = type
@@ -76,12 +78,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public ClientDto ChangeClient(string uuid, string firstName, string lastName, long addressId, string phoneNumber, ClientIndivType type)
+        public ClientDto ChangeClient(string uuid, string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
         {
             var client = new ClientDto()
             {
                 firstName = firstName,
                 lastName = lastName,
+                middleName = middleName,
                 addressId = addressId,
                 phoneNumber = phoneNumber,
                 type = type
@@ -100,21 +103,26 @@ namespace ApiUkrPost
             return result;
         }
 
-        public ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType shipmentType, int weight, int length, string description)
+        public ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType shipmentType, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
         {
-            string DeliveryTypeDescription = DeliveryType.W2W.GetDescription();
-             
             var shipment = new ShipmentDto()
             {
                 sender = new Sender { uuid = sender }, 
                 recipient = new Recipient { uuid = recipient },
                 deliveryType = deliveryType,
                 shipmentType = shipmentType,
-                weight = weight,
-                length = length,
+                parcels = new List<ParcelDto>() {
+                    new ParcelDto()
+                    {
+                        weight = weight,
+                        length = length,
+                        width = width,
+                        height = height,
+                        declaredPrice = declaredPrice
+                    }},
                 description = description
             };
-            var response = SendPost($"​/shipments?token ={_userToken}", shipment.ToJson(), out bool success, out string message);
+            var response = SendPost($"​/shipments?token={_userToken}", shipment.ToJson(), out bool success, out string message);
             if (!success) return null;
             var result = JsonConvert.DeserializeObject<ShipmentDto>(response);
             return result;
