@@ -115,15 +115,14 @@ namespace ApiUkrPost
             return result;
         }
 
-        public ShipmentDto CreateShipment(string sender, string recipient, string recipientAddressId, DeliveryType deliveryType, ShipmentType shipmentType, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
+        public ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType type, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
         {
             var shipment = new ShipmentDto()
             {
                 sender = new Sender { uuid = sender }, 
                 recipient = new Recipient { uuid = recipient },
                 deliveryType = deliveryType,
-                shipmentType = shipmentType,
-                recipientAddressId = recipientAddressId,
+                type = type,
                 parcels = new List<ParcelDto> {
                     new ParcelDto()
                     {
@@ -136,10 +135,26 @@ namespace ApiUkrPost
                 description = description
             };
             var json = shipment.ToJson();
-            json = "{ \"sender\": {\"uuid\": \"444dbe6a-3cbf-43f0-b38a-44592ba4113b\"}, \"recipient\": { \"uuid\": \"cfa8e6e6-2675-478b-844e-c16f46a3b3ef\" }, \"deliveryType\": \"W2W\", \"paidByRecipient\": true,\"type\": \"STANDARD\", \"parcels\": [{\"name\": \"Parcel\", \"weight\": 150, \"length\": 20, \"width\": 10, \"height\": 10, \"declaredPrice\": 200 }]}";
-            var response = SendPost($"​/shipments?token={_userToken}", json, out bool success, out string message);
+            //json = "{ \"sender\": {\"uuid\": \"444dbe6a-3cbf-43f0-b38a-44592ba4113b\"}, \"recipient\": { \"uuid\": \"cfa8e6e6-2675-478b-844e-c16f46a3b3ef\" }, \"deliveryType\": \"W2W\", \"paidByRecipient\": true,\"type\": \"STANDARD\", \"parcels\": [{\"name\": \"Parcel\", \"weight\": 150, \"length\": 20, \"width\": 10, \"height\": 10, \"declaredPrice\": 200 }]}";
+            var response = SendPost($"​/shipments?token={_userToken}", shipment.ToJson(), out bool success, out string message);
             if (!success) return null;
             var result = JsonConvert.DeserializeObject<ShipmentDto>(response);
+            return result;
+        }
+
+        public ShipmentDto GetShipment(string uuid)
+        {
+            var response = SendGet($"/shipments/{uuid}?token={_userToken}", out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<ShipmentDto>(response);
+            return result;
+        }
+
+        public List<ShipmentDto> GetShipmentBySender(string uuid)
+        {
+            var response = SendGet($"/shipments?token={_userToken}&senderUuid={uuid}", out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<List<ShipmentDto>>(response);
             return result;
         }
 

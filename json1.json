@@ -1,35 +1,175 @@
 {
+    "uuid": "0e2a0282-1806-4eaf-b8ea-5a480c6ba797",
+    "type": "EXPRESS",
     "sender": { "uuid": "444dbe6a-3cbf-43f0-b38a-44592ba4113b" },
-    "recipient": { "uuid": "cfa8e6e6-2675-478b-844e-c16f46a3b3ef" },
+    "dropOffPostcode": "46020",
+    "recipient": {
+        "uuid": "4efcc277-8422-415d-9bd1-08f84b3bae30",
+        "name": "Куш Андрі Степ",
+        "firstName": "Андрі",
+        "middleName": "Степ",
+        "lastName": "Куш",
+        "latinName": null,
+        "contactPersonName": null,
+        "type": "INDIVIDUAL",
+        "postId": null,
+        "externalId": null,
+        "uniqueRegistrationNumber": null,
+        "counterpartyUuid": "f3064067-b199-4d17-a41c-4f9c3fc4f686",
+        "addressId": 3376299,
+        "addresses": [
+            {
+                "uuid": "21523162-c87e-4a48-9ff4-240e3fa7640c",
+                "addressId": 3376299,
+                "address": {
+                    "id": 3376299,
+                    "postcode": "47711",
+                    "region": "Тернопільська",
+                    "district": "Тернопільський",
+                    "city": "Байківці",
+                    "street": "Валова",
+                    "houseNumber": "7",
+                    "apartmentNumber": "3",
+                    "description": "",
+                    "countryside": true,
+                    "posteRestante": false,
+                    "foreignStreetHouseApartment": null,
+                    "detailedInfo": "Україна, 47711, Тернопільська, Тернопільський, Байківці, Валова 7, 3",
+                    "created": "2021-07-14T17:41:56",
+                    "lastModified": "2021-07-14T17:41:56",
+                    "country": "UA"
+                },
+                "type": "PHYSICAL",
+                "main": true
+            }
+        ],
+        "phoneNumber": "+380689559145",
+        "phones": [
+            {
+                "uuid": "c6b7edcb-1c09-4f3f-aa62-5c47a97eb8fe",
+                "phoneId": 3376300,
+                "phoneNumber": "+380689559145",
+                "type": "PERSONAL",
+                "main": true
+            }
+        ],
+        "email": "",
+        "emails": [],
+        "bankAccount": null,
+        "postPayPaymentType": "POSTPAY_PAYMENT_CASH_ONLY",
+        "accountType": {
+            "type": "CORPORATE",
+            "assignmentDate": "2021-03-01"
+        },
+        "resident": true,
+        "GDPRRead": false,
+        "GDPRAccept": false,
+        "personalDataApproved": false,
+        "checkOnDeliveryAllowed": true
+    },
+    "recipientPhone": "+380689559145",
+    "recipientEmail": null,
+    "recipientAddressId": 3376299,
+    "senderAddressId": 3370817,
+    "returnAddressId": 3370817,
+    "shipmentGroupUuid": null,
+    "externalId": null,
     "deliveryType": "W2W",
-    "paidByRecipient": true,
-    "type": "STANDARD",
+    "packageType": null,
+    "onFailReceiveType": "RETURN",
+    "barcode": "0500104340485",
+    "weight": 1000,
+    "length": 50,
+    "width": 0,
+    "height": 0,
+    "declaredPrice": 200,
+    "deliveryPrice": 28.5,
+    "rawDeliveryPrice": 30,
+    "returnDeliveryPrice": 14.25,
+    "postPay": null,
+    "postPayUah": 0,
+    "postPayDeliveryPrice": 0,
+    "currencyCode": null,
+    "postPayCurrencyCode": null,
+    "currencyExchangeRate": null,
+    "discounts": [
+        {
+            "uuid": "f5a0b397-c78d-4e84-9411-defa4aeeebd3",
+            "name": "За використання особистого кабінета 5%",
+            "fromDate": "2017-01-01",
+            "toDate": "2099-12-31",
+            "value": 5.0,
+            "category": "CONTRACT_DISCOUNT",
+            "type": "BASE"
+        }
+    ],
+    "lastModified": "2021-07-14T17:46:07",
+    "description": null,
     "parcels": [
         {
+            "uuid": "18c05660-d90d-4d18-acc1-b8385f31deae",
             "name": "Parcel",
-            "weight": 150,
-            "length": 20,
-            "width": 10,
-            "height": 10,
-            "declaredPrice": 200
+            "parcelNumber": 1,
+            "barcode": "0500104340485",
+            "contentsType": null,
+            "weight": 1000,
+            "length": 50,
+            "width": null,
+            "height": null,
+            "declaredPrice": 200,
+            "parcelItems": [],
+            "description": null
         }
-    ]
+    ],
+    "direction": {
+        "regionSortingCenter": "Тернопіль",
+        "districtSortingCenter": null,
+        "postOfficeNumber": "47711",
+        "postOfficeName": "Тернопільський (Тернопільський)"
+    },
+    "lifecycle": {
+        "status": "CREATED",
+        "statusDate": "2021-07-14T17:46:07"
+    },
+    "deliveryDate": "2021-07-15T00:00:00",
+    "calculationDescription": "Price=28.50: Calculation contains 1 parcels, new measures are weight:1000, length:50, height:0, width:0; price for the weight=0.00; tariff (EXPRESS, REGION, 1000 g, 50 cm)=30.00; countryside=0.00; declared price surcharge=0.00; За використання особистого кабінета 5%=1.50; return delivery price=14.25",
+    "availablePaymentTypes": [ "CASHLESS", "CASH", "CARD", "CARD_ON_SITE" ],
+    "paidByRecipient": false,
+    "postPayPaidByRecipient": true,
+    "bulky": false,
+    "fragile": false,
+    "bees": false,
+    "sms": false,
+    "toReturnToSender": null,
+    "documentBack": false,
+    "checkOnDelivery": false,
+    "transferPostPayToBankAccount": false,
+    "deliveryPricePaid": false,
+    "postPayPaid": false,
+    "postPayDeliveryPricePaid": false,
+    "packedBySender": false,
+    "free": false,
+    "withDeliveryNotification": false,
+    "fittingAllowed": false,
+    "paidByCardOnline": false
 }
 
 {
-    "sender": {"uuid": "444dbe6a-3cbf-43f0-b38a-44592ba4113b"},
-    "recipient": {"uuid": "cfa8e6e6-2675-478b-844e-c16f46a3b3ef"},
+    "sender": { "uuid": "444dbe6a-3cbf-43f0-b38a-44592ba4113b" },
+    "recipient": { "uuid": "cfa8e6e6-2675-478b-844e-c16f46a3b3ef" },
     "deliveryType": "W2W",
-    "paidByRecipient": true,
     "type": "STANDARD",
     "parcels": [
         {
-            "name": "Parcel",
+            "declaredPrice": 200,
             "weight": 150,
             "length": 20,
-            "width": 10,
-            "height": 10,
-            "declaredPrice": 200
+            "width": 20,
+            "height": 20
         }
-    ]
+    ],
+    "sms": false,
+    "paidByRecipient": false,
+    "description": "Test!! Test",
+    "recipientAddressId": 0
 }

@@ -42,17 +42,17 @@
             // _tbLogin
             // 
             this._tbLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this._tbLogin.Location = new System.Drawing.Point(189, 114);
+            this._tbLogin.Location = new System.Drawing.Point(178, 114);
             this._tbLogin.Name = "_tbLogin";
-            this._tbLogin.Size = new System.Drawing.Size(146, 29);
+            this._tbLogin.Size = new System.Drawing.Size(167, 29);
             this._tbLogin.TabIndex = 0;
             // 
             // _tbPassword
             // 
             this._tbPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this._tbPassword.Location = new System.Drawing.Point(189, 169);
+            this._tbPassword.Location = new System.Drawing.Point(178, 169);
             this._tbPassword.Name = "_tbPassword";
-            this._tbPassword.Size = new System.Drawing.Size(146, 29);
+            this._tbPassword.Size = new System.Drawing.Size(167, 29);
             this._tbPassword.TabIndex = 1;
             this._tbPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbPassword_KeyDown);
             // 
@@ -60,7 +60,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.label1.Location = new System.Drawing.Point(121, 117);
+            this.label1.Location = new System.Drawing.Point(110, 117);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 24);
             this.label1.TabIndex = 2;
@@ -70,7 +70,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.label2.Location = new System.Drawing.Point(102, 172);
+            this.label2.Location = new System.Drawing.Point(91, 172);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 24);
             this.label2.TabIndex = 3;
@@ -114,7 +114,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.label3.Location = new System.Drawing.Point(78, 62);
+            this.label3.Location = new System.Drawing.Point(67, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(105, 24);
             this.label3.TabIndex = 7;
@@ -128,9 +128,9 @@
             "Нова Пошта",
             "Укрпошта",
             "Укрпошта(тестовий)"});
-            this._cbOperator.Location = new System.Drawing.Point(189, 59);
+            this._cbOperator.Location = new System.Drawing.Point(178, 59);
             this._cbOperator.Name = "_cbOperator";
-            this._cbOperator.Size = new System.Drawing.Size(146, 32);
+            this._cbOperator.Size = new System.Drawing.Size(167, 32);
             this._cbOperator.TabIndex = 8;
             this._cbOperator.Tag = "";
             // 

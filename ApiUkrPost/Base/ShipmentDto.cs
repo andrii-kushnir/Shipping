@@ -18,16 +18,16 @@ namespace ApiUkrPost.Base
         [JsonConverter(typeof(StringEnumConverter))]
         public DeliveryType deliveryType { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
-        public ShipmentType shipmentType { get; set; }
+        public ShipmentType type { get; set; }
         public List<ParcelDto> parcels { get; set; }
-        public int postPay { get; set; }
-        public bool ShouldSerializepostPay() { return (postPay != 0); }
-        public bool recommended { get; set; }
+        public int? postPay { get; set; }
+        public bool ShouldSerializepostPay() { return (postPay != null && postPay != 0); }
+        //public bool recommended { get; set; }
         public bool sms { get; set; }
         public bool paidByRecipient { get; set; }
         public string description { get; set; }
-        public bool ShouldSerializedescription() { return false; }
-        public string recipientAddressId { get; set; }
+        public long recipientAddressId { get; set; }
+        public bool ShouldSerializerecipientAddressId() { return (recipientAddressId != 0); }
 
         // Не дописано!
 

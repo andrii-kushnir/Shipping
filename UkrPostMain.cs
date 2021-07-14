@@ -208,7 +208,8 @@ namespace PostAPI
         {
             if (_tbSender.Text.Trim() != "" && _tbRecipient.Text.Trim() != "" && _cbShipmentType.Text != "" && _cbDeliveryType.Text != "" && int.TryParse(_tbWeight.Text.Trim(), out int weight) && int.TryParse(_tbLength.Text.Trim(), out int length))
             {
-                Shipment = _controller.CreateShipment(_tbSender.Text.Trim(), _tbRecipient.Text.Trim(), "111", (DeliveryType)_cbDeliveryType.SelectedIndex, (ShipmentType)_cbShipmentType.SelectedIndex, weight, length, Convert.ToInt32(_tbWidth.Text), Convert.ToInt32(_tbHeight.Text), Convert.ToInt32(_tbDeclaredPrice.Text), "Test!! Test");
+                // ДОРОБИТИ!!!!!!!!!!!!!!
+                Shipment = _controller.CreateShipment(_tbSender.Text.Trim(), _tbRecipient.Text.Trim(), (DeliveryType)_cbDeliveryType.SelectedIndex, (ShipmentType)_cbShipmentType.SelectedIndex, weight, length, Convert.ToInt32(_tbWidth.Text), Convert.ToInt32(_tbHeight.Text), Convert.ToInt32(_tbDeclaredPrice.Text), "Test!! Test");
                 if (Shipment == null)
                 {
                     MessageBox.Show("Відправлення не створено!");
@@ -216,6 +217,48 @@ namespace PostAPI
                 else
                 {
                     _tbShipmentUuid.Text = Shipment.uuid.ToString();
+                }
+            }
+        }
+
+        private void _btGetShipment_Click(object sender, EventArgs e)
+        {
+            if (_tbShipmentUuid.Text.Trim() != "")
+            {
+                Shipment = _controller.GetShipment(_tbShipmentUuid.Text.Trim());
+                if (Shipment == null)
+                {
+                    MessageBox.Show("Відправлення не знайдено!");
+                }
+                else
+                {
+                    _tbSender.Text = Shipment.sender.uuid.ToString();
+                    _tbRecipient.Text = Shipment.recipient.uuid.ToString();
+                    _cbShipmentType.Text = Shipment.type.ToString();
+                    _cbDeliveryType.Text = Shipment.deliveryType.ToString();
+                    _tbWeight.Text = Shipment.parcels[0].weight.ToString();
+                    _tbLength.Text = Shipment.parcels[0].length.ToString();
+                }
+            }
+        }
+
+        private void _btGetShipmentBySender_Click(object sender, EventArgs e)
+        {
+            if (_tbSender.Text.Trim() != "")
+            {
+                var shipments = _controller.GetShipmentBySender(_tbSender.Text.Trim());
+                if (shipments == null)
+                {
+                    MessageBox.Show("Відправлення не знайдено!");
+                }
+                else
+                {
+                    _tbSender.Text = shipments[0].sender.uuid.ToString();
+                    _tbRecipient.Text = shipments[0].recipient.uuid.ToString();
+                    _cbShipmentType.Text = shipments[0].type.ToString();
+                    _cbDeliveryType.Text = shipments[0].deliveryType.ToString();
+                    _tbWeight.Text = shipments[0].parcels[0].weight.ToString();
+                    _tbLength.Text = shipments[0].parcels[0].length.ToString();
                 }
             }
         }
