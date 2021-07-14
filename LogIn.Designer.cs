@@ -126,7 +126,8 @@
             this._cbOperator.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbOperator.Items.AddRange(new object[] {
             "Нова Пошта",
-            "Укрпошта"});
+            "Укрпошта",
+            "Укрпошта(тестовий)"});
             this._cbOperator.Location = new System.Drawing.Point(189, 59);
             this._cbOperator.Name = "_cbOperator";
             this._cbOperator.Size = new System.Drawing.Size(146, 32);

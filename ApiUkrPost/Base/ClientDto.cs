@@ -42,7 +42,7 @@ namespace ApiUkrPost.Base
         public bool ShouldSerializepostPayPaymentType() { return false; }
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
     }
 

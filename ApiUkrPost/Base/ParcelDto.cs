@@ -15,6 +15,7 @@ namespace ApiUkrPost.Base
         public bool ShouldSerializebarcode() { return false; }
         public int declaredPrice { get; set; }
         public string description { get; set; } // maxLength: 1024
+        public bool ShouldSerializedescription() { return false; }
         public int weight { get; set; }
         public int length { get; set; }
         public int width { get; set; }
@@ -23,7 +24,7 @@ namespace ApiUkrPost.Base
         public bool ShouldSerializename() { return false; }
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
     }
 }

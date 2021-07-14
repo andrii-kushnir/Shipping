@@ -19,8 +19,11 @@ namespace PostAPI
         private readonly Controller _controller;
         //private readonly int message_long = 800;
 
-        private const string SenderUuid = "1bd2e07e-52a6-4eda-bd48-60624153d5d8";
         private const string SenderAddress = "188358418";
+        private const string SenderUuid = "1bd2e07e-52a6-4eda-bd48-60624153d5d8";
+
+        private const string AddressMy = "188510591";
+        private const string UuidMy = "d13743c3-1803-4e6f-b48a-535e997494fa";
 
         private List<Region> _regions;
         private List<District> _districts;
@@ -37,11 +40,17 @@ namespace PostAPI
             InitializeComponent();
         }
 
-        public UkrPostMain(User user) : this()
+        public UkrPostMain(User user, string server = "") : this()
         {
             _user = user;
-            _controller = new Controller(_user.AuthorizationBearer,_user.UserToken);
-
+            if (server == "Test")
+            {
+                _controller = new Controller(_user.AuthorizationBearer, _user.UserToken, "Test");
+            }
+            else
+            {
+                _controller = new Controller(_user.AuthorizationBearer, _user.UserToken);
+            }
             _regions = _controller.GetRegions("");
             _cbRegion.Items.AddRange(_regions.Select(r => r.ToString()).ToArray());
             _cbRegion.SelectedIndex = 18;
@@ -199,7 +208,7 @@ namespace PostAPI
         {
             if (_tbSender.Text.Trim() != "" && _tbRecipient.Text.Trim() != "" && _cbShipmentType.Text != "" && _cbDeliveryType.Text != "" && int.TryParse(_tbWeight.Text.Trim(), out int weight) && int.TryParse(_tbLength.Text.Trim(), out int length))
             {
-                Shipment = _controller.CreateShipment(_tbSender.Text.Trim(), _tbRecipient.Text.Trim(), (DeliveryType)_cbDeliveryType.SelectedIndex, (ShipmentType)_cbShipmentType.SelectedIndex, weight, length, Convert.ToInt32(_tbWidth.Text), Convert.ToInt32(_tbHeight.Text), Convert.ToInt32(_tbDeclaredPrice.Text), "Test!! Test");
+                Shipment = _controller.CreateShipment(_tbSender.Text.Trim(), _tbRecipient.Text.Trim(), "111", (DeliveryType)_cbDeliveryType.SelectedIndex, (ShipmentType)_cbShipmentType.SelectedIndex, weight, length, Convert.ToInt32(_tbWidth.Text), Convert.ToInt32(_tbHeight.Text), Convert.ToInt32(_tbDeclaredPrice.Text), "Test!! Test");
                 if (Shipment == null)
                 {
                     MessageBox.Show("Відправлення не створено!");

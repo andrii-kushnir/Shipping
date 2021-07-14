@@ -21,16 +21,28 @@ namespace ApiUkrPost
         private const string AddressLink = "https://www.ukrposhta.ua/address-classifier-ws";
         private const string ApiLink_test = "https://dev.ukrposhta.ua/ecom/0.0.1";
 
+        private string _server;
+
         private static readonly HttpClient Client = new HttpClient();
         private readonly string _authorizationBearer;
         private readonly string _userToken;
 
-        public Controller(string bearer, string token)
+        public Controller(string bearer, string token, string server = "")
         {
+            if (server == "Test")
+            {
+                _server = ApiLink_test;
+            }
+            else
+            {
+                _server = ApiLink;
+            }
             _authorizationBearer = bearer;
             _userToken = token;
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authorizationBearer);
-            Client.DefaultRequestHeaders.Add("Accept", "application/json");
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+            //Client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
         public AddressDto CreateAddress(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
@@ -103,7 +115,7 @@ namespace ApiUkrPost
             return result;
         }
 
-        public ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType shipmentType, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
+        public ShipmentDto CreateShipment(string sender, string recipient, string recipientAddressId, DeliveryType deliveryType, ShipmentType shipmentType, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
         {
             var shipment = new ShipmentDto()
             {
@@ -111,7 +123,8 @@ namespace ApiUkrPost
                 recipient = new Recipient { uuid = recipient },
                 deliveryType = deliveryType,
                 shipmentType = shipmentType,
-                parcels = new List<ParcelDto>() {
+                recipientAddressId = recipientAddressId,
+                parcels = new List<ParcelDto> {
                     new ParcelDto()
                     {
                         weight = weight,
@@ -122,7 +135,9 @@ namespace ApiUkrPost
                     }},
                 description = description
             };
-            var response = SendPost($"​/shipments?token={_userToken}", shipment.ToJson(), out bool success, out string message);
+            var json = shipment.ToJson();
+            json = "{ \"sender\": {\"uuid\": \"444dbe6a-3cbf-43f0-b38a-44592ba4113b\"}, \"recipient\": { \"uuid\": \"cfa8e6e6-2675-478b-844e-c16f46a3b3ef\" }, \"deliveryType\": \"W2W\", \"paidByRecipient\": true,\"type\": \"STANDARD\", \"parcels\": [{\"name\": \"Parcel\", \"weight\": 150, \"length\": 20, \"width\": 10, \"height\": 10, \"declaredPrice\": 200 }]}";
+            var response = SendPost($"​/shipments?token={_userToken}", json, out bool success, out string message);
             if (!success) return null;
             var result = JsonConvert.DeserializeObject<ShipmentDto>(response);
             return result;
@@ -303,7 +318,7 @@ namespace ApiUkrPost
             HttpResponseMessage response;
             try
             {
-                response = Client.GetAsync(ApiLink + url).Result;
+                response = Client.GetAsync(_server + url).Result;
             }
             catch (Exception ex)
             {
@@ -320,7 +335,7 @@ namespace ApiUkrPost
             HttpResponseMessage response;
             try
             {
-                response = Client.PostAsync(ApiLink + url, content).Result;
+                response = Client.PostAsync(_server + url, content).Result;
             }
             catch (Exception ex)
             {
@@ -337,7 +352,7 @@ namespace ApiUkrPost
             HttpResponseMessage response;
             try
             {
-                response = Client.PutAsync(ApiLink + url, content).Result;
+                response = Client.PutAsync(_server + url, content).Result;
             }
             catch (Exception ex)
             {
@@ -353,7 +368,7 @@ namespace ApiUkrPost
             HttpResponseMessage response;
             try
             {
-                response = Client.DeleteAsync(ApiLink + url).Result;
+                response = Client.DeleteAsync(_server + url).Result;
             }
             catch (Exception ex)
             {

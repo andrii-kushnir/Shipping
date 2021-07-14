@@ -22,20 +22,24 @@ namespace PostAPI
             }
             else
             {
-                if (_cbOperator.SelectedIndex == 0)
+                this.Visible = false;
+                Form main;
+                switch (_cbOperator.SelectedIndex)
                 {
-                    Form main = new NovaPostMain(user);
-                    this.Visible = false;
-                    main.ShowDialog();
-                    Close();
+                    case 0:
+                        main = new NovaPostMain(user);
+                        main.ShowDialog();
+                        break;
+                    case 1:
+                        main = new UkrPostMain(user);
+                        main.ShowDialog();
+                        break;
+                    case 2:
+                        main = new UkrPostMain(user, "Test");
+                        main.ShowDialog();
+                        break;
                 }
-                else
-                {
-                    Form main = new UkrPostMain(user);
-                    this.Visible = false;
-                    main.ShowDialog();
-                    Close();
-                }
+                this.Close();
             }
         }
 

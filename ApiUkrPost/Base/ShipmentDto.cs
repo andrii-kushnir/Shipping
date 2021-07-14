@@ -21,16 +21,19 @@ namespace ApiUkrPost.Base
         public ShipmentType shipmentType { get; set; }
         public List<ParcelDto> parcels { get; set; }
         public int postPay { get; set; }
+        public bool ShouldSerializepostPay() { return (postPay != 0); }
         public bool recommended { get; set; }
         public bool sms { get; set; }
         public bool paidByRecipient { get; set; }
         public string description { get; set; }
+        public bool ShouldSerializedescription() { return false; }
+        public string recipientAddressId { get; set; }
 
         // Не дописано!
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore});
         }
     }
 
@@ -51,7 +54,7 @@ namespace ApiUkrPost.Base
         INTERNATIONAL = 2,
         DOCUMENT_BACK = 3,
         INTERNATIONAL_CONSIGNMENT = 4,
-        INTERNATIONAL_EXPORT_PLUS
+        INTERNATIONAL_EXPORT_PLUS = 5
     }
 
     public enum DeliveryType
