@@ -93,11 +93,22 @@ namespace PostAPI
             this._tbSender = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this._btGetShipment = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this._btClients = new System.Windows.Forms.Button();
+            this._tbPhoneClient = new System.Windows.Forms.TextBox();
+            this._dgvClients = new System.Windows.Forms.DataGridView();
             this._btGetShipmentBySender = new System.Windows.Forms.Button();
+            this._tbSenderAll = new System.Windows.Forms.TextBox();
+            this._dgvShipments = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._dgvClients)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dgvShipments)).BeginInit();
             this.SuspendLayout();
             // 
             // _bLogOut
@@ -127,6 +138,8 @@ namespace PostAPI
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(1, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -534,7 +547,6 @@ namespace PostAPI
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this._btGetShipmentBySender);
             this.tabPage3.Controls.Add(this._btGetShipment);
             this.tabPage3.Controls.Add(this._tbDeclaredPrice);
             this.tabPage3.Controls.Add(this.label26);
@@ -769,16 +781,87 @@ namespace PostAPI
             this._btGetShipment.UseVisualStyleBackColor = true;
             this._btGetShipment.Click += new System.EventHandler(this._btGetShipment_Click);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this._dgvClients);
+            this.tabPage4.Controls.Add(this._tbPhoneClient);
+            this.tabPage4.Controls.Add(this._btClients);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1622, 855);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Список клієнтів";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this._dgvShipments);
+            this.tabPage5.Controls.Add(this._tbSenderAll);
+            this.tabPage5.Controls.Add(this._btGetShipmentBySender);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1622, 855);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Список відправлень";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // _btClients
+            // 
+            this._btClients.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btClients.Location = new System.Drawing.Point(330, 22);
+            this._btClients.Name = "_btClients";
+            this._btClients.Size = new System.Drawing.Size(338, 44);
+            this._btClients.TabIndex = 39;
+            this._btClients.Text = "Отримати клієнтів";
+            this._btClients.UseVisualStyleBackColor = true;
+            this._btClients.Click += new System.EventHandler(this._btClients_Click);
+            // 
+            // _tbPhoneClient
+            // 
+            this._tbPhoneClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbPhoneClient.Location = new System.Drawing.Point(86, 29);
+            this._tbPhoneClient.Name = "_tbPhoneClient";
+            this._tbPhoneClient.Size = new System.Drawing.Size(210, 29);
+            this._tbPhoneClient.TabIndex = 40;
+            // 
+            // _dgvClients
+            // 
+            this._dgvClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._dgvClients.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this._dgvClients.Location = new System.Drawing.Point(0, 91);
+            this._dgvClients.Name = "_dgvClients";
+            this._dgvClients.RowHeadersWidth = 80;
+            this._dgvClients.Size = new System.Drawing.Size(1622, 764);
+            this._dgvClients.TabIndex = 41;
+            // 
             // _btGetShipmentBySender
             // 
-            this._btGetShipmentBySender.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
-            this._btGetShipmentBySender.Location = new System.Drawing.Point(669, 239);
+            this._btGetShipmentBySender.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
+            this._btGetShipmentBySender.Location = new System.Drawing.Point(478, 27);
             this._btGetShipmentBySender.Name = "_btGetShipmentBySender";
             this._btGetShipmentBySender.Size = new System.Drawing.Size(338, 44);
-            this._btGetShipmentBySender.TabIndex = 61;
-            this._btGetShipmentBySender.Text = "Отримати усі відправлення по відправнику";
+            this._btGetShipmentBySender.TabIndex = 62;
+            this._btGetShipmentBySender.Text = "Отримати усі відправлення";
             this._btGetShipmentBySender.UseVisualStyleBackColor = true;
             this._btGetShipmentBySender.Click += new System.EventHandler(this._btGetShipmentBySender_Click);
+            // 
+            // _tbSenderAll
+            // 
+            this._tbSenderAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbSenderAll.Location = new System.Drawing.Point(37, 34);
+            this._tbSenderAll.Name = "_tbSenderAll";
+            this._tbSenderAll.Size = new System.Drawing.Size(398, 29);
+            this._tbSenderAll.TabIndex = 63;
+            // 
+            // _dgvShipments
+            // 
+            this._dgvShipments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._dgvShipments.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this._dgvShipments.Location = new System.Drawing.Point(0, 91);
+            this._dgvShipments.Name = "_dgvShipments";
+            this._dgvShipments.RowHeadersWidth = 80;
+            this._dgvShipments.Size = new System.Drawing.Size(1622, 764);
+            this._dgvShipments.TabIndex = 64;
             // 
             // UkrPostMain
             // 
@@ -796,6 +879,12 @@ namespace PostAPI
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._dgvClients)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dgvShipments)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -866,6 +955,13 @@ namespace PostAPI
         private System.Windows.Forms.TextBox _tbDeclaredPrice;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Button _btGetShipment;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox _tbPhoneClient;
+        private System.Windows.Forms.Button _btClients;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.DataGridView _dgvClients;
+        private System.Windows.Forms.DataGridView _dgvShipments;
+        private System.Windows.Forms.TextBox _tbSenderAll;
         private System.Windows.Forms.Button _btGetShipmentBySender;
     }
 }

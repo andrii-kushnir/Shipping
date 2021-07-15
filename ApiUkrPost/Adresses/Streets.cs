@@ -86,7 +86,7 @@ namespace ApiUkrPost.Adresses
 
         [JsonProperty("DISTRICT_RU")]
         public string DISTRICTRU { get; set; }
-        public new string ToString()
+        public override string ToString()
         {
             return STREETUA;
         }

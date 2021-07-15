@@ -41,8 +41,6 @@ namespace ApiUkrPost
             _userToken = token;
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authorizationBearer);
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-            //Client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
         public AddressDto CreateAddress(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
@@ -115,12 +113,20 @@ namespace ApiUkrPost
             return result;
         }
 
+        public List<ClientDto> GetClients(string phone)
+        {
+            var response = SendGet($"/clients/phone?token={_userToken}&countryISO3166=UA&phoneNumber={phone}", out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<List<ClientDto>>(response);
+            return result;
+        }
+
         public ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType type, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
         {
             var shipment = new ShipmentDto()
             {
-                sender = new Sender { uuid = sender }, 
-                recipient = new Recipient { uuid = recipient },
+                sender = new ClientDto { uuid = sender }, 
+                recipient = new ClientDto { uuid = recipient },
                 deliveryType = deliveryType,
                 type = type,
                 parcels = new List<ParcelDto> {
@@ -135,8 +141,7 @@ namespace ApiUkrPost
                 description = description
             };
             var json = shipment.ToJson();
-            //json = "{ \"sender\": {\"uuid\": \"444dbe6a-3cbf-43f0-b38a-44592ba4113b\"}, \"recipient\": { \"uuid\": \"cfa8e6e6-2675-478b-844e-c16f46a3b3ef\" }, \"deliveryType\": \"W2W\", \"paidByRecipient\": true,\"type\": \"STANDARD\", \"parcels\": [{\"name\": \"Parcel\", \"weight\": 150, \"length\": 20, \"width\": 10, \"height\": 10, \"declaredPrice\": 200 }]}";
-            var response = SendPost($"​/shipments?token={_userToken}", shipment.ToJson(), out bool success, out string message);
+            var response = SendPost($"/shipments?token={_userToken}", shipment.ToJson(), out bool success, out string message);
             if (!success) return null;
             var result = JsonConvert.DeserializeObject<ShipmentDto>(response);
             return result;

@@ -28,5 +28,9 @@ namespace ApiUkrPost.Base
         {
             return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

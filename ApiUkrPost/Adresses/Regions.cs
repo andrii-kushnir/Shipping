@@ -24,7 +24,7 @@ namespace ApiUkrPost.Adresses
         [JsonProperty("REGION_RU")]
         public string REGIONRU { get; set; }
 
-        public new string ToString()
+        public override string ToString()
         { 
             return REGIONUA;
         }

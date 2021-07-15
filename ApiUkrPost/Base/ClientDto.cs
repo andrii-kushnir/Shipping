@@ -11,18 +11,18 @@ namespace ApiUkrPost.Base
     public class ClientDto
     {
         public string uuid { get; set; }
-        public bool ShouldSerializeuuid() { return false; }
         public string name { get; set; } // Обов"язкове для юр. особи
         public string firstName { get; set; } // Для фіз. особи
         public string lastName { get; set; } // Для фіз. особи
         public long addressId { get; set; }
+        public bool ShouldSerializeaddressId() { return addressId != 0; }
         public string edrpou { get; set; } // Обов"язкове для юр. особи
         public string tin { get; set; } // Обов"язкове для юр. особи
         public string phoneNumber { get; set; }
         public string latinName { get; set; }
         public string middleName { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
-        public ClientIndivType type { get; set; }
+        public ClientIndivType? type { get; set; }
         public string uniqueRegistrationNumber { get; set; }
         public string email { get; set; }
         public string externalId { get; set; }
@@ -44,14 +44,18 @@ namespace ApiUkrPost.Base
         {
             return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
+        public override string ToString()
+        {
+            return name;
+        }
     }
 
     public enum ClientIndivType
     {
         INDIVIDUAL = 0,          //фізична особа
         COMPANY = 1,             //юридична особа
-        PRIVATE_ENTREPRENEUR = 2 //фізична особа підприємець
-//        ,EMPLOYEE
+        PRIVATE_ENTREPRENEUR = 2,//фізична особа підприємець
+        //EMPLOYEE = 3, 
     }
 
     public enum PostPayPaymentType

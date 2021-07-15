@@ -21,7 +21,6 @@ namespace PostAPI
 
         private const string SenderAddress = "188358418";
         private const string SenderUuid = "1bd2e07e-52a6-4eda-bd48-60624153d5d8";
-
         private const string AddressMy = "188510591";
         private const string UuidMy = "d13743c3-1803-4e6f-b48a-535e997494fa";
 
@@ -242,23 +241,36 @@ namespace PostAPI
             }
         }
 
+        private void _btClients_Click(object sender, EventArgs e)
+        {
+            if (_tbPhoneClient.Text.Trim() != "")
+            {
+                var clients = _controller.GetClients(_tbPhoneClient.Text.Trim());
+                if (clients == null)
+                {
+                    MessageBox.Show("Клієнтів не знайдено!");
+                }
+                else
+                {
+                    _dgvClients.DataSource = clients;
+                    _dgvClients.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                }
+            }
+        }
+
         private void _btGetShipmentBySender_Click(object sender, EventArgs e)
         {
-            if (_tbSender.Text.Trim() != "")
+            if (_tbSenderAll.Text.Trim() != "")
             {
-                var shipments = _controller.GetShipmentBySender(_tbSender.Text.Trim());
+                var shipments = _controller.GetShipmentBySender(_tbSenderAll.Text.Trim());
                 if (shipments == null)
                 {
                     MessageBox.Show("Відправлення не знайдено!");
                 }
                 else
                 {
-                    _tbSender.Text = shipments[0].sender.uuid.ToString();
-                    _tbRecipient.Text = shipments[0].recipient.uuid.ToString();
-                    _cbShipmentType.Text = shipments[0].type.ToString();
-                    _cbDeliveryType.Text = shipments[0].deliveryType.ToString();
-                    _tbWeight.Text = shipments[0].parcels[0].weight.ToString();
-                    _tbLength.Text = shipments[0].parcels[0].length.ToString();
+                    _dgvShipments.DataSource = shipments.OrderBy(s => s.lastModified).ToList();
+                    _dgvShipments.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 }
             }
         }

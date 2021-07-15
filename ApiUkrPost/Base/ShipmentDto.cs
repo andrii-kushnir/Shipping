@@ -13,8 +13,8 @@ namespace ApiUkrPost.Base
     {
         public string uuid { get; set; }
         public bool ShouldSerializeuuid() { return false; }
-        public Sender sender { get; set; }
-        public Recipient recipient { get; set; }
+        public ClientDto sender { get; set; }
+        public ClientDto recipient { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public DeliveryType deliveryType { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
@@ -28,23 +28,22 @@ namespace ApiUkrPost.Base
         public string description { get; set; }
         public long recipientAddressId { get; set; }
         public bool ShouldSerializerecipientAddressId() { return (recipientAddressId != 0); }
-
+        public string lastModified { get; set; }
+        public bool ShouldSerializelastModified() { return false; }
+        public LifecycleDto lifecycle { get; set; }
+        public bool ShouldSerializelifecycle() { return false; }
+        public DirectionDto direction { get; set; }
+        public bool ShouldSerializedirection() { return false; }
         // Не дописано!
 
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore});
         }
-    }
-
-    public class Sender
-    {
-        public string uuid { get; set; }
-    }
-
-    public class Recipient
-    {
-        public string uuid { get; set; }
+        public override string ToString()
+        {
+            return uuid;
+        }
     }
 
     public enum ShipmentType
@@ -67,5 +66,39 @@ namespace ApiUkrPost.Base
         D2W = 2,
         [Description("З дому на дім")]
         D2D = 3
+    }
+
+    public enum Status1
+    {
+        INITIALIZED = 0,
+        CREATED = 1,
+        REGISTERED = 2,
+        FORWARDING = 3,
+        RETURNING = 4,
+        RETURNED = 5,
+        DELIVERED = 6,
+        DELIVERING = 7
+    }
+
+    public class LifecycleDto
+    {
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Status1 status { get; set; }
+        public string statusDate { get; set; }
+        public override string ToString()
+        {
+            return status.ToString() + " встановлено " + statusDate;
+        }
+    }
+    public class DirectionDto
+    {
+        public string districtSortingCenter { get; set; }
+        public string postOfficeName { get; set; }
+        public string postOfficeNumber { get; set; }
+        public string regionSortingCenter { get; set; }
+        public override string ToString()
+        {
+            return postOfficeNumber + ", " + postOfficeName;
+        }
     }
 }
