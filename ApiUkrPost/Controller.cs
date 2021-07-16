@@ -11,6 +11,9 @@ using GemBox.Pdf;
 using System.Net.Http.Headers;
 using ApiUkrPost.Base;
 using ApiUkrPost.Adresses;
+using System.Drawing;
+using Region = ApiUkrPost.Adresses.Region;
+using System.Threading.Tasks;
 
 namespace ApiUkrPost
 
@@ -140,7 +143,6 @@ namespace ApiUkrPost
                     }},
                 description = description
             };
-            var json = shipment.ToJson();
             var response = SendPost($"/shipments?token={_userToken}", shipment.ToJson(), out bool success, out string message);
             if (!success) return null;
             var result = JsonConvert.DeserializeObject<ShipmentDto>(response);
@@ -163,6 +165,12 @@ namespace ApiUkrPost
             return result;
         }
 
+        public bool DeleteShipment(string uuid)
+        {
+            SendDelete($"/shipments/{uuid}?token={_userToken}", out bool success, out string message);
+            return success;
+        }
+
 
         #region Address Methods
         public List<Region> GetRegions(string region)
@@ -173,7 +181,7 @@ namespace ApiUkrPost
             {
                 try
                 {
-                    result = JsonConvert.DeserializeObject<RegionsRoot>(response).Entries.Entry;
+                    result = JsonConvert.DeserializeObject<RegionsRoot>(response).Entries.Entry ?? result;
                 }
                 catch { }
             }
@@ -188,7 +196,7 @@ namespace ApiUkrPost
             {
                 try
                 {
-                    result = JsonConvert.DeserializeObject<DistrictsRoot>(response).Entries.Entry;
+                    result = JsonConvert.DeserializeObject<DistrictsRoot>(response).Entries.Entry ?? result;
                 }
                 catch { }
             }
@@ -203,7 +211,7 @@ namespace ApiUkrPost
             {
                 try
                 {
-                    result = JsonConvert.DeserializeObject<CitiesRoot>(response).Entries.Entry;
+                    result = JsonConvert.DeserializeObject<CitiesRoot>(response).Entries.Entry ?? result;
                 }
                 catch { }
             }
@@ -218,7 +226,7 @@ namespace ApiUkrPost
             {
                 try
                 {
-                    result = JsonConvert.DeserializeObject<StreetsRoot>(response).Entries.Entry;
+                    result = JsonConvert.DeserializeObject<StreetsRoot>(response).Entries.Entry ?? result;
                 }
                 catch { }
             }
@@ -233,7 +241,7 @@ namespace ApiUkrPost
             {
                 try
                 {
-                    result = JsonConvert.DeserializeObject<HousesRoot>(response).Entries.Entry;
+                    result = JsonConvert.DeserializeObject<HousesRoot>(response).Entries.Entry ?? result;
                 }
                 catch { }
             }
@@ -426,48 +434,37 @@ namespace ApiUkrPost
         }
         #endregion
 
-        //private Image GetPdf(string url)
-        //{
-        //    var temp = Path.GetTempPath();
-        //    var fileNamePDF = temp + @"NovaPost.pdf";
-        //    var fileNameJPG = temp + @"NovaPost.jpg";
+        public Image GetSticker(string uuid)
+        {
+            var temp = Path.GetTempPath();
+            var fileNamePDF = temp + @"UkrPost.pdf";
+            var fileNameJPG = temp + @"UkrPost.jpg";
 
-        //    try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
-        //    catch { fileNamePDF = temp + @"NovaPost1.pdf"; }
+            try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
+            catch { return null; }
 
-        //    try { if (File.Exists(fileNameJPG)) File.Delete(fileNameJPG); }
-        //    catch { fileNameJPG = temp + @"NovaPost1.jpg"; }
+            try { if (File.Exists(fileNameJPG)) File.Delete(fileNameJPG); }
+            catch { return null; }
 
-        //    var request = (HttpWebRequest)WebRequest.Create(url);
-        //    var response = (HttpWebResponse)request.GetResponse();
+            var response  = Client.GetAsync(_server + $"/shipments/{uuid}/sticker?token={_userToken}").Result;
 
-        //    if (response.StatusCode == HttpStatusCode.OK)
-        //    {
-        //        using (Stream inputStream = response.GetResponseStream())
-        //        {
-        //            using (Stream outputStream = File.OpenWrite(fileNamePDF))
-        //            {
-        //                byte[] buffer = new byte[4096];
-        //                int bytesRead;
-        //                do
-        //                {
-        //                    bytesRead = inputStream.Read(buffer, 0, buffer.Length);
-        //                    outputStream.Write(buffer, 0, bytesRead);
-        //                } while (bytesRead != 0);
-        //            }
-        //        }
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                using (var file = new FileStream(fileNamePDF, FileMode.CreateNew))
+                {
+                    response.Content.CopyToAsync(file).Wait();
+                }
 
-        //        ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-        //        using (PdfDocument document = PdfDocument.Load(fileNamePDF))
-        //        {
-        //            document.Save(fileNameJPG);
-        //        }
-        //        var image = Image.FromFile(fileNameJPG);
-        //        return image;
-        //    }
-
-        //    return null;
-        //}
+                ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+                using (PdfDocument document = PdfDocument.Load(fileNamePDF))
+                {
+                    document.Save(fileNameJPG);
+                }
+                var image = Image.FromFile(fileNameJPG);
+                return image;
+            }
+            return null;
+        }
     }
 }
 

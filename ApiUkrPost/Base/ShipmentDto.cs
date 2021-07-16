@@ -34,7 +34,7 @@ namespace ApiUkrPost.Base
         public bool ShouldSerializelifecycle() { return false; }
         public DirectionDto direction { get; set; }
         public bool ShouldSerializedirection() { return false; }
-        // Не дописано!
+        // Не дописані всі поля!
 
         public string ToJson()
         {
@@ -77,7 +77,11 @@ namespace ApiUkrPost.Base
         RETURNING = 4,
         RETURNED = 5,
         DELIVERED = 6,
-        DELIVERING = 7
+        IN_DEPARTMENT = 7,
+        DELIVERING = 8,
+        STORAGE = 9,
+        CANCELED = 10,
+        DELETED = 11
     }
 
     public class LifecycleDto

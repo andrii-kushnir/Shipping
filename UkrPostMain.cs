@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,6 @@ namespace PostAPI
     {
         private readonly User _user;
         private readonly Controller _controller;
-        //private readonly int message_long = 800;
 
         private const string SenderAddress = "188358418";
         private const string SenderUuid = "1bd2e07e-52a6-4eda-bd48-60624153d5d8";
@@ -207,7 +207,7 @@ namespace PostAPI
         {
             if (_tbSender.Text.Trim() != "" && _tbRecipient.Text.Trim() != "" && _cbShipmentType.Text != "" && _cbDeliveryType.Text != "" && int.TryParse(_tbWeight.Text.Trim(), out int weight) && int.TryParse(_tbLength.Text.Trim(), out int length))
             {
-                // ДОРОБИТИ!!!!!!!!!!!!!!
+                // ДОРОБИТИ ІНШІ ПОЛЯ
                 Shipment = _controller.CreateShipment(_tbSender.Text.Trim(), _tbRecipient.Text.Trim(), (DeliveryType)_cbDeliveryType.SelectedIndex, (ShipmentType)_cbShipmentType.SelectedIndex, weight, length, Convert.ToInt32(_tbWidth.Text), Convert.ToInt32(_tbHeight.Text), Convert.ToInt32(_tbDeclaredPrice.Text), "Test!! Test");
                 if (Shipment == null)
                 {
@@ -272,6 +272,46 @@ namespace PostAPI
                     _dgvShipments.DataSource = shipments.OrderBy(s => s.lastModified).ToList();
                     _dgvShipments.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 }
+            }
+        }
+
+        private void _btShipmentDelete_Click(object sender, EventArgs e)
+        {
+            if (_tbShipmentDelete.Text.Trim() != "")
+            {
+                var shipments = _controller.GetShipment(_tbShipmentDelete.Text.Trim());
+                if (shipments == null)
+                {
+                    MessageBox.Show("Відправлення не знайдено!");
+                }
+                else
+                {
+                    if (_controller.DeleteShipment(_tbShipmentDelete.Text.Trim()))
+                    {
+                        MessageBox.Show("Відправлення видалено!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Відправлення не видалено!");
+                    }
+                }
+            }
+        }
+
+        private void _btGetSticker_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = _controller.GetSticker(_tbShipmentUuid.Text.Trim());
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+
+        private void _btSaveFile_Click(object sender, EventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog() { Filter = "PDF-files|*.pdf" };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var fileNamePDF = Path.GetTempPath() + @"UkrPost.pdf";
+                if (!File.Exists(fileNamePDF)) return;
+                File.Copy(fileNamePDF, saveFileDialog.FileName);
             }
         }
     }
