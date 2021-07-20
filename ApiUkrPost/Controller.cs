@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Web;
-using Newtonsoft.Json;
-using GemBox.Pdf;
 using System.Net.Http.Headers;
+using Newtonsoft.Json;
 using ApiUkrPost.Base;
 using ApiUkrPost.Adresses;
-using System.Drawing;
-using Region = ApiUkrPost.Adresses.Region;
-using System.Threading.Tasks;
 
 namespace ApiUkrPost
-
 {
     public class Controller
     {
@@ -26,10 +20,15 @@ namespace ApiUkrPost
         private string _server;
 
         private static readonly HttpClient Client = new HttpClient();
-        private readonly string _authorizationBearer;
-        private readonly string _userToken;
+        private static string _authorizationBearer;
+        private static string _userToken;
 
         public Controller(string bearer, string token, string server = "")
+        {
+            Init(bearer, token, server);
+        }
+
+        public void Init(string bearer, string token, string server)
         {
             if (server == "Test")
             {
@@ -65,8 +64,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string CreateAddressXml(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
+        public string CreateAddressXml(string bearer, string token, string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
         {
+            Init(bearer, token, "");
             return CreateAddress(postcode, region, district, city, street, houseNumber, apartmentNumber, description).ToXml<AddressDto>();
         }
 
@@ -78,8 +78,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetAddressByIDXml(long id)
+        public string GetAddressByIDXml(string bearer, string token, long id)
         {
+            Init(bearer, token, "");
             return GetAddressByID(id).ToXml<AddressDto>();
         }
 
@@ -100,8 +101,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string CreateClientXml(string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
+        public string CreateClientXml(string bearer, string token, string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
         {
+            Init(bearer, token, "");
             return CreateClient(firstName, lastName, middleName, addressId, phoneNumber, type).ToXml<ClientDto>();
         }
 
@@ -122,8 +124,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string ChangeClientXml(string uuid, string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
+        public string ChangeClientXml(string bearer, string token, string uuid, string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
         {
+            Init(bearer, token, "");
             return ChangeClient(uuid, firstName, lastName, middleName, addressId, phoneNumber, type).ToXml<ClientDto>();
         }
 
@@ -135,8 +138,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetClientXml(string uuid)
+        public string GetClientXml(string bearer, string token, string uuid)
         {
+            Init(bearer, token, "");
             return GetClient(uuid).ToXml<ClientDto>();
         }
 
@@ -148,8 +152,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetClientsXml(string phone)
+        public string GetClientsXml(string bearer, string token, string phone)
         {
+            Init(bearer, token, "");
             return GetClients(phone).ToXml<List<ClientDto>>();
         }
 
@@ -178,8 +183,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string CreateShipmentXml(string sender, string recipient, DeliveryType deliveryType, ShipmentType type, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
+        public string CreateShipmentXml(string bearer, string token, string sender, string recipient, DeliveryType deliveryType, ShipmentType type, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
         {
+            Init(bearer, token, "");
             return CreateShipment(sender, recipient, deliveryType, type, weight, length, width, height, declaredPrice, description).ToXml<ShipmentDto>();
         }
 
@@ -191,8 +197,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetShipmentXml(string uuid)
+        public string GetShipmentXml(string bearer, string token, string uuid)
         {
+            Init(bearer, token, "");
             return GetShipment(uuid).ToXml<ShipmentDto>();
         }
 
@@ -204,8 +211,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetShipmentBySenderXml(string uuid)
+        public string GetShipmentBySenderXml(string bearer, string token, string uuid)
         {
+            Init(bearer, token, "");
             return GetShipmentBySender(uuid).ToXml<List<ShipmentDto>>();
         }
 
@@ -232,8 +240,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetRegionsXml(string region)
+        public string GetRegionsXml(string bearer, string token, string region = "")
         {
+            Init(bearer, token, "");
             return GetRegions(region).ToXml<List<Region>>();
         }
 
@@ -252,8 +261,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetDistrictsXml(long region, string district)
+        public string GetDistrictsXml(string bearer, string token, long region, string district)
         {
+            Init(bearer, token, "");
             return GetDistricts(region, district).ToXml<List<District>>();
         }
 
@@ -272,8 +282,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetCitiesXml(long region, long district, string city)
+        public string GetCitiesXml(string bearer, string token, long region, long district, string city)
         {
+            Init(bearer, token, "");
             return GetCities(region, district, city).ToXml<List<City>>();
         }
 
@@ -292,8 +303,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetStreetsXml(long region, long district, long city, string street)
+        public string GetStreetsXml(string bearer, string token, long region, long district, long city, string street)
         {
+            Init(bearer, token, "");
             return GetStreets(region, district, city, street).ToXml<List<Street>>();
         }
 
@@ -312,8 +324,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetHousesXml(long street, string house)
+        public string GetHousesXml(string bearer, string token, long street, string house)
         {
+            Init(bearer, token, "");
             return GetHouses(street, house).ToXml<List<House>>();
         }
 
@@ -377,8 +390,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetCityByPostcodeXml(long postindex)
+        public string GetCityByPostcodeXml(string bearer, string token, long postindex)
         {
+            Init(bearer, token, "");
             return GetCityByPostcode(postindex).ToXml<City>();
         }
 
@@ -397,8 +411,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetPostofficesXml(long city)
+        public string GetPostofficesXml(string bearer, string token, long city)
         {
+            Init(bearer, token, "");
             return GetPostoffices(city).ToXml<List<Postoffice>>();
         }
 
@@ -513,38 +528,6 @@ namespace ApiUkrPost
         }
         #endregion
 
-        public Image GetSticker(string uuid)
-        {
-            var temp = Path.GetTempPath();
-            var fileNamePDF = temp + @"UkrPost.pdf";
-            var fileNameJPG = temp + @"UkrPost.jpg";
-
-            try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
-            catch { return null; }
-
-            try { if (File.Exists(fileNameJPG)) File.Delete(fileNameJPG); }
-            catch { return null; }
-
-            var response  = Client.GetAsync(_server + $"/shipments/{uuid}/sticker?token={_userToken}").Result;
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                using (var file = new FileStream(fileNamePDF, FileMode.CreateNew))
-                {
-                    response.Content.CopyToAsync(file).Wait();
-                }
-
-                ComponentInfo.SetLicense("FREE-LIMITED-KEY");
-                using (PdfDocument document = PdfDocument.Load(fileNamePDF))
-                {
-                    document.Save(fileNameJPG);
-                }
-                var image = Image.FromFile(fileNameJPG);
-                return image;
-            }
-            return null;
-        }
-
         public string GetStickerFile(string uuid)
         {
             var fileNamePDF = Path.GetTempPath() + Guid.NewGuid().ToString();
@@ -563,6 +546,12 @@ namespace ApiUkrPost
                 return fileNamePDF;
             }
             return null;
+        }
+
+        public string GetStickerFileXml(string bearer, string token, string uuid)
+        {
+            Init(bearer, token, "");
+            return GetStickerFile(uuid);
         }
     }
 }

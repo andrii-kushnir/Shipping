@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,9 @@ using System.Windows.Forms;
 using ApiUkrPost;
 using ApiUkrPost.Adresses;
 using ApiUkrPost.Base;
+using GemBox.Pdf;
 using Newtonsoft.Json;
+using Region = ApiUkrPost.Adresses.Region;
 
 namespace PostAPI
 {
@@ -300,18 +303,31 @@ namespace PostAPI
 
         private void _btGetSticker_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = _controller.GetSticker(_tbShipmentUuid.Text.Trim());
+            var fileNameJPG = Path.GetTempPath() + @"UkrPost.jpg";
+            try { if (File.Exists(fileNameJPG)) File.Delete(fileNameJPG); } catch { return; }
+
+            var fileNamePDF =_controller.GetStickerFile(_tbShipmentUuid.Text.Trim());
+
+            ComponentInfo.SetLicense("FREE-LIMITED-KEY");
+            using (PdfDocument document = PdfDocument.Load(fileNamePDF))
+            {
+                document.Save(fileNameJPG);
+            }
+
+            pictureBox1.Image = Image.FromFile(fileNameJPG);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void _btSaveFile_Click(object sender, EventArgs e)
         {
-            var saveFileDialog = new SaveFileDialog() { Filter = "PDF-files|*.pdf" };
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            var fileNamePDF = _controller.GetStickerFile(_tbShipmentUuid.Text.Trim());
+            if (fileNamePDF != null)
             {
-                var fileNamePDF = Path.GetTempPath() + @"UkrPost.pdf";
-                if (!File.Exists(fileNamePDF)) return;
-                File.Copy(fileNamePDF, saveFileDialog.FileName);
+                var saveFileDialog = new SaveFileDialog() { Filter = "PDF-files|*.pdf" };
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    File.Copy(fileNamePDF, saveFileDialog.FileName);
+                }
             }
         }
     }
