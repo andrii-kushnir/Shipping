@@ -10,11 +10,11 @@ namespace ApiUkrPost.Base
     public class ParcelDto
     {
         public string uuid { get; set; }
-        public bool ShouldSerializeuuid() { return false; }
+        public bool ShouldSerializeuuid() { return uuid != null; }
         public string barcode { get; set; }
-        public bool ShouldSerializebarcode() { return false; }
+        public bool ShouldSerializebarcode() { return barcode != null; }
         public int parcelNumber { get; set; }
-        public bool ShouldSerializeparcelNumber() { return (parcelNumber != 0); }
+        public bool ShouldSerializeparcelNumber() { return parcelNumber != 0; }
         public int declaredPrice { get; set; }
         public string description { get; set; } // maxLength: 1024
         public bool ShouldSerializedescription() { return false; }

@@ -12,7 +12,7 @@ namespace ApiUkrPost.Base
     public class ShipmentDto
     {
         public string uuid { get; set; }
-        public bool ShouldSerializeuuid() { return false; }
+        public bool ShouldSerializeuuid() { return uuid != null; }
         public ClientDto sender { get; set; }
         public ClientDto recipient { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]

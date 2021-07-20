@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Web;
 using Newtonsoft.Json;
-//using System.Drawing;
 using GemBox.Pdf;
 using System.Net.Http.Headers;
 using ApiUkrPost.Base;
@@ -66,12 +65,22 @@ namespace ApiUkrPost
             return result;
         }
 
+        public string CreateAddressXml(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
+        {
+            return CreateAddress(postcode, region, district, city, street, houseNumber, apartmentNumber, description).ToXml<AddressDto>();
+        }
+
         public AddressDto GetAddressByID(long id)
         {
             var response = SendGet($"/addresses/{id}", out bool success, out string message);
             if (!success) return null;
             var result = JsonConvert.DeserializeObject<AddressDto>(response);
             return result;
+        }
+
+        public string GetAddressByIDXml(long id)
+        {
+            return GetAddressByID(id).ToXml<AddressDto>();
         }
 
         public ClientDto CreateClient(string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
@@ -91,6 +100,11 @@ namespace ApiUkrPost
             return result;
         }
 
+        public string CreateClientXml(string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
+        {
+            return CreateClient(firstName, lastName, middleName, addressId, phoneNumber, type).ToXml<ClientDto>();
+        }
+
         public ClientDto ChangeClient(string uuid, string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
         {
             var client = new ClientDto()
@@ -108,6 +122,11 @@ namespace ApiUkrPost
             return result;
         }
 
+        public string ChangeClientXml(string uuid, string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
+        {
+            return ChangeClient(uuid, firstName, lastName, middleName, addressId, phoneNumber, type).ToXml<ClientDto>();
+        }
+
         public ClientDto GetClient(string uuid)
         {
             var response = SendGet($"/clients/{uuid}?token={_userToken}", out bool success, out string message);
@@ -116,12 +135,22 @@ namespace ApiUkrPost
             return result;
         }
 
+        public string GetClientXml(string uuid)
+        {
+            return GetClient(uuid).ToXml<ClientDto>();
+        }
+
         public List<ClientDto> GetClients(string phone)
         {
             var response = SendGet($"/clients/phone?token={_userToken}&countryISO3166=UA&phoneNumber={phone}", out bool success, out string message);
             if (!success) return null;
             var result = JsonConvert.DeserializeObject<List<ClientDto>>(response);
             return result;
+        }
+
+        public string GetClientsXml(string phone)
+        {
+            return GetClients(phone).ToXml<List<ClientDto>>();
         }
 
         public ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType type, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
@@ -149,6 +178,11 @@ namespace ApiUkrPost
             return result;
         }
 
+        public string CreateShipmentXml(string sender, string recipient, DeliveryType deliveryType, ShipmentType type, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
+        {
+            return CreateShipment(sender, recipient, deliveryType, type, weight, length, width, height, declaredPrice, description).ToXml<ShipmentDto>();
+        }
+
         public ShipmentDto GetShipment(string uuid)
         {
             var response = SendGet($"/shipments/{uuid}?token={_userToken}", out bool success, out string message);
@@ -157,12 +191,22 @@ namespace ApiUkrPost
             return result;
         }
 
+        public string GetShipmentXml(string uuid)
+        {
+            return GetShipment(uuid).ToXml<ShipmentDto>();
+        }
+
         public List<ShipmentDto> GetShipmentBySender(string uuid)
         {
             var response = SendGet($"/shipments?token={_userToken}&senderUuid={uuid}", out bool success, out string message);
             if (!success) return null;
             var result = JsonConvert.DeserializeObject<List<ShipmentDto>>(response);
             return result;
+        }
+
+        public string GetShipmentBySenderXml(string uuid)
+        {
+            return GetShipmentBySender(uuid).ToXml<List<ShipmentDto>>();
         }
 
         public bool DeleteShipment(string uuid)
@@ -188,6 +232,11 @@ namespace ApiUkrPost
             return result;
         }
 
+        public string GetRegionsXml(string region)
+        {
+            return GetRegions(region).ToXml<List<Region>>();
+        }
+
         public List<District> GetDistricts(long region, string district)
         {
             var result = new List<District>();
@@ -201,6 +250,11 @@ namespace ApiUkrPost
                 catch { }
             }
             return result;
+        }
+
+        public string GetDistrictsXml(long region, string district)
+        {
+            return GetDistricts(region, district).ToXml<List<District>>();
         }
 
         public List<City> GetCities(long region, long district, string city)
@@ -218,6 +272,11 @@ namespace ApiUkrPost
             return result;
         }
 
+        public string GetCitiesXml(long region, long district, string city)
+        {
+            return GetCities(region, district, city).ToXml<List<City>>();
+        }
+
         public List<Street> GetStreets(long region, long district, long city, string street)
         {
             var result = new List<Street>();
@@ -233,6 +292,11 @@ namespace ApiUkrPost
             return result;
         }
 
+        public string GetStreetsXml(long region, long district, long city, string street)
+        {
+            return GetStreets(region, district, city, street).ToXml<List<Street>>();
+        }
+
         public List<House> GetHouses(long street, string house)
         {
             var result = new List<House>();
@@ -246,6 +310,11 @@ namespace ApiUkrPost
                 catch { }
             }
             return result;
+        }
+
+        public string GetHousesXml(long street, string house)
+        {
+            return GetHouses(street, house).ToXml<List<House>>();
         }
 
         public bool GetCourierarea(long postindex)
@@ -308,6 +377,11 @@ namespace ApiUkrPost
             return result;
         }
 
+        public string GetCityByPostcodeXml(long postindex)
+        {
+            return GetCityByPostcode(postindex).ToXml<City>();
+        }
+
         public List<Postoffice> GetPostoffices(long city)
         {
             var result = new List<Postoffice>();
@@ -316,11 +390,16 @@ namespace ApiUkrPost
             {
                 try
                 {
-                    result = JsonConvert.DeserializeObject<PostofficesRoot>(response).Entries.Entry;
+                    result = JsonConvert.DeserializeObject<PostofficesRoot>(response).Entries.Entry ?? result;
                 }
                 catch { }
             }
             return result;
+        }
+
+        public string GetPostofficesXml(long city)
+        {
+            return GetPostoffices(city).ToXml<List<Postoffice>>();
         }
 
         private string GetFromAddress(string url, out bool success, out string message)
@@ -462,6 +541,26 @@ namespace ApiUkrPost
                 }
                 var image = Image.FromFile(fileNameJPG);
                 return image;
+            }
+            return null;
+        }
+
+        public string GetStickerFile(string uuid)
+        {
+            var fileNamePDF = Path.GetTempPath() + Guid.NewGuid().ToString();
+
+            try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
+            catch { return null; }
+
+            var response = Client.GetAsync(_server + $"/shipments/{uuid}/sticker?token={_userToken}").Result;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                using (var file = new FileStream(fileNamePDF, FileMode.CreateNew))
+                {
+                    response.Content.CopyToAsync(file).Wait();
+                }
+                return fileNamePDF;
             }
             return null;
         }

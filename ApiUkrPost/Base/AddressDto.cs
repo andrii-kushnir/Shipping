@@ -10,7 +10,7 @@ namespace ApiUkrPost.Base
     public class AddressDto
     {
         public long id { get; set; }
-        public bool ShouldSerializeid() { return false; }
+        public bool ShouldSerializeid() { return id != 0; }
         public string postcode { get; set; }
         public string country { get; set; } //maxLength: 2
         public string region { get; set; } //maxLength: 25
