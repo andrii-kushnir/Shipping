@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using ApiUkrPost.Base;
 using ApiUkrPost.Adresses;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace ApiUkrPost
 {
@@ -17,9 +17,8 @@ namespace ApiUkrPost
         private const string AddressLink = "https://www.ukrposhta.ua/address-classifier-ws";
         private const string ApiLink_test = "https://dev.ukrposhta.ua/ecom/0.0.1";
 
-        private string _server;
-
-        private static readonly HttpClient Client = new HttpClient();
+        private static HttpClient Client;
+        private static string _server;
         private static string _authorizationBearer;
         private static string _userToken;
 
@@ -40,8 +39,18 @@ namespace ApiUkrPost
             }
             _authorizationBearer = bearer;
             _userToken = token;
+            Client = new HttpClient();
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authorizationBearer);
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        private HttpWebRequest GetHttpWebRequest(string url)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.PreAuthenticate = true;
+            request.Headers.Add("Authorization", "Bearer " + _authorizationBearer);
+            request.Accept = "application/json";
+            return request;
         }
 
         public AddressDto CreateAddress(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
@@ -417,6 +426,16 @@ namespace ApiUkrPost
             return GetPostoffices(city).ToXml<List<Postoffice>>();
         }
 
+        private string GetFromAddress_4_0(string url, out bool success, out string message)
+        {
+            var request = GetHttpWebRequest(AddressLink + url);
+            request.Method = "GET";
+            var response = (HttpWebResponse)request.GetResponse();
+            var result =  ParseResponse(response, out success, out message);
+            response.Close();
+            return result;
+        }
+
         private string GetFromAddress(string url, out bool success, out string message)
         {
             HttpResponseMessage response;
@@ -435,6 +454,102 @@ namespace ApiUkrPost
         #endregion
 
         #region Base Method: GET, POST, PUT, DELETE
+        private string SendGet_4_0(string url, out bool success, out string message)
+        {
+            var request = GetHttpWebRequest(_server + url);
+            request.Method = "GET";
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+                return null;
+            }
+            var result = ParseResponse(response, out success, out message);
+            response.Close();
+            return result;
+        }
+
+        private string SendPost_4_0(string url, string requestBody, out bool success, out string message)
+        {
+            var request = GetHttpWebRequest(_server + url);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            var data = Encoding.UTF8.GetBytes(requestBody);
+            request.ContentLength = data.Length;
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+                return null;
+            }
+            var result = ParseResponse(response, out success, out message);
+            response.Close();
+            return result;
+        }
+
+        private string SendPut_4_0(string url, string requestBody, out bool success, out string message)
+        {
+            var request = GetHttpWebRequest(_server + url);
+            request.Method = "PUT";
+            request.ContentType = "application/json";
+            var data = Encoding.UTF8.GetBytes(requestBody);
+            request.ContentLength = data.Length;
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+                return null;
+            }
+            var result = ParseResponse(response, out success, out message);
+            response.Close();
+            return result;
+        }
+
+        private string SendDelete_4_0(string url, out bool success, out string message)
+        {
+            var request = GetHttpWebRequest(_server + url);
+            request.Method = "DETETE";
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+                return null;
+            }
+            var result = ParseResponse(response, out success, out message);
+            response.Close();
+            return result;
+        }
+
         private string SendGet(string url, out bool success, out string message)
         {
             HttpResponseMessage response;
@@ -501,6 +616,37 @@ namespace ApiUkrPost
             return ParseResponse(response, out success, out message);
         }
 
+        private string ParseResponse(HttpWebResponse response, out bool success, out string message)
+        {
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                success = false;
+                message = response.StatusCode.ToString();
+                return null;
+            }
+            string responseBody = null;
+            try
+            {
+                using (Stream inputStream = response.GetResponseStream())
+                {
+                    if (inputStream != null)
+                    {
+                        responseBody = new StreamReader(inputStream, Encoding.UTF8).ReadToEnd();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+                return null;
+            }
+
+            success = true;
+            message = "";
+            return responseBody;
+        }
+
         private string ParseResponse(HttpResponseMessage response, out bool success, out string message)
         {
             if (!response.IsSuccessStatusCode)
@@ -555,4 +701,3 @@ namespace ApiUkrPost
         }
     }
 }
-

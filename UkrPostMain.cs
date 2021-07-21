@@ -306,7 +306,8 @@ namespace PostAPI
             var fileNameJPG = Path.GetTempPath() + @"UkrPost.jpg";
             try { if (File.Exists(fileNameJPG)) File.Delete(fileNameJPG); } catch { return; }
 
-            var fileNamePDF =_controller.GetStickerFile(_tbShipmentUuid.Text.Trim());
+            var fileNamePDF = _controller.GetStickerFile(_tbShipmentUuid.Text.Trim());
+            if (fileNamePDF == null) return;
 
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
             using (PdfDocument document = PdfDocument.Load(fileNamePDF))
