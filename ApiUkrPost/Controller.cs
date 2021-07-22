@@ -6,8 +6,8 @@ using System.Net;
 using Newtonsoft.Json;
 using ApiUkrPost.Base;
 using ApiUkrPost.Adresses;
-using System.Net.Http;
-using System.Net.Http.Headers;
+//using System.Net.Http;
+//using System.Net.Http.Headers;
 
 namespace ApiUkrPost
 {
@@ -17,7 +17,7 @@ namespace ApiUkrPost
         private const string AddressLink = "https://www.ukrposhta.ua/address-classifier-ws";
         private const string ApiLink_test = "https://dev.ukrposhta.ua/ecom/0.0.1";
 
-        private static HttpClient Client;
+        //private static HttpClient Client;
         private static string _server;
         private static string _authorizationBearer;
         private static string _userToken;
@@ -39,9 +39,9 @@ namespace ApiUkrPost
             }
             _authorizationBearer = bearer;
             _userToken = token;
-            Client = new HttpClient();
-            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authorizationBearer);
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //Client = new HttpClient();
+            //Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _authorizationBearer);
+            //Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         private HttpWebRequest GetHttpWebRequest(string url)
@@ -426,7 +426,7 @@ namespace ApiUkrPost
             return GetPostoffices(city).ToXml<List<Postoffice>>();
         }
 
-        private string GetFromAddress_4_0(string url, out bool success, out string message)
+        private string GetFromAddress(string url, out bool success, out string message)
         {
             var request = GetHttpWebRequest(AddressLink + url);
             request.Method = "GET";
@@ -436,25 +436,25 @@ namespace ApiUkrPost
             return result;
         }
 
-        private string GetFromAddress(string url, out bool success, out string message)
-        {
-            HttpResponseMessage response;
-            try
-            {
-                response = Client.GetAsync(AddressLink + url).Result;
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                message = ex.Message;
-                return null;
-            }
-            return ParseResponse(response, out success, out message);
-        }
+        //private string GetFromAddress(string url, out bool success, out string message)
+        //{
+        //    HttpResponseMessage response;
+        //    try
+        //    {
+        //        response = Client.GetAsync(AddressLink + url).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        success = false;
+        //        message = ex.Message;
+        //        return null;
+        //    }
+        //    return ParseResponse(response, out success, out message);
+        //}
         #endregion
 
         #region Base Method: GET, POST, PUT, DELETE
-        private string SendGet_4_0(string url, out bool success, out string message)
+        private string SendGet(string url, out bool success, out string message)
         {
             var request = GetHttpWebRequest(_server + url);
             request.Method = "GET";
@@ -474,7 +474,7 @@ namespace ApiUkrPost
             return result;
         }
 
-        private string SendPost_4_0(string url, string requestBody, out bool success, out string message)
+        private string SendPost(string url, string requestBody, out bool success, out string message)
         {
             var request = GetHttpWebRequest(_server + url);
             request.Method = "POST";
@@ -502,7 +502,7 @@ namespace ApiUkrPost
             return result;
         }
 
-        private string SendPut_4_0(string url, string requestBody, out bool success, out string message)
+        private string SendPut(string url, string requestBody, out bool success, out string message)
         {
             var request = GetHttpWebRequest(_server + url);
             request.Method = "PUT";
@@ -530,10 +530,10 @@ namespace ApiUkrPost
             return result;
         }
 
-        private string SendDelete_4_0(string url, out bool success, out string message)
+        private string SendDelete(string url, out bool success, out string message)
         {
             var request = GetHttpWebRequest(_server + url);
-            request.Method = "DETETE";
+            request.Method = "DELETE";
             HttpWebResponse response;
             try
             {
@@ -550,71 +550,71 @@ namespace ApiUkrPost
             return result;
         }
 
-        private string SendGet(string url, out bool success, out string message)
-        {
-            HttpResponseMessage response;
-            try
-            {
-                response = Client.GetAsync(_server + url).Result;
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                message = ex.Message;
-                return null;
-            }
-            return ParseResponse(response, out success, out message);
-        }
+        //private string SendGet(string url, out bool success, out string message)
+        //{
+        //    HttpResponseMessage response;
+        //    try
+        //    {
+        //        response = Client.GetAsync(_server + url).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        success = false;
+        //        message = ex.Message;
+        //        return null;
+        //    }
+        //    return ParseResponse(response, out success, out message);
+        //}
 
-        private string SendPost(string url, string request, out bool success, out string message)
-        {
-            var content = new StringContent(request, Encoding.UTF8, "application/json");
-            HttpResponseMessage response;
-            try
-            {
-                response = Client.PostAsync(_server + url, content).Result;
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                message = ex.Message;
-                return null;
-            }
-            return ParseResponse(response, out success, out message);
-        }
+        //private string SendPost(string url, string request, out bool success, out string message)
+        //{
+        //    var content = new StringContent(request, Encoding.UTF8, "application/json");
+        //    HttpResponseMessage response;
+        //    try
+        //    {
+        //        response = Client.PostAsync(_server + url, content).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        success = false;
+        //        message = ex.Message;
+        //        return null;
+        //    }
+        //    return ParseResponse(response, out success, out message);
+        //}
 
-        private string SendPut(string url, string request, out bool success, out string message)
-        {
-            var content = new StringContent(request, Encoding.UTF8, "application/json");
-            HttpResponseMessage response;
-            try
-            {
-                response = Client.PutAsync(_server + url, content).Result;
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                message = ex.Message;
-                return null;
-            }
-            return ParseResponse(response, out success, out message);
-        }
+        //private string SendPut(string url, string request, out bool success, out string message)
+        //{
+        //    var content = new StringContent(request, Encoding.UTF8, "application/json");
+        //    HttpResponseMessage response;
+        //    try
+        //    {
+        //        response = Client.PutAsync(_server + url, content).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        success = false;
+        //        message = ex.Message;
+        //        return null;
+        //    }
+        //    return ParseResponse(response, out success, out message);
+        //}
 
-        private string SendDelete(string url, out bool success, out string message)
-        {
-            HttpResponseMessage response;
-            try
-            {
-                response = Client.DeleteAsync(_server + url).Result;
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                message = ex.Message;
-                return null;
-            }
-            return ParseResponse(response, out success, out message);
-        }
+        //private string SendDelete(string url, out bool success, out string message)
+        //{
+        //    HttpResponseMessage response;
+        //    try
+        //    {
+        //        response = Client.DeleteAsync(_server + url).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        success = false;
+        //        message = ex.Message;
+        //        return null;
+        //    }
+        //    return ParseResponse(response, out success, out message);
+        //}
 
         private string ParseResponse(HttpWebResponse response, out bool success, out string message)
         {
@@ -647,31 +647,31 @@ namespace ApiUkrPost
             return responseBody;
         }
 
-        private string ParseResponse(HttpResponseMessage response, out bool success, out string message)
-        {
-            if (!response.IsSuccessStatusCode)
-            {
-                success = false;
-                message = response.StatusCode.ToString();
-                return null;
-            }
+        //private string ParseResponse(HttpResponseMessage response, out bool success, out string message)
+        //{
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        success = false;
+        //        message = response.StatusCode.ToString();
+        //        return null;
+        //    }
 
-            string responseBody;
-            try
-            {
-                responseBody = response.Content.ReadAsStringAsync().Result;
-            }
-            catch (Exception ex)
-            {
-                success = false;
-                message = ex.Message;
-                return null;
-            }
+        //    string responseBody;
+        //    try
+        //    {
+        //        responseBody = response.Content.ReadAsStringAsync().Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        success = false;
+        //        message = ex.Message;
+        //        return null;
+        //    }
 
-            success = true;
-            message = "";
-            return responseBody;
-        }
+        //    success = true;
+        //    message = "";
+        //    return responseBody;
+        //}
         #endregion
 
         public string GetStickerFile(string uuid)
@@ -681,18 +681,50 @@ namespace ApiUkrPost
             try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
             catch { return null; }
 
-            var response = Client.GetAsync(_server + $"/shipments/{uuid}/sticker?token={_userToken}").Result;
+            var request = GetHttpWebRequest(_server + $"/shipments/{uuid}/sticker?token={_userToken}");
+            HttpWebResponse response;
+            try { response = (HttpWebResponse)request.GetResponse(); }
+            catch { return null; }
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                using (var file = new FileStream(fileNamePDF, FileMode.CreateNew))
+                using (Stream inputStream = response.GetResponseStream())
                 {
-                    response.Content.CopyToAsync(file).Wait();
+                    using (Stream outputStream = File.OpenWrite(fileNamePDF))
+                    {
+                        var buffer = new byte[4096];
+                        int bytesRead;
+                        do
+                        {
+                            bytesRead = inputStream.Read(buffer, 0, buffer.Length);
+                            outputStream.Write(buffer, 0, bytesRead);
+                        } while (bytesRead != 0);
+                    }
                 }
-                return fileNamePDF;
             }
-            return null;
+            response.Close();
+            return fileNamePDF;
         }
+
+        //public string GetStickerFile(string uuid)
+        //{
+        //    var fileNamePDF = Path.GetTempPath() + Guid.NewGuid().ToString();
+
+        //    try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
+        //    catch { return null; }
+
+        //    var response = Client.GetAsync(_server + $"/shipments/{uuid}/sticker?token={_userToken}").Result;
+
+        //    if (response.StatusCode == HttpStatusCode.OK)
+        //    {
+        //        using (var file = new FileStream(fileNamePDF, FileMode.CreateNew))
+        //        {
+        //            response.Content.CopyToAsync(file).Wait();
+        //        }
+        //        return fileNamePDF;
+        //    }
+        //    return null;
+        //}
 
         public string GetStickerFileXml(string bearer, string token, string uuid)
         {

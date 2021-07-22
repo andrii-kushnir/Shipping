@@ -9,7 +9,7 @@ namespace PostAPI
     static class Program
     {
         internal const string FileUsers = "file015.dat";
-        public static List<User> _users;
+        public static List<User> _users = new List<User>();
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
