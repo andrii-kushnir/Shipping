@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using ApiUkrPost;
 using ApiUkrPost.Adresses;
 using ApiUkrPost.Base;
+using PostAPI.UtilityClass;
 using GemBox.Pdf;
 using Newtonsoft.Json;
 using Region = ApiUkrPost.Adresses.Region;
@@ -53,7 +54,7 @@ namespace PostAPI
             {
                 _controller = new Controller(_user.AuthorizationBearer, _user.UserToken);
             }
-            _regions = _controller.GetRegions("");
+            _regions = Controller.GetRegions("");
             _cbRegion.Items.AddRange(_regions.Select(r => r.ToString()).ToArray());
             _cbRegion.SelectedIndex = 18;
 
@@ -80,7 +81,7 @@ namespace PostAPI
             {
                 _tbPostCode.Text = _houses[_cbHouse.SelectedIndex].POSTCODE;
 
-                Address = _controller.CreateAddress(_houses[_cbHouse.SelectedIndex].POSTCODE,
+                Address = Controller.CreateAddress(_houses[_cbHouse.SelectedIndex].POSTCODE,
                                                           _regions[_cbRegion.SelectedIndex].ToString(),
                                                           _districts[_cbDistrict.SelectedIndex].ToString(),
                                                           _cities[_cbCity.SelectedIndex].ToString(),
@@ -103,7 +104,7 @@ namespace PostAPI
         {
             if (_tbPostCode.Text.Trim() != "" && int.TryParse(_tbPostCode.Text.Trim(), out int index) && index != 0)
             {
-                var city = _controller.GetCityByPostcode(index);
+                var city = Controller.GetCityByPostcode(index);
                 if (city != null)
                 {
                     _cbDistrict.Text = city.DISTRICTUA;
@@ -121,7 +122,7 @@ namespace PostAPI
             _cbCity.Text = "";
             _cbStreet.Text = "";
             _cbHouse.Text = "";
-            _districts = _controller.GetDistricts(Convert.ToInt64(_regions[_cbRegion.SelectedIndex].REGIONID), "");
+            _districts = Controller.GetDistricts(Convert.ToInt64(_regions[_cbRegion.SelectedIndex].REGIONID), "");
             _cbDistrict.Items.AddRange(_districts.Select(d => d.ToString()).ToArray());
         }
 
@@ -131,7 +132,7 @@ namespace PostAPI
             _cbCity.Text = "";
             _cbStreet.Text = "";
             _cbHouse.Text = "";
-            _cities = _controller.GetCities(Convert.ToInt64(_regions[_cbRegion.SelectedIndex].REGIONID), Convert.ToInt64(_districts[_cbDistrict.SelectedIndex].DISTRICTID), "");
+            _cities = Controller.GetCities(Convert.ToInt64(_regions[_cbRegion.SelectedIndex].REGIONID), Convert.ToInt64(_districts[_cbDistrict.SelectedIndex].DISTRICTID), "");
             _cbCity.Items.AddRange(_cities.Select(d => d.ToString()).ToArray());
         }
 
@@ -140,7 +141,7 @@ namespace PostAPI
             _cbStreet.Items.Clear();
             _cbStreet.Text = "";
             _cbHouse.Text = "";
-            _streets = _controller.GetStreets(Convert.ToInt64(_regions[_cbRegion.SelectedIndex].REGIONID), Convert.ToInt64(_districts[_cbDistrict.SelectedIndex].DISTRICTID), Convert.ToInt64(_cities[_cbCity.SelectedIndex].CITYID), "");
+            _streets = Controller.GetStreets(Convert.ToInt64(_regions[_cbRegion.SelectedIndex].REGIONID), Convert.ToInt64(_districts[_cbDistrict.SelectedIndex].DISTRICTID), Convert.ToInt64(_cities[_cbCity.SelectedIndex].CITYID), "");
             _cbStreet.Items.AddRange(_streets.Select(d => d.ToString()).ToArray());
         }
 
@@ -148,7 +149,7 @@ namespace PostAPI
         {
             _cbHouse.Items.Clear();
             _cbHouse.Text = "";
-            _houses = _controller.GetHouses(Convert.ToInt64(_streets[_cbStreet.SelectedIndex].STREETID), "");
+            _houses = Controller.GetHouses(Convert.ToInt64(_streets[_cbStreet.SelectedIndex].STREETID), "");
             _cbHouse.Items.AddRange(_houses.Select(d => d.ToString()).ToArray());
         }
 
@@ -156,7 +157,7 @@ namespace PostAPI
         {
             if (_tbFirstName.Text.Trim() != "" && _tbLastName.Text.Trim() != "" && _tbClientAddressId.Text != "" && _tbPhone.Text.Trim() != "" && _cbClientType.Text != "")
             {
-                Client = _controller.CreateClient(_tbFirstName.Text.Trim(), _tbLastName.Text.Trim(), _tbMiddleName.Text.Trim(), Convert.ToInt64(_tbClientAddressId.Text), _tbPhone.Text.Trim(), (ClientIndivType)_cbClientType.SelectedIndex);
+                Client = Controller.CreateClient(_tbFirstName.Text.Trim(), _tbLastName.Text.Trim(), _tbMiddleName.Text.Trim(), Convert.ToInt64(_tbClientAddressId.Text), _tbPhone.Text.Trim(), (ClientIndivType)_cbClientType.SelectedIndex);
                 if (Client != null)
                 {
                     _tbClientId.Text = Client.uuid.ToString();
@@ -189,7 +190,7 @@ namespace PostAPI
         {
             if (_tbClienеIdChange.Text.Trim() != "")
             {
-                Client = _controller.GetClient(_tbClienеIdChange.Text.Trim());
+                Client = Controller.GetClient(_tbClienеIdChange.Text.Trim());
                 if (Client == null)
                 {
                     MessageBox.Show("Клієнта не знайдено!");
@@ -211,7 +212,15 @@ namespace PostAPI
             if (_tbSender.Text.Trim() != "" && _tbRecipient.Text.Trim() != "" && _cbShipmentType.Text != "" && _cbDeliveryType.Text != "" && int.TryParse(_tbWeight.Text.Trim(), out int weight) && int.TryParse(_tbLength.Text.Trim(), out int length))
             {
                 // ДОРОБИТИ ІНШІ ПОЛЯ
-                Shipment = _controller.CreateShipment(_tbSender.Text.Trim(), _tbRecipient.Text.Trim(), (DeliveryType)_cbDeliveryType.SelectedIndex, (ShipmentType)_cbShipmentType.SelectedIndex, weight, length, Convert.ToInt32(_tbWidth.Text), Convert.ToInt32(_tbHeight.Text), Convert.ToInt32(_tbDeclaredPrice.Text), "Test!! Test");
+                Shipment = Controller.CreateShipment(_tbSender.Text.Trim(), 
+                                                     _tbRecipient.Text.Trim(), 
+                                                     (DeliveryType)_cbDeliveryType.SelectedIndex, 
+                                                     (ShipmentType)_cbShipmentType.SelectedIndex, 
+                                                     weight, 
+                                                     length, 
+                                                     _tbWidth.Text.ParseNullableInt(), 
+                                                     _tbHeight.Text.ParseNullableInt(), 
+                                                     _tbDeclaredPrice.Text.ParseNullableInt());
                 if (Shipment == null)
                 {
                     MessageBox.Show("Відправлення не створено!");
@@ -227,7 +236,7 @@ namespace PostAPI
         {
             if (_tbShipmentUuid.Text.Trim() != "")
             {
-                Shipment = _controller.GetShipment(_tbShipmentUuid.Text.Trim());
+                Shipment = Controller.GetShipment(_tbShipmentUuid.Text.Trim());
                 if (Shipment == null)
                 {
                     MessageBox.Show("Відправлення не знайдено!");
@@ -248,7 +257,8 @@ namespace PostAPI
         {
             if (_tbPhoneClient.Text.Trim() != "")
             {
-                var clients = _controller.GetClients(_tbPhoneClient.Text.Trim());
+                var clients = Controller.GetClients(_tbPhoneClient.Text.Trim());
+                //Controller.GetClientsXml(_user.AuthorizationBearer, _user.UserToken, _tbPhoneClient.Text.Trim(), out string result);
                 if (clients == null)
                 {
                     MessageBox.Show("Клієнтів не знайдено!");
@@ -265,7 +275,8 @@ namespace PostAPI
         {
             if (_tbSenderAll.Text.Trim() != "")
             {
-                var shipments = _controller.GetShipmentBySender(_tbSenderAll.Text.Trim());
+                var shipments = Controller.GetShipmentBySender(_tbSenderAll.Text.Trim());
+                //Controller.GetShipmentBySenderXml(_user.AuthorizationBearer, _user.UserToken, _tbSenderAll.Text.Trim(), out string result);
                 if (shipments == null)
                 {
                     MessageBox.Show("Відправлення не знайдено!");
@@ -282,14 +293,14 @@ namespace PostAPI
         {
             if (_tbShipmentDelete.Text.Trim() != "")
             {
-                var shipments = _controller.GetShipment(_tbShipmentDelete.Text.Trim());
+                var shipments = Controller.GetShipment(_tbShipmentDelete.Text.Trim());
                 if (shipments == null)
                 {
                     MessageBox.Show("Відправлення не знайдено!");
                 }
                 else
                 {
-                    if (_controller.DeleteShipment(_tbShipmentDelete.Text.Trim()))
+                    if (Controller.DeleteShipment(_tbShipmentDelete.Text.Trim()))
                     {
                         MessageBox.Show("Відправлення видалено!");
                     }
@@ -306,7 +317,7 @@ namespace PostAPI
             var fileNameJPG = Path.GetTempPath() + @"UkrPost.jpg";
             try { if (File.Exists(fileNameJPG)) File.Delete(fileNameJPG); } catch { return; }
 
-            var fileNamePDF = _controller.GetStickerFile(_tbShipmentUuid.Text.Trim());
+            var fileNamePDF = Controller.GetStickerFile(_tbShipmentUuid.Text.Trim());
             if (fileNamePDF == null) return;
 
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
@@ -321,7 +332,7 @@ namespace PostAPI
 
         private void _btSaveFile_Click(object sender, EventArgs e)
         {
-            var fileNamePDF = _controller.GetStickerFile(_tbShipmentUuid.Text.Trim());
+            var fileNamePDF = Controller.GetStickerFile(_tbShipmentUuid.Text.Trim());
             if (fileNamePDF != null)
             {
                 var saveFileDialog = new SaveFileDialog() { Filter = "PDF-files|*.pdf" };

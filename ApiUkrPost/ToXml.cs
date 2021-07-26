@@ -18,10 +18,13 @@ namespace ApiUkrPost
                 return string.Empty;
             }
             var xmlserializer = new XmlSerializer(typeof(T));
+            var settings = new XmlWriterSettings();
+            //settings.Indent = true;
+            //settings.OmitXmlDeclaration = true;
             var stringWriter = new StringWriter();
             try
             {
-                using (var writer = XmlWriter.Create(stringWriter))
+                using (var writer = XmlWriter.Create(stringWriter, settings))
                 {
                     xmlserializer.Serialize(writer, value);
                     return stringWriter.ToString();

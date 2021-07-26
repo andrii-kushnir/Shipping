@@ -26,8 +26,6 @@ namespace ApiUkrPost.Base
         public bool sms { get; set; }
         public bool paidByRecipient { get; set; }
         public string description { get; set; }
-        public long recipientAddressId { get; set; }
-        public bool ShouldSerializerecipientAddressId() { return (recipientAddressId != 0); }
         public string lastModified { get; set; }
         public bool ShouldSerializelastModified() { return false; }
         public LifecycleDto lifecycle { get; set; }

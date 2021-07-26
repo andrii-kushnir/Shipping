@@ -113,7 +113,7 @@
             this._tbApiKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this._tbApiKey.Location = new System.Drawing.Point(334, 203);
             this._tbApiKey.Name = "_tbApiKey";
-            this._tbApiKey.Size = new System.Drawing.Size(334, 29);
+            this._tbApiKey.Size = new System.Drawing.Size(349, 29);
             this._tbApiKey.TabIndex = 10;
             // 
             // _btRegistration
@@ -143,7 +143,7 @@
             this._tbBearer.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this._tbBearer.Location = new System.Drawing.Point(334, 256);
             this._tbBearer.Name = "_tbBearer";
-            this._tbBearer.Size = new System.Drawing.Size(334, 29);
+            this._tbBearer.Size = new System.Drawing.Size(349, 29);
             this._tbBearer.TabIndex = 15;
             // 
             // label5
@@ -161,7 +161,7 @@
             this._tbToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this._tbToken.Location = new System.Drawing.Point(334, 309);
             this._tbToken.Name = "_tbToken";
-            this._tbToken.Size = new System.Drawing.Size(334, 29);
+            this._tbToken.Size = new System.Drawing.Size(349, 29);
             this._tbToken.TabIndex = 17;
             // 
             // label6

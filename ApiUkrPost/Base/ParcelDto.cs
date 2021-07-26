@@ -15,13 +15,16 @@ namespace ApiUkrPost.Base
         public bool ShouldSerializebarcode() { return barcode != null; }
         public int parcelNumber { get; set; }
         public bool ShouldSerializeparcelNumber() { return parcelNumber != 0; }
-        public int declaredPrice { get; set; }
+        public int? declaredPrice { get; set; }
+        public bool ShouldSerializedeclaredPrice() { return declaredPrice != null; }
         public string description { get; set; } // maxLength: 1024
         public bool ShouldSerializedescription() { return false; }
         public int weight { get; set; }
         public int length { get; set; }
         public int? width { get; set; }
+        public bool ShouldSerializewidth() { return width != null; }
         public int? height { get; set; }
+        public bool ShouldSerializeheight() { return height != null; }
         public string name { get; set; }
         public bool ShouldSerializename() { return false; }
         public string ToJson()

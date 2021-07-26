@@ -27,7 +27,6 @@ namespace ApiUkrPost.Base
         public string created { get; set; } //This address creation time
         public bool ShouldSerializecreated() { return false; }
         public string detailedInfo { get; set; }
-        public bool ShouldSerializedetailedInfo() { return false; }
         public string foreignStreetHouseApartment { get; set; }
         public bool ShouldSerializeforeignStreetHouseApartment() { return false; }
         public string lastModified { get; set; } //This address modification time

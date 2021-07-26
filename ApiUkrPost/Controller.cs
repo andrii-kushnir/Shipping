@@ -6,6 +6,7 @@ using System.Net;
 using Newtonsoft.Json;
 using ApiUkrPost.Base;
 using ApiUkrPost.Adresses;
+using System.Linq;
 //using System.Net.Http;
 //using System.Net.Http.Headers;
 
@@ -27,7 +28,7 @@ namespace ApiUkrPost
             Init(bearer, token, server);
         }
 
-        public void Init(string bearer, string token, string server)
+        public static void Init(string bearer, string token, string server)
         {
             if (server == "Test")
             {
@@ -44,7 +45,7 @@ namespace ApiUkrPost
             //Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        private HttpWebRequest GetHttpWebRequest(string url)
+        private static HttpWebRequest GetHttpWebRequest(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.PreAuthenticate = true;
@@ -53,7 +54,7 @@ namespace ApiUkrPost
             return request;
         }
 
-        public AddressDto CreateAddress(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
+        public static AddressDto CreateAddress(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
         {
             var address = new AddressDto()
             {
@@ -73,13 +74,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string CreateAddressXml(string bearer, string token, string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
+        public static void CreateAddressXml(string bearer, string token, string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, out string result)
         {
             Init(bearer, token, "");
-            return CreateAddress(postcode, region, district, city, street, houseNumber, apartmentNumber, description).ToXml<AddressDto>();
+            result = CreateAddress(postcode, region, district, city, street, houseNumber, apartmentNumber).ToXml<AddressDto>();
         }
 
-        public AddressDto GetAddressByID(long id)
+        public static AddressDto GetAddressByID(long id)
         {
             var response = SendGet($"/addresses/{id}", out bool success, out string message);
             if (!success) return null;
@@ -87,13 +88,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetAddressByIDXml(string bearer, string token, long id)
+        public static void GetAddressByIDXml(string bearer, string token, long id, out string result)
         {
             Init(bearer, token, "");
-            return GetAddressByID(id).ToXml<AddressDto>();
+            result = GetAddressByID(id).ToXml<AddressDto>();
         }
 
-        public ClientDto CreateClient(string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
+        public static ClientDto CreateClient(string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
         {
             var client = new ClientDto()
             {
@@ -110,10 +111,11 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string CreateClientXml(string bearer, string token, string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
+        public static void CreateClientXml(string bearer, string token, string firstName, string lastName, string middleName, long addressId, string phoneNumber, string type, out string result)
         {
+            var typeEnum = (ClientIndivType)Enum.Parse(typeof(ClientIndivType), type);
             Init(bearer, token, "");
-            return CreateClient(firstName, lastName, middleName, addressId, phoneNumber, type).ToXml<ClientDto>();
+            result = CreateClient(firstName, lastName, middleName, addressId, phoneNumber, typeEnum).ToXml<ClientDto>();
         }
 
         public ClientDto ChangeClient(string uuid, string firstName, string lastName, string middleName, long addressId, string phoneNumber, ClientIndivType type)
@@ -139,7 +141,7 @@ namespace ApiUkrPost
             return ChangeClient(uuid, firstName, lastName, middleName, addressId, phoneNumber, type).ToXml<ClientDto>();
         }
 
-        public ClientDto GetClient(string uuid)
+        public static ClientDto GetClient(string uuid)
         {
             var response = SendGet($"/clients/{uuid}?token={_userToken}", out bool success, out string message);
             if (!success) return null;
@@ -147,13 +149,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetClientXml(string bearer, string token, string uuid)
+        public static void GetClientXml(string bearer, string token, string uuid, out string result)
         {
             Init(bearer, token, "");
-            return GetClient(uuid).ToXml<ClientDto>();
+            result = GetClient(uuid).ToXml<ClientDto>();
         }
 
-        public List<ClientDto> GetClients(string phone)
+        public static List<ClientDto> GetClients(string phone)
         {
             var response = SendGet($"/clients/phone?token={_userToken}&countryISO3166=UA&phoneNumber={phone}", out bool success, out string message);
             if (!success) return null;
@@ -161,13 +163,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetClientsXml(string bearer, string token, string phone)
+        public static void GetClientsXml(string bearer, string token, string phone, out string result)
         {
             Init(bearer, token, "");
-            return GetClients(phone).ToXml<List<ClientDto>>();
+            result = GetClients(phone).ToXml<List<ClientDto>>();
         }
 
-        public ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType type, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
+        public static ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType type, int weight, int length, int? width = 0, int? height = 0, int? declaredPrice = 0, string description = "")
         {
             var shipment = new ShipmentDto()
             {
@@ -192,13 +194,15 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string CreateShipmentXml(string bearer, string token, string sender, string recipient, DeliveryType deliveryType, ShipmentType type, int weight, int length, int width = 0, int height = 0, int declaredPrice = 0, string description = "")
+        public static void CreateShipmentXml(string bearer, string token, string sender, string recipient, string deliveryType, string type, int weight, int length, int width, int height, int declaredPrice, string description, out string result)
         {
+            var DeliveryTypeEnum = (DeliveryType)Enum.Parse(typeof(DeliveryType), deliveryType);
+            var typeEnum = (ShipmentType)Enum.Parse(typeof(ShipmentType), type);
             Init(bearer, token, "");
-            return CreateShipment(sender, recipient, deliveryType, type, weight, length, width, height, declaredPrice, description).ToXml<ShipmentDto>();
+            result = CreateShipment(sender, recipient, DeliveryTypeEnum, typeEnum, weight, length, width, height, declaredPrice, description).ToXml<ShipmentDto>();
         }
 
-        public ShipmentDto GetShipment(string uuid)
+        public static ShipmentDto GetShipment(string uuid)
         {
             var response = SendGet($"/shipments/{uuid}?token={_userToken}", out bool success, out string message);
             if (!success) return null;
@@ -206,35 +210,45 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetShipmentXml(string bearer, string token, string uuid)
+        public static void GetShipmentXml(string bearer, string token, string uuid, out string result)
         {
             Init(bearer, token, "");
-            return GetShipment(uuid).ToXml<ShipmentDto>();
+            result = GetShipment(uuid).ToXml<ShipmentDto>();
         }
 
-        public List<ShipmentDto> GetShipmentBySender(string uuid)
+        public static List<ShipmentDto> GetShipmentBySender(string uuid)
         {
             var response = SendGet($"/shipments?token={_userToken}&senderUuid={uuid}", out bool success, out string message);
             if (!success) return null;
-            var result = JsonConvert.DeserializeObject<List<ShipmentDto>>(response);
+            var result = JsonConvert.DeserializeObject<List<ShipmentDto>>(response).Where(s => s.lifecycle.status != Status1.DELETED).ToList();
             return result;
         }
 
-        public string GetShipmentBySenderXml(string bearer, string token, string uuid)
+        public static void GetShipmentBySenderXml(string bearer, string token, string uuid, out string result)
         {
             Init(bearer, token, "");
-            return GetShipmentBySender(uuid).ToXml<List<ShipmentDto>>();
+            result = GetShipmentBySender(uuid).ToXml<List<ShipmentDto>>();
         }
 
-        public bool DeleteShipment(string uuid)
+        public static bool DeleteShipment(string uuid)
         {
             SendDelete($"/shipments/{uuid}?token={_userToken}", out bool success, out string message);
             return success;
         }
 
+        public static void DeleteShipmentXml(string bearer, string token, string uuid, out bool result)
+        {
+            result = false;
+            Init(bearer, token, "");
+            if (DeleteShipment(uuid))
+            {
+                result = true;
+            }
+        }
+
 
         #region Address Methods
-        public List<Region> GetRegions(string region)
+        public static List<Region> GetRegions(string region)
         {
             var result = new List<Region>();
             var response = GetFromAddress($"/get_regions_by_region_ua?region_name={region}", out bool success, out string message);
@@ -249,13 +263,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetRegionsXml(string bearer, string token, string region = "")
+        public static void GetRegionsXml(string bearer, string token, out string result)
         {
             Init(bearer, token, "");
-            return GetRegions(region).ToXml<List<Region>>();
+            result = GetRegions("").ToXml<List<Region>>();
         }
 
-        public List<District> GetDistricts(long region, string district)
+        public static List<District> GetDistricts(long region, string district)
         {
             var result = new List<District>();
             var response = GetFromAddress($"/get_districts_by_region_id_and_district_ua?region_id={region}&district_ua={district}", out bool success, out string message);
@@ -270,13 +284,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetDistrictsXml(string bearer, string token, long region, string district)
+        public static void GetDistrictsXml(string bearer, string token, long region, out string result)
         {
             Init(bearer, token, "");
-            return GetDistricts(region, district).ToXml<List<District>>();
+            result = GetDistricts(region, "").ToXml<List<District>>();
         }
 
-        public List<City> GetCities(long region, long district, string city)
+        public static List<City> GetCities(long region, long district, string city)
         {
             var result = new List<City>();
             var response = GetFromAddress($"/get_city_by_region_id_and_district_id_and_city_ua?district_id={district}&region_id={region}&city_ua={city}", out bool success, out string message);
@@ -291,13 +305,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetCitiesXml(string bearer, string token, long region, long district, string city)
+        public static void GetCitiesXml(string bearer, string token, long region, long district, out string result)
         {
             Init(bearer, token, "");
-            return GetCities(region, district, city).ToXml<List<City>>();
+            result = GetCities(region, district, "").ToXml<List<City>>();
         }
 
-        public List<Street> GetStreets(long region, long district, long city, string street)
+        public static List<Street> GetStreets(long region, long district, long city, string street)
         {
             var result = new List<Street>();
             var response = GetFromAddress($"/get_street_by_region_id_and_district_id_and_city_id_and_street_ua?region_id={region}&district_id ={district}&city_id={city}&street_ua={street}", out bool success, out string message);
@@ -312,13 +326,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetStreetsXml(string bearer, string token, long region, long district, long city, string street)
+        public static void GetStreetsXml(string bearer, string token, long region, long district, long city, out string result)
         {
             Init(bearer, token, "");
-            return GetStreets(region, district, city, street).ToXml<List<Street>>();
+            result = GetStreets(region, district, city, "").ToXml<List<Street>>();
         }
 
-        public List<House> GetHouses(long street, string house)
+        public static List<House> GetHouses(long street, string house)
         {
             var result = new List<House>();
             var response = GetFromAddress($"/get_addr_house_by_street_id?street_id={street}&housenumber={house}", out bool success, out string message);
@@ -333,13 +347,13 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetHousesXml(string bearer, string token, long street, string house)
+        public static void GetHousesXml(string bearer, string token, long street, out string result)
         {
             Init(bearer, token, "");
-            return GetHouses(street, house).ToXml<List<House>>();
+            result = GetHouses(street, "").ToXml<List<House>>();
         }
 
-        public bool GetCourierarea(long postindex)
+        public bool GetCourierarea(int postindex)
         {
             var response = GetFromAddress($"/get_courierarea_by_postindex?postindex={postindex}", out bool success, out string message);
             if (success)
@@ -358,7 +372,7 @@ namespace ApiUkrPost
             return false;
         }
 
-        public List<AddressDto> GetAddressByPostcode(long postindex)
+        public List<AddressDto> GetAddressByPostcode(int postindex)
         {
             var result = new List<AddressDto>();
             var response = GetFromAddress($"/get_address_by_postcode?postcode={postindex}&lang=UA", out bool success, out string message);
@@ -366,7 +380,7 @@ namespace ApiUkrPost
             {
                 try
                 {
-                    throw new Exception("Отримаються усі адреси по індексу, але парсінг не реалізовано.");
+                    throw new Exception("Отримаються усі адреси по індексу, але парсінг не реалізовано. Це тому що обєм даних дуже великий - дуже багато адрес(будинків)");
                     //result = JsonConvert.DeserializeObject<PostofficesRoot>(response).Entries.Entry[0];
                 }
                 catch { }
@@ -374,7 +388,7 @@ namespace ApiUkrPost
             return result;
         }
 
-        public City GetCityByPostcode(long postindex)
+        public static City GetCityByPostcode(int postindex)
         {
             City result = null;
             var response = GetFromAddress($"/get_city_details_by_postcode?postcode={postindex}&lang=UA", out bool success, out string message);
@@ -399,10 +413,10 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetCityByPostcodeXml(string bearer, string token, long postindex)
+        public static void GetCityByPostcodeXml(string bearer, string token, int postindex, out string result)
         {
             Init(bearer, token, "");
-            return GetCityByPostcode(postindex).ToXml<City>();
+            result = GetCityByPostcode(postindex).ToXml<City>();
         }
 
         public List<Postoffice> GetPostoffices(long city)
@@ -426,7 +440,7 @@ namespace ApiUkrPost
             return GetPostoffices(city).ToXml<List<Postoffice>>();
         }
 
-        private string GetFromAddress(string url, out bool success, out string message)
+        private static string GetFromAddress(string url, out bool success, out string message)
         {
             var request = GetHttpWebRequest(AddressLink + url);
             request.Method = "GET";
@@ -454,7 +468,7 @@ namespace ApiUkrPost
         #endregion
 
         #region Base Method: GET, POST, PUT, DELETE
-        private string SendGet(string url, out bool success, out string message)
+        private static string SendGet(string url, out bool success, out string message)
         {
             var request = GetHttpWebRequest(_server + url);
             request.Method = "GET";
@@ -474,7 +488,7 @@ namespace ApiUkrPost
             return result;
         }
 
-        private string SendPost(string url, string requestBody, out bool success, out string message)
+        private static string SendPost(string url, string requestBody, out bool success, out string message)
         {
             var request = GetHttpWebRequest(_server + url);
             request.Method = "POST";
@@ -502,7 +516,7 @@ namespace ApiUkrPost
             return result;
         }
 
-        private string SendPut(string url, string requestBody, out bool success, out string message)
+        private static string SendPut(string url, string requestBody, out bool success, out string message)
         {
             var request = GetHttpWebRequest(_server + url);
             request.Method = "PUT";
@@ -530,7 +544,7 @@ namespace ApiUkrPost
             return result;
         }
 
-        private string SendDelete(string url, out bool success, out string message)
+        private static string SendDelete(string url, out bool success, out string message)
         {
             var request = GetHttpWebRequest(_server + url);
             request.Method = "DELETE";
@@ -616,7 +630,7 @@ namespace ApiUkrPost
         //    return ParseResponse(response, out success, out message);
         //}
 
-        private string ParseResponse(HttpWebResponse response, out bool success, out string message)
+        private static string ParseResponse(HttpWebResponse response, out bool success, out string message)
         {
             if (response.StatusCode != HttpStatusCode.OK)
             {
@@ -674,9 +688,9 @@ namespace ApiUkrPost
         //}
         #endregion
 
-        public string GetStickerFile(string uuid)
+        public static string GetStickerFile(string uuid)
         {
-            var fileNamePDF = Path.GetTempPath() + Guid.NewGuid().ToString();
+            var fileNamePDF = Path.GetTempPath() + Guid.NewGuid().ToString() + ".pdf" ;
 
             try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
             catch { return null; }
@@ -726,10 +740,10 @@ namespace ApiUkrPost
         //    return null;
         //}
 
-        public string GetStickerFileXml(string bearer, string token, string uuid)
+        public static void GetStickerFileXml(string bearer, string token, string uuid, out string result)
         {
             Init(bearer, token, "");
-            return GetStickerFile(uuid);
+            result = GetStickerFile(uuid);
         }
     }
 }

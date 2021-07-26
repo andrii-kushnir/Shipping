@@ -16,6 +16,16 @@ namespace ApiUkrPost.Base
         public string lastName { get; set; } // Для фіз. особи
         public long addressId { get; set; }
         public bool ShouldSerializeaddressId() { return addressId != 0; }
+        public List<Address> addresses { get; set; }
+        public bool ShouldSerializeaddresses() { return false; }
+        public string addressName { 
+            get 
+            {
+                if (addresses == null || addresses.Count == 0) return null;
+                return addresses.FirstOrDefault(a => a.main)?.address?.ToString();
+            }
+            set { value = null; }
+        }
         public string edrpou { get; set; } // Обов"язкове для юр. особи
         public string tin { get; set; } // Обов"язкове для юр. особи
         public string phoneNumber { get; set; }
@@ -63,5 +73,14 @@ namespace ApiUkrPost.Base
         POSTPAY_PAYMENT_CASH_ONLY = 0,
         POSTPAY_PAYMENT_CASHLESS_ONLY = 1,
         POSTPAY_PAYMENT_CASH_AND_CASHLESS = 2 
+    }
+
+    public class Address
+    {
+        public string uuid { get; set; }
+        public int addressId { get; set; }
+        public AddressDto address { get; set; }
+        public string type { get; set; }
+        public bool main { get; set; }
     }
 }
