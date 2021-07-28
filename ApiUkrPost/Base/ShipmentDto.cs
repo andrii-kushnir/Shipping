@@ -13,6 +13,8 @@ namespace ApiUkrPost.Base
     {
         public string uuid { get; set; }
         public bool ShouldSerializeuuid() { return uuid != null; }
+        public string barcode { get; set; }
+        public bool ShouldSerializebarcode() { return barcode != null; }
         public ClientDto sender { get; set; }
         public ClientDto recipient { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]

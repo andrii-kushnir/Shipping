@@ -1,50 +1,52 @@
-[
-    {
-        "uuid": "444dbe6a-3cbf-43f0-b38a-44592ba4113b",
-        "name": "Петров Петро",
-        "firstName": "Петро",
-        "middleName": null,
-        "lastName": "Петров",
+{
+    "uuid": "e52f6c75-6f1d-4d38-abbf-9208e24a82e7",
+    "type": "STANDARD",
+    "sender": {
+        "uuid": "1bd2e07e-52a6-4eda-bd48-60624153d5d8",
+        "name": "Олег Кельнер Володимирович",
+        "firstName": "Кельнер",
+        "middleName": "Володимирович",
+        "lastName": "Олег",
         "latinName": null,
         "contactPersonName": null,
         "type": "INDIVIDUAL",
         "postId": null,
         "externalId": null,
         "uniqueRegistrationNumber": null,
-        "counterpartyUuid": "f3064067-b199-4d17-a41c-4f9c3fc4f686",
-        "addressId": 3370817,
+        "counterpartyUuid": "ddd2d84f-db7b-460c-b68e-1c6df1917959",
+        "addressId": 188358418,
         "addresses": [
             {
-                "uuid": "70e16c20-9e03-4c1a-b597-7eb37944710e",
-                "addressId": 3370817,
+                "uuid": "cf3194fd-ae79-4ef6-8f6f-e84ae7df27e0",
+                "addressId": 188358418,
                 "address": {
-                    "id": 3370817,
-                    "postcode": "46020",
+                    "id": 188358418,
+                    "postcode": "46002",
                     "region": "Тернопільська",
-                    "district": "Тернопільська",
+                    "district": "Тернопільський",
                     "city": "Тернопіль",
-                    "street": "Бойківська",
-                    "houseNumber": "1",
+                    "street": "Збаразька",
+                    "houseNumber": "18",
                     "apartmentNumber": null,
                     "description": null,
                     "countryside": false,
                     "posteRestante": false,
                     "foreignStreetHouseApartment": null,
-                    "detailedInfo": "Україна, 46020, Тернопільська, Тернопільська, Тернопіль, Бойківська 1",
-                    "created": "2021-07-13T18:25:12",
-                    "lastModified": "2021-07-13T18:25:12",
+                    "detailedInfo": "Україна, 46002, Тернопільська, Тернопільський, Тернопіль, Збаразька 18",
+                    "created": "2021-07-13T11:29:42",
+                    "lastModified": "2021-07-13T11:29:42",
                     "country": "UA"
                 },
                 "type": "PHYSICAL",
                 "main": true
             }
         ],
-        "phoneNumber": "+380689559242",
+        "phoneNumber": "+380936542537",
         "phones": [
             {
-                "uuid": "24a1e4f1-ab4b-4efe-b136-54069c225eaf",
-                "phoneId": 3370845,
-                "phoneNumber": "+380689559242",
+                "uuid": "eb862850-3a37-4c1b-8c7e-90d583584ee2",
+                "phoneId": 10477328,
+                "phoneNumber": "+380936542537",
                 "type": "PERSONAL",
                 "main": true
             }
@@ -62,5 +64,154 @@
         "GDPRAccept": false,
         "personalDataApproved": false,
         "checkOnDeliveryAllowed": true
-    }
-]
+    },
+    "dropOffPostcode": "46002",
+    "recipient": {
+        "uuid": "a024e5b3-845d-46fa-b9d7-dfbd4727f241",
+        "name": "Кушнір Андрій Степанович",
+        "firstName": "Андрій",
+        "middleName": "Степанович",
+        "lastName": "Кушнір",
+        "latinName": null,
+        "contactPersonName": null,
+        "type": "INDIVIDUAL",
+        "postId": null,
+        "externalId": null,
+        "uniqueRegistrationNumber": null,
+        "counterpartyUuid": "ddd2d84f-db7b-460c-b68e-1c6df1917959",
+        "addressId": 190599201,
+        "addresses": [
+            {
+                "uuid": "e9c490dc-f6e9-4541-97b8-c303504255d7",
+                "addressId": 190599201,
+                "address": {
+                    "id": 190599201,
+                    "postcode": "46016",
+                    "region": "Тернопільська",
+                    "district": "Тернопільський",
+                    "city": "Тернопіль",
+                    "street": "15 квітня",
+                    "houseNumber": "37",
+                    "apartmentNumber": "117",
+                    "description": null,
+                    "countryside": false,
+                    "posteRestante": false,
+                    "foreignStreetHouseApartment": null,
+                    "detailedInfo": "Україна, 46016, Тернопільська, Тернопільський, Тернопіль, 15 квітня 37, 117",
+                    "created": "2021-07-23T14:55:38",
+                    "lastModified": "2021-07-23T14:55:38",
+                    "country": "UA"
+                },
+                "type": "PHYSICAL",
+                "main": true
+            }
+        ],
+        "phoneNumber": "+380689559241",
+        "phones": [
+            {
+                "uuid": "baefcfeb-b431-48e3-a460-9f44bf6a1340",
+                "phoneId": 186065483,
+                "phoneNumber": "+380689559241",
+                "type": "PERSONAL",
+                "main": true
+            }
+        ],
+        "email": "",
+        "emails": [],
+        "bankAccount": null,
+        "postPayPaymentType": "POSTPAY_PAYMENT_CASH_ONLY",
+        "accountType": {
+            "type": "CORPORATE",
+            "assignmentDate": "2021-03-01"
+        },
+        "resident": true,
+        "GDPRRead": false,
+        "GDPRAccept": false,
+        "personalDataApproved": false,
+        "checkOnDeliveryAllowed": true
+    },
+    "recipientPhone": "+380689559241",
+    "recipientEmail": null,
+    "recipientAddressId": 190599201,
+    "senderAddressId": 188358418,
+    "returnAddressId": 188358418,
+    "shipmentGroupUuid": null,
+    "externalId": null,
+    "deliveryType": "W2W",
+    "packageType": null,
+    "onFailReceiveType": "RETURN",
+    "barcode": "0503084660290",
+    "weight": 500,
+    "length": 50,
+    "width": 0,
+    "height": 0,
+    "declaredPrice": null,
+    "deliveryPrice": 20.9,
+    "rawDeliveryPrice": 22,
+    "returnDeliveryPrice": 1.19,
+    "postPay": null,
+    "postPayUah": 0,
+    "postPayDeliveryPrice": 0,
+    "currencyCode": null,
+    "postPayCurrencyCode": null,
+    "currencyExchangeRate": null,
+    "discounts": [
+        {
+            "uuid": "133aaed9-47da-4574-b9a7-b785c83e003f",
+            "name": "Он-лайн оформлення 5% Стандарт",
+            "fromDate": "2018-01-01",
+            "toDate": "2099-01-01",
+            "value": 5.0,
+            "category": "CONTRACT_DISCOUNT",
+            "type": "BASE"
+        }
+    ],
+    "lastModified": "2021-07-26T12:34:03",
+    "description": null,
+    "parcels": [
+        {
+            "uuid": "d24a13d5-1f7e-4aac-9c4e-0b99b2eb3ddc",
+            "name": null,
+            "parcelNumber": 1,
+            "barcode": "0503084660290",
+            "contentsType": null,
+            "weight": 500,
+            "length": 50,
+            "width": 0,
+            "height": 0,
+            "declaredPrice": null,
+            "parcelItems": [],
+            "description": null
+        }
+    ],
+    "direction": {
+        "regionSortingCenter": "Тернопіль",
+        "districtSortingCenter": null,
+        "postOfficeNumber": "46016",
+        "postOfficeName": "Тернопіль"
+    },
+    "lifecycle": {
+        "status": "CREATED",
+        "statusDate": "2021-07-26T12:34:03"
+    },
+    "deliveryDate": "2021-07-27T00:00:00",
+    "calculationDescription": "Price=20.90: Calculation contains 1 parcels, new measures are weight:500, length:50, height:0, width:0; price for the weight=0.00; tariff (STANDARD, REGION, 500 g, 50 cm)=22.00; Он-лайн оформлення 5% Стандарт=1.10; return delivery price=1.19",
+    "availablePaymentTypes": [ "CARD_ON_SITE", "CASH", "CARD", "CASHLESS" ],
+    "paidByRecipient": false,
+    "postPayPaidByRecipient": true,
+    "bulky": false,
+    "fragile": false,
+    "bees": false,
+    "sms": false,
+    "toReturnToSender": null,
+    "documentBack": false,
+    "checkOnDelivery": false,
+    "transferPostPayToBankAccount": false,
+    "deliveryPricePaid": false,
+    "postPayPaid": false,
+    "postPayDeliveryPricePaid": false,
+    "packedBySender": false,
+    "free": false,
+    "withDeliveryNotification": false,
+    "fittingAllowed": false
+}
