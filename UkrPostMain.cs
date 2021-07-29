@@ -105,13 +105,31 @@ namespace PostAPI
             if (_tbPostCode.Text.Trim() != "" && int.TryParse(_tbPostCode.Text.Trim(), out int index) && index != 0)
             {
                 var city = Controller.GetCityByPostcode(index);
-                if (city != null)
-                {
-                    _cbDistrict.Text = city.DISTRICTUA;
-                    _cbRegion.Text = city.REGIONUA;
-                    _cbCity.Text = city.CITYUA;
-                    return;
-                }
+                if (city == null) return;
+
+                var region = _regions.FindIndex(r => r.REGIONUA == city.REGIONUA);
+                _cbRegion.SelectedIndex = region;
+
+                _districts = Controller.GetDistricts(Convert.ToInt64(_regions[region].REGIONID), city.DISTRICTUA);
+                if (_districts == null || _districts.Count == 0) return;
+                _cbDistrict.Items.Clear();
+                _cbDistrict.Items.AddRange(_districts.Select(d => d.ToString()).ToArray());
+                _cbDistrict.SelectedIndex = 0;
+
+                _cities = Controller.GetCities(Convert.ToInt64(_regions[region].REGIONID), Convert.ToInt64(_districts[0].DISTRICTID), city.CITYUA);
+                if (_cities == null || _cities.Count == 0) return;
+                _cbCity.Items.Clear();
+                _cbCity.Items.AddRange(_cities.Select(d => d.ToString()).ToArray());
+                _cbCity.SelectedIndex = 0;
+
+                _streets = Controller.GetStreets(Convert.ToInt64(_regions[region].REGIONID), Convert.ToInt64(_districts[0].DISTRICTID), Convert.ToInt64(_cities[0].CITYID), "");
+                if (_streets == null || _streets.Count == 0) return;
+                _cbStreet.Items.Clear();
+                _cbStreet.Items.AddRange(_streets.Select(d => d.ToString()).ToArray());
+                _cbStreet.Text = "";
+                _cbHouse.Text = "";
+                _tbApartment.Text = "";
+
             }
         }
 
@@ -341,6 +359,45 @@ namespace PostAPI
                     File.Copy(fileNamePDF, saveFileDialog.FileName);
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (_tbAddressId.Text.Trim() != "" && long.TryParse(_tbAddressId.Text.Trim(), out long id) && id != 0)
+            {
+                Address = Controller.GetAddressByID(id);
+                if (Address == null) return;
+
+                var region = _regions.FindIndex(r => r.REGIONUA == Address.region);
+                _cbRegion.SelectedIndex = region;
+
+                _districts = Controller.GetDistricts(Convert.ToInt64(_regions[region].REGIONID), Address.district);
+                if (_districts == null || _districts.Count == 0) return;
+                _cbDistrict.Items.Clear();
+                _cbDistrict.Items.AddRange(_districts.Select(d => d.ToString()).ToArray());
+                _cbDistrict.SelectedIndex = 0;
+
+                _cities = Controller.GetCities(Convert.ToInt64(_regions[region].REGIONID), Convert.ToInt64(_districts[0].DISTRICTID), Address.city);
+                if (_cities == null || _cities.Count == 0) return;
+                _cbCity.Items.Clear();
+                _cbCity.Items.AddRange(_cities.Select(d => d.ToString()).ToArray());
+                _cbCity.SelectedIndex = 0;
+
+                _streets = Controller.GetStreets(Convert.ToInt64(_regions[region].REGIONID), Convert.ToInt64(_districts[0].DISTRICTID), Convert.ToInt64(_cities[0].CITYID), Address.street);
+                if (_streets == null || _streets.Count == 0) return;
+                _cbStreet.Items.Clear();
+                _cbStreet.Items.AddRange(_streets.Select(d => d.ToString()).ToArray());
+                _cbStreet.SelectedIndex = 0;
+
+                _houses = Controller.GetHouses(Convert.ToInt64(_streets[0].STREETID), Address.houseNumber);
+                if (_houses == null || _houses.Count == 0) return;
+                _cbHouse.Items.Clear();
+                _cbHouse.Items.AddRange(_houses.Select(d => d.ToString()).ToArray());
+                _cbHouse.SelectedIndex = 0;
+
+                _tbApartment.Text = Address.apartmentNumber;
+            }
+
         }
     }
 }

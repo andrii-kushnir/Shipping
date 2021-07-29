@@ -28,6 +28,8 @@ namespace ApiUkrPost.Base
         public bool sms { get; set; }
         public bool paidByRecipient { get; set; }
         public string description { get; set; }
+        public string calculationDescription { get; set; }
+        public bool ShouldSerializecalculationDescription() { return calculationDescription != null; }
         public string lastModified { get; set; }
         public bool ShouldSerializelastModified() { return false; }
         public LifecycleDto lifecycle { get; set; }

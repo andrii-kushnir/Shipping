@@ -71,6 +71,9 @@ namespace PostAPI
             this.label9 = new System.Windows.Forms.Label();
             this._btCreateClient = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this._btSaveFile = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this._btGetSticker = new System.Windows.Forms.Button();
             this._btGetShipment = new System.Windows.Forms.Button();
             this._tbDeclaredPrice = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
@@ -98,23 +101,24 @@ namespace PostAPI
             this._tbPhoneClient = new System.Windows.Forms.TextBox();
             this._btClients = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this._btShipmentDelete = new System.Windows.Forms.Button();
+            this._tbShipmentDelete = new System.Windows.Forms.TextBox();
             this._dgvShipments = new System.Windows.Forms.DataGridView();
             this._tbSenderAll = new System.Windows.Forms.TextBox();
             this._btGetShipmentBySender = new System.Windows.Forms.Button();
-            this._btGetSticker = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this._btSaveFile = new System.Windows.Forms.Button();
-            this._btShipmentDelete = new System.Windows.Forms.Button();
-            this._tbShipmentDelete = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvClients)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvShipments)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // _bLogOut
@@ -154,6 +158,7 @@ namespace PostAPI
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this._tbApartment);
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this._tbAddressId);
@@ -223,7 +228,7 @@ namespace PostAPI
             this._btGetAddress.Name = "_btGetAddress";
             this._btGetAddress.Size = new System.Drawing.Size(338, 44);
             this._btGetAddress.TabIndex = 19;
-            this._btGetAddress.Text = "Отримати адресу";
+            this._btGetAddress.Text = "Отримати адресу по індексу";
             this._btGetAddress.UseVisualStyleBackColor = true;
             this._btGetAddress.Click += new System.EventHandler(this._btGetAddress_Click);
             // 
@@ -586,6 +591,36 @@ namespace PostAPI
             this.tabPage3.Text = "Створення відправлення";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // _btSaveFile
+            // 
+            this._btSaveFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btSaveFile.Location = new System.Drawing.Point(1073, 107);
+            this._btSaveFile.Name = "_btSaveFile";
+            this._btSaveFile.Size = new System.Drawing.Size(338, 44);
+            this._btSaveFile.TabIndex = 63;
+            this._btSaveFile.Text = "Зберегти PDF-файл";
+            this._btSaveFile.UseVisualStyleBackColor = true;
+            this._btSaveFile.Click += new System.EventHandler(this._btSaveFile_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(669, 171);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(950, 681);
+            this.pictureBox1.TabIndex = 62;
+            this.pictureBox1.TabStop = false;
+            // 
+            // _btGetSticker
+            // 
+            this._btGetSticker.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btGetSticker.Location = new System.Drawing.Point(669, 107);
+            this._btGetSticker.Name = "_btGetSticker";
+            this._btGetSticker.Size = new System.Drawing.Size(338, 44);
+            this._btGetSticker.TabIndex = 61;
+            this._btGetSticker.Text = "Отримання ярлику";
+            this._btGetSticker.UseVisualStyleBackColor = true;
+            this._btGetSticker.Click += new System.EventHandler(this._btGetSticker_Click);
+            // 
             // _btGetShipment
             // 
             this._btGetShipment.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -792,6 +827,7 @@ namespace PostAPI
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label27);
             this.tabPage4.Controls.Add(this._dgvClients);
             this.tabPage4.Controls.Add(this._tbPhoneClient);
             this.tabPage4.Controls.Add(this._btClients);
@@ -815,7 +851,7 @@ namespace PostAPI
             // _tbPhoneClient
             // 
             this._tbPhoneClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbPhoneClient.Location = new System.Drawing.Point(86, 29);
+            this._tbPhoneClient.Location = new System.Drawing.Point(212, 29);
             this._tbPhoneClient.Name = "_tbPhoneClient";
             this._tbPhoneClient.Size = new System.Drawing.Size(210, 29);
             this._tbPhoneClient.TabIndex = 40;
@@ -823,16 +859,18 @@ namespace PostAPI
             // _btClients
             // 
             this._btClients.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btClients.Location = new System.Drawing.Point(330, 22);
+            this._btClients.Location = new System.Drawing.Point(508, 22);
             this._btClients.Name = "_btClients";
             this._btClients.Size = new System.Drawing.Size(338, 44);
             this._btClients.TabIndex = 39;
-            this._btClients.Text = "Отримати клієнтів";
+            this._btClients.Text = "Отримати клієнта(-ів)";
             this._btClients.UseVisualStyleBackColor = true;
             this._btClients.Click += new System.EventHandler(this._btClients_Click);
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.label29);
+            this.tabPage5.Controls.Add(this.label28);
             this.tabPage5.Controls.Add(this._btShipmentDelete);
             this.tabPage5.Controls.Add(this._tbShipmentDelete);
             this.tabPage5.Controls.Add(this._dgvShipments);
@@ -844,6 +882,25 @@ namespace PostAPI
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Список відправлень";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // _btShipmentDelete
+            // 
+            this._btShipmentDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btShipmentDelete.Location = new System.Drawing.Point(1260, 27);
+            this._btShipmentDelete.Name = "_btShipmentDelete";
+            this._btShipmentDelete.Size = new System.Drawing.Size(338, 44);
+            this._btShipmentDelete.TabIndex = 66;
+            this._btShipmentDelete.Text = "Видалити відправлення";
+            this._btShipmentDelete.UseVisualStyleBackColor = true;
+            this._btShipmentDelete.Click += new System.EventHandler(this._btShipmentDelete_Click);
+            // 
+            // _tbShipmentDelete
+            // 
+            this._tbShipmentDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbShipmentDelete.Location = new System.Drawing.Point(856, 34);
+            this._tbShipmentDelete.Name = "_tbShipmentDelete";
+            this._tbShipmentDelete.Size = new System.Drawing.Size(398, 29);
+            this._tbShipmentDelete.TabIndex = 65;
             // 
             // _dgvShipments
             // 
@@ -874,54 +931,46 @@ namespace PostAPI
             this._btGetShipmentBySender.UseVisualStyleBackColor = true;
             this._btGetShipmentBySender.Click += new System.EventHandler(this._btGetShipmentBySender_Click);
             // 
-            // _btGetSticker
+            // button1
             // 
-            this._btGetSticker.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btGetSticker.Location = new System.Drawing.Point(669, 107);
-            this._btGetSticker.Name = "_btGetSticker";
-            this._btGetSticker.Size = new System.Drawing.Size(338, 44);
-            this._btGetSticker.TabIndex = 61;
-            this._btGetSticker.Text = "Отримання ярлику";
-            this._btGetSticker.UseVisualStyleBackColor = true;
-            this._btGetSticker.Click += new System.EventHandler(this._btGetSticker_Click);
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(26, 381);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(403, 44);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "Отримати адресу по ID";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // pictureBox1
+            // label27
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(669, 171);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(950, 681);
-            this.pictureBox1.TabIndex = 62;
-            this.pictureBox1.TabStop = false;
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label27.Location = new System.Drawing.Point(115, 35);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(91, 20);
+            this.label27.TabIndex = 42;
+            this.label27.Text = "Телефон:";
             // 
-            // _btSaveFile
+            // label28
             // 
-            this._btSaveFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btSaveFile.Location = new System.Drawing.Point(1073, 107);
-            this._btSaveFile.Name = "_btSaveFile";
-            this._btSaveFile.Size = new System.Drawing.Size(338, 44);
-            this._btSaveFile.TabIndex = 63;
-            this._btSaveFile.Text = "Зберегти PDF-файл";
-            this._btSaveFile.UseVisualStyleBackColor = true;
-            this._btSaveFile.Click += new System.EventHandler(this._btSaveFile_Click);
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label28.Location = new System.Drawing.Point(170, 11);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(111, 20);
+            this.label28.TabIndex = 67;
+            this.label28.Text = "Відправник:";
             // 
-            // _btShipmentDelete
+            // label29
             // 
-            this._btShipmentDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btShipmentDelete.Location = new System.Drawing.Point(1260, 27);
-            this._btShipmentDelete.Name = "_btShipmentDelete";
-            this._btShipmentDelete.Size = new System.Drawing.Size(338, 44);
-            this._btShipmentDelete.TabIndex = 66;
-            this._btShipmentDelete.Text = "Видалити відправлення";
-            this._btShipmentDelete.UseVisualStyleBackColor = true;
-            this._btShipmentDelete.Click += new System.EventHandler(this._btShipmentDelete_Click);
-            // 
-            // _tbShipmentDelete
-            // 
-            this._tbShipmentDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbShipmentDelete.Location = new System.Drawing.Point(856, 34);
-            this._tbShipmentDelete.Name = "_tbShipmentDelete";
-            this._tbShipmentDelete.Size = new System.Drawing.Size(398, 29);
-            this._tbShipmentDelete.TabIndex = 65;
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label29.Location = new System.Drawing.Point(999, 11);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(133, 20);
+            this.label29.TabIndex = 68;
+            this.label29.Text = "Відправлення:";
             // 
             // UkrPostMain
             // 
@@ -939,13 +988,13 @@ namespace PostAPI
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvClients)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvShipments)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1029,5 +1078,9 @@ namespace PostAPI
         private System.Windows.Forms.Button _btSaveFile;
         private System.Windows.Forms.Button _btShipmentDelete;
         private System.Windows.Forms.TextBox _tbShipmentDelete;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label28;
     }
 }
