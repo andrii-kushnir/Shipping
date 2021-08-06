@@ -23,11 +23,6 @@ namespace PostAPI
         private readonly User _user;
         private readonly Controller _controller;
 
-        private const string SenderAddress = "188358418";
-        private const string SenderUuid = "1bd2e07e-52a6-4eda-bd48-60624153d5d8";
-        private const string AddressMy = "188510591";
-        private const string UuidMy = "d13743c3-1803-4e6f-b48a-535e997494fa";
-
         private List<Region> _regions;
         private List<District> _districts;
         private List<City> _cities;
@@ -54,20 +49,6 @@ namespace PostAPI
             {
                 _controller = new Controller(_user.AuthorizationBearer, _user.UserToken);
             }
-            _regions = Controller.GetRegions("");
-            _cbRegion.Items.AddRange(_regions.Select(r => r.ToString()).ToArray());
-            _cbRegion.SelectedIndex = 18;
-
-            _cbClientType.Items.AddRange(Enum.GetValues(typeof(ClientIndivType)).Cast<ClientIndivType>().Select(c => c.ToString()).ToArray());
-            _cbClientType.SelectedIndex = 0;
-
-            _cbShipmentType.Items.AddRange(Enum.GetValues(typeof(ShipmentType)).Cast<ShipmentType>().Select(c => c.ToString()).ToArray());
-            _cbShipmentType.SelectedIndex = 1;
-
-            _cbDeliveryType.Items.AddRange(Enum.GetValues(typeof(DeliveryType)).Cast<DeliveryType>().Select(c => c.ToString()).ToArray());
-            _cbDeliveryType.SelectedIndex = 0;
-
-            _tbSender.Text = SenderUuid;
         }
 
         private void _bLogOut_Click(object sender, EventArgs e)
@@ -79,24 +60,49 @@ namespace PostAPI
         {
             if (_cbDistrict.Text != "" && _cbCity.Text != "" && _cbStreet.Text != "" && _cbHouse.Text != "")
             {
-                _tbPostCode.Text = _houses[_cbHouse.SelectedIndex].POSTCODE;
-
-                Address = Controller.CreateAddress(_houses[_cbHouse.SelectedIndex].POSTCODE,
-                                                          _regions[_cbRegion.SelectedIndex].ToString(),
-                                                          _districts[_cbDistrict.SelectedIndex].ToString(),
-                                                          _cities[_cbCity.SelectedIndex].ToString(),
-                                                          _streets[_cbStreet.SelectedIndex].ToString(),
-                                                          _houses[_cbHouse.SelectedIndex].HOUSENUMBERUA,
-                                                          _tbApartment.Text.Trim());
-                if (Address != null)
+                if (_tbPostCode.Text.Trim() != "" && int.TryParse(_tbPostCode.Text.Trim(), out int index) && index != 0)
                 {
-                    _tbAddressId.Text = Address.id.ToString();
-                    _tbClientAddressId.Text = Address.id.ToString();
+                    if (index == Convert.ToInt32(_houses[_cbHouse.SelectedIndex].POSTCODE))
+                    {
+                        Address = Controller.CreateAddress(index.ToString(),
+                                                           _regions[_cbRegion.SelectedIndex].ToString(),
+                                                           _districts[_cbDistrict.SelectedIndex].ToString(),
+                                                           _cities[_cbCity.SelectedIndex].ToString(),
+                                                           _streets[_cbStreet.SelectedIndex].ToString(),
+                                                           _houses[_cbHouse.SelectedIndex].HOUSENUMBERUA,
+                                                           _tbApartment.Text.Trim());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Індекс і адреса не відповідають один онному!");
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                if (_tbPostCode.Text.Trim() != "" && int.TryParse(_tbPostCode.Text.Trim(), out int index) && index != 0)
+                {
+                    Address = Controller.CreateAddress(index.ToString(),
+                                   _regions[_cbRegion.SelectedIndex].ToString(),
+                                   _districts[_cbDistrict.SelectedIndex].ToString(),
+                                   _cities[_cbCity.SelectedIndex].ToString());
                 }
                 else
                 {
-                    _tbAddressId.Text = "Не створено";
+                    MessageBox.Show("Введіть індекс!");
+                    return;
                 }
+            }
+
+            if (Address != null)
+            {
+                _tbAddressId.Text = Address.id.ToString();
+                _tbClientAddressId.Text = Address.id.ToString();
+            }
+            else
+            {
+                _tbAddressId.Text = "Не створено";
             }
         }
 
@@ -129,7 +135,6 @@ namespace PostAPI
                 _cbStreet.Text = "";
                 _cbHouse.Text = "";
                 _tbApartment.Text = "";
-
             }
         }
 
@@ -229,11 +234,20 @@ namespace PostAPI
         {
             if (_tbSender.Text.Trim() != "" && _tbRecipient.Text.Trim() != "" && _cbShipmentType.Text != "" && _cbDeliveryType.Text != "" && int.TryParse(_tbWeight.Text.Trim(), out int weight) && int.TryParse(_tbLength.Text.Trim(), out int length))
             {
-                // ДОРОБИТИ ІНШІ ПОЛЯ
+                double? postPay = null;
+                if (_tbPostPay.Text.Trim() != "" && double.TryParse(_tbPostPay.Text.Trim(), out double pay) && pay != 0)
+                {
+                    postPay = pay;
+                }
+
                 Shipment = Controller.CreateShipment(_tbSender.Text.Trim(), 
                                                      _tbRecipient.Text.Trim(), 
                                                      (DeliveryType)_cbDeliveryType.SelectedIndex, 
-                                                     (ShipmentType)_cbShipmentType.SelectedIndex, 
+                                                     (ShipmentType)_cbShipmentType.SelectedIndex,
+                                                     _cbPaidByRecipient.SelectedIndex == 0 ? true : false,
+                                                     _cbReview.Checked,
+                                                     postPay,
+                                                     postPay == null ? true : _cbPostPayPaidByRecipient.Checked,
                                                      weight, 
                                                      length, 
                                                      _tbWidth.Text.ParseNullableInt(), 
@@ -265,8 +279,21 @@ namespace PostAPI
                     _tbRecipient.Text = Shipment.recipient.uuid.ToString();
                     _cbShipmentType.Text = Shipment.type.ToString();
                     _cbDeliveryType.Text = Shipment.deliveryType.ToString();
+                    _cbPaidByRecipient.SelectedIndex = Shipment.paidByRecipient ? 0 : 1;
+                    _cbReview.Checked = Shipment.checkOnDelivery;
+                    
+                    if (Shipment.postPay != 0)
+                    {
+                        _tbPostPay.Text = Shipment.postPay.ToString();
+                        _cbPostPayPaidByRecipient.Checked = Shipment.postPayPaidByRecipient;
+                    }
+                    else
+                    {
+                        _cbPostPayPaidByRecipient.Checked = true;
+                    }
                     _tbWeight.Text = Shipment.parcels[0].weight.ToString();
                     _tbLength.Text = Shipment.parcels[0].length.ToString();
+                    _tbDeclaredPrice.Text = Shipment.parcels[0].declaredPrice.ToString();
                 }
             }
         }
@@ -398,6 +425,79 @@ namespace PostAPI
                 _tbApartment.Text = Address.apartmentNumber;
             }
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (_tbClientAddressId.Text != "" && _tbPhone.Text.Trim() != "")
+            {
+                Client = Controller.CreateClientArbitrary(Convert.ToInt64(_tbClientAddressId.Text), _tbPhone.Text.Trim());
+            }
+        }
+
+        private void UkrPostMain_Load(object sender, EventArgs e)
+        {
+            _regions = Controller.GetRegions("");
+            _cbRegion.Items.AddRange(_regions.Select(r => r.ToString()).ToArray());
+            _cbRegion.SelectedIndex = 18;
+
+            _cbClientType.Items.AddRange(Enum.GetValues(typeof(ClientIndivType)).Cast<ClientIndivType>().Select(c => c.ToString()).ToArray());
+            _cbClientType.SelectedIndex = 0;
+
+            _cbShipmentType.Items.AddRange(Enum.GetValues(typeof(ShipmentType)).Cast<ShipmentType>().Select(c => c.ToString()).ToArray());
+            _cbShipmentType.SelectedIndex = 1;
+
+            _cbDeliveryType.Items.AddRange(Enum.GetValues(typeof(DeliveryType)).Cast<DeliveryType>().Select(c => c.ToString()).ToArray());
+            _cbDeliveryType.SelectedIndex = 0;
+
+            _cbPaidByRecipient.Items.AddRange(new string[] { "Платить одержувач", "Платить відправник" });
+            _cbPaidByRecipient.SelectedIndex = 0;
+
+            _cbPostPayPaidByRecipient.Checked = true;
+        }
+
+        private void _tbPostCode_Leave(object sender, EventArgs e)
+        {
+            if (_tbPostCode.Text.Trim() != "" && int.TryParse(_tbPostCode.Text.Trim(), out int index) && index != 0)
+            {
+                var city = Controller.GetCityByPostcode(index);
+                if (city == null)
+                {
+                    _tbPostCode.Text = "";
+                    _cbDistrict.Items.Clear();
+                    _cbDistrict.Text = "";
+                    _cbCity.Text = "";
+                    _cbStreet.Text = "";
+                    _cbHouse.Text = "";
+                    _tbApartment.Text = "";
+                    MessageBox.Show("Такий індекс не знайдений!");
+                }
+                else
+                {
+                    var region = _regions.FindIndex(r => r.REGIONUA == city.REGIONUA);
+                    _cbRegion.SelectedIndex = region;
+
+                    _districts = Controller.GetDistricts(Convert.ToInt64(_regions[region].REGIONID), city.DISTRICTUA);
+                    if (_districts == null || _districts.Count == 0) return;
+                    _cbDistrict.Items.Clear();
+                    _cbDistrict.Items.AddRange(_districts.Select(d => d.ToString()).ToArray());
+                    _cbDistrict.SelectedIndex = 0;
+
+                    _cities = Controller.GetCities(Convert.ToInt64(_regions[region].REGIONID), Convert.ToInt64(_districts[0].DISTRICTID), city.CITYUA);
+                    if (_cities == null || _cities.Count == 0) return;
+                    _cbCity.Items.Clear();
+                    _cbCity.Items.AddRange(_cities.Select(d => d.ToString()).ToArray());
+                    _cbCity.SelectedIndex = 0;
+
+                    _streets = Controller.GetStreets(Convert.ToInt64(_regions[region].REGIONID), Convert.ToInt64(_districts[0].DISTRICTID), Convert.ToInt64(_cities[0].CITYID), "");
+                    if (_streets == null || _streets.Count == 0) return;
+                    _cbStreet.Items.Clear();
+                    _cbStreet.Items.AddRange(_streets.Select(d => d.ToString()).ToArray());
+                    _cbStreet.Text = "";
+                    _cbHouse.Text = "";
+                    _tbApartment.Text = "";
+                }
+            }
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace ApiUkrPost.Base
 {
@@ -22,8 +24,12 @@ namespace ApiUkrPost.Base
         [JsonConverter(typeof(StringEnumConverter))]
         public ShipmentType type { get; set; }
         public List<ParcelDto> parcels { get; set; }
-        public int? postPay { get; set; }
+        public double? postPay { get; set; }
         public bool ShouldSerializepostPay() { return (postPay != null && postPay != 0); }
+        public bool postPayPaidByRecipient { get; set; }
+        public bool ShouldSerializepostPayPaidByRecipient() { return (postPay != null && postPay != 0); }
+        public double deliveryPrice { get; set; }
+        public bool ShouldSerializedeliveryPrice() { return deliveryPrice != 0; }
         //public bool recommended { get; set; }
         public bool sms { get; set; }
         public bool paidByRecipient { get; set; }
@@ -33,9 +39,11 @@ namespace ApiUkrPost.Base
         public string lastModified { get; set; }
         public bool ShouldSerializelastModified() { return false; }
         public LifecycleDto lifecycle { get; set; }
-        public bool ShouldSerializelifecycle() { return false; }
+        public bool ShouldSerializelifecycle() { return lifecycle != null; }
         public DirectionDto direction { get; set; }
         public bool ShouldSerializedirection() { return false; }
+        public bool checkOnDelivery { get; set; }
+
         // Не дописані всі поля!
 
         public string ToJson()
@@ -72,17 +80,41 @@ namespace ApiUkrPost.Base
 
     public enum Status1
     {
+        [EnumMember(Value = "ІНІЦІАЛІЗОВАНО")]
+        [XmlEnum(Name = "ІНІЦІАЛІЗОВАНО")]
         INITIALIZED = 0,
+        [EnumMember(Value = "СТВОРЕНО")]
+        [XmlEnum(Name = "СТВОРЕНО")]
         CREATED = 1,
+        [EnumMember(Value = "ЗАРЕЄСТРОВАНО")]
+        [XmlEnum(Name = "ЗАРЕЄСТРОВАНО")]
         REGISTERED = 2,
+        [EnumMember(Value = "ПЕРЕАДРЕСАЦІЯ")]
+        [XmlEnum(Name = "ПЕРЕАДРЕСАЦІЯ")]
         FORWARDING = 3,
+        [EnumMember(Value = "ПОВЕРНЕННЯ")]
+        [XmlEnum(Name = "ПОВЕРНЕННЯ")]
         RETURNING = 4,
+        [EnumMember(Value = "ПОВЕРНУТО")]
+        [XmlEnum(Name = "ПОВЕРНУТО")]
         RETURNED = 5,
+        [EnumMember(Value = "ДОСТАВЛЕНО")]
+        [XmlEnum(Name = "ДОСТАВЛЕНО")]
         DELIVERED = 6,
+        [EnumMember(Value = "У ВІДДІЛЕННІ")]
+        [XmlEnum(Name = "У ВІДДІЛЕННІ")]
         IN_DEPARTMENT = 7,
+        [EnumMember(Value = "ДОСТАВЛЯЄТЬСЯ")]
+        [XmlEnum(Name = "ДОСТАВЛЯЄТЬСЯ")]
         DELIVERING = 8,
+        [EnumMember(Value = "НА ЗБЕРІГАННІ")]
+        [XmlEnum(Name = "НА ЗБЕРІГАННІ")]
         STORAGE = 9,
+        [EnumMember(Value = "СКАСОВАНО")]
+        [XmlEnum(Name = "СКАСОВАНО")]
         CANCELED = 10,
+        [EnumMember(Value = "ВИДАЛЕНО")]
+        [XmlEnum(Name = "ВИДАЛЕНО")]
         DELETED = 11
     }
 
@@ -90,10 +122,10 @@ namespace ApiUkrPost.Base
     {
         [JsonConverter(typeof(StringEnumConverter))]
         public Status1 status { get; set; }
-        public string statusDate { get; set; }
+        public string statusDate { get; set; }  // переписати на номальну дату для вибору тільки "активних" відправлень 
         public override string ToString()
         {
-            return status.ToString() + " встановлено " + statusDate;
+            return status.GetEnumMember() + " встановлено " + statusDate;
         }
     }
     public class DirectionDto

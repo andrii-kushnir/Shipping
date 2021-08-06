@@ -54,7 +54,7 @@ namespace ApiUkrPost
             return request;
         }
 
-        public static AddressDto CreateAddress(string postcode, string region, string district, string city, string street, string houseNumber, string apartmentNumber, string description = "")
+        public static AddressDto CreateAddress(string postcode, string region, string district, string city, string street = "", string houseNumber = "", string apartmentNumber = "", string description = "")
         {
             var address = new AddressDto()
             {
@@ -108,6 +108,27 @@ namespace ApiUkrPost
             var response = SendPost($"/clients?token={_userToken}", client.ToJson(), out bool success, out string message);
             if (!success) return null;
             var result = JsonConvert.DeserializeObject<ClientDto>(response);
+            return result;
+        }
+
+        private static bool _one = false;
+        public static ClientDto CreateClientArbitrary(long addressId, string phoneNumber)
+        {
+            if (_one) return null;
+            var client = new ClientDto()
+            {
+                name = "ФОП Кельнер Олег Володимирович",
+                addressId = addressId,
+                //edrpou = "",
+                tin = "3413904819",
+                phoneNumber = phoneNumber,
+                type = ClientIndivType.PRIVATE_ENTREPRENEUR,
+                contactPersonName = "Кельнер Олег Володимирович"
+            };
+            var response = SendPost($"/clients?token={_userToken}", client.ToJson(), out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<ClientDto>(response);
+            _one = true;
             return result;
         }
 
@@ -169,7 +190,7 @@ namespace ApiUkrPost
             result = GetClients(phone).ToXml<List<ClientDto>>();
         }
 
-        public static ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType type, int weight, int length, int? width = 0, int? height = 0, int? declaredPrice = 0, string description = "")
+        public static ShipmentDto CreateShipment(string sender, string recipient, DeliveryType deliveryType, ShipmentType type, bool paidByRecipient, bool checkOnDelivery, double? postPay, bool postPayPaidByRecipient, int weight, int length, int? width = 0, int? height = 0, double? declaredPrice = 0, string description = "")
         {
             var shipment = new ShipmentDto()
             {
@@ -186,6 +207,10 @@ namespace ApiUkrPost
                         height = height,
                         declaredPrice = declaredPrice
                     }},
+                paidByRecipient = paidByRecipient,
+                checkOnDelivery = checkOnDelivery,
+                postPay = postPay,
+                postPayPaidByRecipient = postPayPaidByRecipient,
                 description = description
             };
             var response = SendPost($"/shipments?token={_userToken}", shipment.ToJson(), out bool success, out string message);
@@ -194,12 +219,12 @@ namespace ApiUkrPost
             return result;
         }
 
-        public static void CreateShipmentXml(string bearer, string token, string sender, string recipient, string deliveryType, string type, int weight, int length, int width, int height, int declaredPrice, string description, out string result)
+        public static void CreateShipmentXml(string bearer, string token, string sender, string recipient, string deliveryType, string type, bool paidByRecipient, bool checkOnDelivery, double? postPay, bool postPayPaidByRecipient, int weight, int length, int width, int height, double declaredPrice, string description, out string result)
         {
             var DeliveryTypeEnum = (DeliveryType)Enum.Parse(typeof(DeliveryType), deliveryType);
             var typeEnum = (ShipmentType)Enum.Parse(typeof(ShipmentType), type);
             Init(bearer, token, "");
-            result = CreateShipment(sender, recipient, DeliveryTypeEnum, typeEnum, weight, length, width, height, declaredPrice, description).ToXml<ShipmentDto>();
+            result = CreateShipment(sender, recipient, DeliveryTypeEnum, typeEnum, paidByRecipient, checkOnDelivery, postPay, postPayPaidByRecipient, weight, length, width, height, declaredPrice, description).ToXml<ShipmentDto>();
         }
 
         public static ShipmentDto GetShipment(string uuid)
@@ -394,21 +419,20 @@ namespace ApiUkrPost
             var response = GetFromAddress($"/get_city_details_by_postcode?postcode={postindex}&lang=UA", out bool success, out string message);
             if (success)
             {
-                try
+                var indexs = JsonConvert.DeserializeObject<CitiesFromIndexRoot>(response).Entries;
+                if (indexs != null && indexs.Entry != null && indexs.Entry.Count != 0)
                 {
-                    var r = JsonConvert.DeserializeObject<CitiesFromIndexRoot>(response).Entries.Entry[0];
                     result = new City()
                     {
-                        CITYID = r.CITYID,
-                        CITYUA = r.CITYNAME,
-                        CITYTYPEUA = r.CITYTYPENAME,
-                        DISTRICTID = r.DISTRICTID,
-                        DISTRICTUA = r.DISTRICTNAME,
-                        REGIONID = r.REGIONID,
-                        REGIONUA = r.REGIONNAME
+                        CITYID = indexs.Entry[0].CITYID,
+                        CITYUA = indexs.Entry[0].CITYNAME,
+                        CITYTYPEUA = indexs.Entry[0].CITYTYPENAME,
+                        DISTRICTID = indexs.Entry[0].DISTRICTID,
+                        DISTRICTUA = indexs.Entry[0].DISTRICTNAME,
+                        REGIONID = indexs.Entry[0].REGIONID,
+                        REGIONUA = indexs.Entry[0].REGIONNAME
                     };
                 }
-                catch { }
             }
             return result;
         }

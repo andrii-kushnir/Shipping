@@ -33,11 +33,11 @@ namespace PostAPI
             this._btGetIndex = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this._tbApartment = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this._tbAddressId = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this._btGetAddress = new System.Windows.Forms.Button();
             this._cbHouse = new System.Windows.Forms.ComboBox();
             this._tbPostCode = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -51,6 +51,7 @@ namespace PostAPI
             this._cbRegion = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this._tbMiddleName = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this._btGetClient = new System.Windows.Forms.Button();
@@ -71,6 +72,14 @@ namespace PostAPI
             this.label9 = new System.Windows.Forms.Label();
             this._btCreateClient = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label33 = new System.Windows.Forms.Label();
+            this._cbPostPayPaidByRecipient = new System.Windows.Forms.CheckBox();
+            this._tbPostPay = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this._cbReview = new System.Windows.Forms.CheckBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this._cbPaidByRecipient = new System.Windows.Forms.ComboBox();
+            this.label30 = new System.Windows.Forms.Label();
             this._btSaveFile = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this._btGetSticker = new System.Windows.Forms.Button();
@@ -97,19 +106,18 @@ namespace PostAPI
             this._tbSender = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label27 = new System.Windows.Forms.Label();
             this._dgvClients = new System.Windows.Forms.DataGridView();
             this._tbPhoneClient = new System.Windows.Forms.TextBox();
             this._btClients = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this._btShipmentDelete = new System.Windows.Forms.Button();
             this._tbShipmentDelete = new System.Windows.Forms.TextBox();
             this._dgvShipments = new System.Windows.Forms.DataGridView();
             this._tbSenderAll = new System.Windows.Forms.TextBox();
             this._btGetShipmentBySender = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -135,11 +143,11 @@ namespace PostAPI
             // _btGetIndex
             // 
             this._btGetIndex.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btGetIndex.Location = new System.Drawing.Point(26, 261);
+            this._btGetIndex.Location = new System.Drawing.Point(57, 329);
             this._btGetIndex.Name = "_btGetIndex";
             this._btGetIndex.Size = new System.Drawing.Size(403, 44);
             this._btGetIndex.TabIndex = 14;
-            this._btGetIndex.Text = "Запам\"ятати адресу і отримати індекс";
+            this._btGetIndex.Text = "Створити адресу (отримати індекс)";
             this._btGetIndex.UseVisualStyleBackColor = true;
             this._btGetIndex.Click += new System.EventHandler(this._btGetIndex_Click);
             // 
@@ -163,7 +171,6 @@ namespace PostAPI
             this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Controls.Add(this._tbAddressId);
             this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this._btGetAddress);
             this.tabPage1.Controls.Add(this._cbHouse);
             this.tabPage1.Controls.Add(this._tbPostCode);
             this.tabPage1.Controls.Add(this.label7);
@@ -185,10 +192,21 @@ namespace PostAPI
             this.tabPage1.Text = "Адреси & Індекс";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(57, 449);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(403, 44);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "Отримати адресу по ID";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // _tbApartment
             // 
             this._tbApartment.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbApartment.Location = new System.Drawing.Point(348, 210);
+            this._tbApartment.Location = new System.Drawing.Point(379, 278);
             this._tbApartment.Name = "_tbApartment";
             this._tbApartment.Size = new System.Drawing.Size(81, 29);
             this._tbApartment.TabIndex = 13;
@@ -197,7 +215,7 @@ namespace PostAPI
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(105, 216);
+            this.label8.Location = new System.Drawing.Point(136, 284);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(237, 20);
             this.label8.TabIndex = 12;
@@ -206,7 +224,7 @@ namespace PostAPI
             // _tbAddressId
             // 
             this._tbAddressId.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbAddressId.Location = new System.Drawing.Point(298, 328);
+            this._tbAddressId.Location = new System.Drawing.Point(329, 396);
             this._tbAddressId.Name = "_tbAddressId";
             this._tbAddressId.Size = new System.Drawing.Size(131, 29);
             this._tbAddressId.TabIndex = 16;
@@ -215,28 +233,17 @@ namespace PostAPI
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(105, 334);
+            this.label6.Location = new System.Drawing.Point(136, 402);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(187, 20);
             this.label6.TabIndex = 15;
             this.label6.Text = "ID створеної адреси:";
             // 
-            // _btGetAddress
-            // 
-            this._btGetAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btGetAddress.Location = new System.Drawing.Point(526, 77);
-            this._btGetAddress.Name = "_btGetAddress";
-            this._btGetAddress.Size = new System.Drawing.Size(338, 44);
-            this._btGetAddress.TabIndex = 19;
-            this._btGetAddress.Text = "Отримати адресу по індексу";
-            this._btGetAddress.UseVisualStyleBackColor = true;
-            this._btGetAddress.Click += new System.EventHandler(this._btGetAddress_Click);
-            // 
             // _cbHouse
             // 
             this._cbHouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbHouse.FormattingEnabled = true;
-            this._cbHouse.Location = new System.Drawing.Point(178, 166);
+            this._cbHouse.Location = new System.Drawing.Point(209, 234);
             this._cbHouse.Name = "_cbHouse";
             this._cbHouse.Size = new System.Drawing.Size(251, 28);
             this._cbHouse.TabIndex = 11;
@@ -244,16 +251,17 @@ namespace PostAPI
             // _tbPostCode
             // 
             this._tbPostCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbPostCode.Location = new System.Drawing.Point(764, 23);
+            this._tbPostCode.Location = new System.Drawing.Point(341, 30);
             this._tbPostCode.Name = "_tbPostCode";
             this._tbPostCode.Size = new System.Drawing.Size(100, 29);
             this._tbPostCode.TabIndex = 18;
+            this._tbPostCode.Leave += new System.EventHandler(this._tbPostCode_Leave);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(652, 26);
+            this.label7.Location = new System.Drawing.Point(229, 33);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(106, 24);
             this.label7.TabIndex = 17;
@@ -263,7 +271,7 @@ namespace PostAPI
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(87, 169);
+            this.label5.Location = new System.Drawing.Point(118, 237);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 20);
             this.label5.TabIndex = 10;
@@ -273,7 +281,7 @@ namespace PostAPI
             // 
             this._cbStreet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbStreet.FormattingEnabled = true;
-            this._cbStreet.Location = new System.Drawing.Point(178, 130);
+            this._cbStreet.Location = new System.Drawing.Point(209, 198);
             this._cbStreet.Name = "_cbStreet";
             this._cbStreet.Size = new System.Drawing.Size(251, 28);
             this._cbStreet.TabIndex = 9;
@@ -283,7 +291,7 @@ namespace PostAPI
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(97, 133);
+            this.label4.Location = new System.Drawing.Point(128, 201);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 20);
             this.label4.TabIndex = 8;
@@ -293,7 +301,7 @@ namespace PostAPI
             // 
             this._cbCity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbCity.FormattingEnabled = true;
-            this._cbCity.Location = new System.Drawing.Point(178, 95);
+            this._cbCity.Location = new System.Drawing.Point(209, 163);
             this._cbCity.Name = "_cbCity";
             this._cbCity.Size = new System.Drawing.Size(251, 28);
             this._cbCity.TabIndex = 7;
@@ -303,7 +311,7 @@ namespace PostAPI
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(66, 98);
+            this.label3.Location = new System.Drawing.Point(97, 166);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(106, 20);
             this.label3.TabIndex = 6;
@@ -313,7 +321,7 @@ namespace PostAPI
             // 
             this._cbDistrict.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbDistrict.FormattingEnabled = true;
-            this._cbDistrict.Location = new System.Drawing.Point(178, 58);
+            this._cbDistrict.Location = new System.Drawing.Point(209, 126);
             this._cbDistrict.Name = "_cbDistrict";
             this._cbDistrict.Size = new System.Drawing.Size(251, 28);
             this._cbDistrict.TabIndex = 5;
@@ -323,7 +331,7 @@ namespace PostAPI
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(107, 61);
+            this.label2.Location = new System.Drawing.Point(138, 129);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 20);
             this.label2.TabIndex = 4;
@@ -333,7 +341,7 @@ namespace PostAPI
             // 
             this._cbRegion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbRegion.FormattingEnabled = true;
-            this._cbRegion.Location = new System.Drawing.Point(178, 22);
+            this._cbRegion.Location = new System.Drawing.Point(209, 90);
             this._cbRegion.Name = "_cbRegion";
             this._cbRegion.Size = new System.Drawing.Size(251, 28);
             this._cbRegion.TabIndex = 3;
@@ -343,7 +351,7 @@ namespace PostAPI
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(85, 25);
+            this.label1.Location = new System.Drawing.Point(116, 93);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 20);
             this.label1.TabIndex = 2;
@@ -351,6 +359,7 @@ namespace PostAPI
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button2);
             this.tabPage2.Controls.Add(this._tbMiddleName);
             this.tabPage2.Controls.Add(this.label25);
             this.tabPage2.Controls.Add(this._btGetClient);
@@ -377,6 +386,17 @@ namespace PostAPI
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Клієнти";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(286, 601);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(338, 44);
+            this.button2.TabIndex = 39;
+            this.button2.Text = "Створити приватного підприємця";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // _tbMiddleName
             // 
@@ -558,6 +578,14 @@ namespace PostAPI
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label33);
+            this.tabPage3.Controls.Add(this._cbPostPayPaidByRecipient);
+            this.tabPage3.Controls.Add(this._tbPostPay);
+            this.tabPage3.Controls.Add(this.label32);
+            this.tabPage3.Controls.Add(this._cbReview);
+            this.tabPage3.Controls.Add(this.label31);
+            this.tabPage3.Controls.Add(this._cbPaidByRecipient);
+            this.tabPage3.Controls.Add(this.label30);
             this.tabPage3.Controls.Add(this._btSaveFile);
             this.tabPage3.Controls.Add(this.pictureBox1);
             this.tabPage3.Controls.Add(this._btGetSticker);
@@ -590,6 +618,83 @@ namespace PostAPI
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Створення відправлення";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label33.Location = new System.Drawing.Point(49, 675);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(287, 20);
+            this.label33.TabIndex = 71;
+            this.label33.Text = "післяоплату сплачує одержувач:";
+            // 
+            // _cbPostPayPaidByRecipient
+            // 
+            this._cbPostPayPaidByRecipient.AutoSize = true;
+            this._cbPostPayPaidByRecipient.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._cbPostPayPaidByRecipient.Location = new System.Drawing.Point(340, 680);
+            this._cbPostPayPaidByRecipient.Name = "_cbPostPayPaidByRecipient";
+            this._cbPostPayPaidByRecipient.Size = new System.Drawing.Size(15, 14);
+            this._cbPostPayPaidByRecipient.TabIndex = 70;
+            this._cbPostPayPaidByRecipient.UseVisualStyleBackColor = true;
+            // 
+            // _tbPostPay
+            // 
+            this._tbPostPay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbPostPay.Location = new System.Drawing.Point(210, 621);
+            this._tbPostPay.Name = "_tbPostPay";
+            this._tbPostPay.Size = new System.Drawing.Size(128, 29);
+            this._tbPostPay.TabIndex = 69;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label32.Location = new System.Drawing.Point(85, 627);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(119, 20);
+            this.label32.TabIndex = 68;
+            this.label32.Text = "післяоплата:";
+            // 
+            // _cbReview
+            // 
+            this._cbReview.AutoSize = true;
+            this._cbReview.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._cbReview.Location = new System.Drawing.Point(210, 586);
+            this._cbReview.Name = "_cbReview";
+            this._cbReview.Size = new System.Drawing.Size(15, 14);
+            this._cbReview.TabIndex = 67;
+            this._cbReview.UseVisualStyleBackColor = true;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label31.Location = new System.Drawing.Point(139, 580);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(65, 20);
+            this.label31.TabIndex = 66;
+            this.label31.Text = "огляд:";
+            // 
+            // _cbPaidByRecipient
+            // 
+            this._cbPaidByRecipient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._cbPaidByRecipient.FormattingEnabled = true;
+            this._cbPaidByRecipient.Location = new System.Drawing.Point(210, 527);
+            this._cbPaidByRecipient.Name = "_cbPaidByRecipient";
+            this._cbPaidByRecipient.Size = new System.Drawing.Size(398, 28);
+            this._cbPaidByRecipient.TabIndex = 65;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label30.Location = new System.Drawing.Point(129, 530);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(75, 20);
+            this.label30.TabIndex = 64;
+            this.label30.Text = "оплата:";
             // 
             // _btSaveFile
             // 
@@ -690,7 +795,7 @@ namespace PostAPI
             // _btCreateShipment
             // 
             this._btCreateShipment.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btCreateShipment.Location = new System.Drawing.Point(108, 546);
+            this._btCreateShipment.Location = new System.Drawing.Point(108, 742);
             this._btCreateShipment.Name = "_btCreateShipment";
             this._btCreateShipment.Size = new System.Drawing.Size(338, 44);
             this._btCreateShipment.TabIndex = 57;
@@ -838,6 +943,16 @@ namespace PostAPI
             this.tabPage4.Text = "Список клієнтів";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label27.Location = new System.Drawing.Point(115, 35);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(91, 20);
+            this.label27.TabIndex = 42;
+            this.label27.Text = "Телефон:";
+            // 
             // _dgvClients
             // 
             this._dgvClients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -882,6 +997,26 @@ namespace PostAPI
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Список відправлень";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label29.Location = new System.Drawing.Point(999, 11);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(133, 20);
+            this.label29.TabIndex = 68;
+            this.label29.Text = "Відправлення:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label28.Location = new System.Drawing.Point(170, 11);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(111, 20);
+            this.label28.TabIndex = 67;
+            this.label28.Text = "Відправник:";
             // 
             // _btShipmentDelete
             // 
@@ -931,47 +1066,6 @@ namespace PostAPI
             this._btGetShipmentBySender.UseVisualStyleBackColor = true;
             this._btGetShipmentBySender.Click += new System.EventHandler(this._btGetShipmentBySender_Click);
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(26, 381);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(403, 44);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Отримати адресу по ID";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label27.Location = new System.Drawing.Point(115, 35);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(91, 20);
-            this.label27.TabIndex = 42;
-            this.label27.Text = "Телефон:";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label28.Location = new System.Drawing.Point(170, 11);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(111, 20);
-            this.label28.TabIndex = 67;
-            this.label28.Text = "Відправник:";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label29.Location = new System.Drawing.Point(999, 11);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(133, 20);
-            this.label29.TabIndex = 68;
-            this.label29.Text = "Відправлення:";
-            // 
             // UkrPostMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -981,6 +1075,7 @@ namespace PostAPI
             this.Controls.Add(this._bLogOut);
             this.Name = "UkrPostMain";
             this.Text = "UkrPostMain";
+            this.Load += new System.EventHandler(this.UkrPostMain_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -1018,7 +1113,6 @@ namespace PostAPI
         private System.Windows.Forms.ComboBox _cbRegion;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox _cbHouse;
-        private System.Windows.Forms.Button _btGetAddress;
         private System.Windows.Forms.TextBox _tbAddressId;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox _tbApartment;
@@ -1082,5 +1176,14 @@ namespace PostAPI
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.ComboBox _cbPaidByRecipient;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox _cbReview;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.CheckBox _cbPostPayPaidByRecipient;
+        private System.Windows.Forms.TextBox _tbPostPay;
+        private System.Windows.Forms.Label label32;
     }
 }

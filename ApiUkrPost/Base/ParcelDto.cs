@@ -15,7 +15,7 @@ namespace ApiUkrPost.Base
         public bool ShouldSerializebarcode() { return barcode != null; }
         public int parcelNumber { get; set; }
         public bool ShouldSerializeparcelNumber() { return parcelNumber != 0; }
-        public int? declaredPrice { get; set; }
+        public double? declaredPrice { get; set; }
         public bool ShouldSerializedeclaredPrice() { return declaredPrice != null; }
         public string description { get; set; } // maxLength: 1024
         public bool ShouldSerializedescription() { return false; }
