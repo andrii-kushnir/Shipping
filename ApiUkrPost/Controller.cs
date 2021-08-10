@@ -15,16 +15,19 @@ namespace ApiUkrPost
     public class Controller
     {
         private const string ApiLink = "https://www.ukrposhta.ua/ecom/0.0.1";
-        private const string AddressLink = "https://www.ukrposhta.ua/address-classifier-ws";
+        private const string ApiLinkAddress = "https://www.ukrposhta.ua/address-classifier-ws";
+        private const string ApiLinkStatuses = "https://www.ukrposhta.ua/status-tracking/0.0.1";
         private const string ApiLink_test = "https://dev.ukrposhta.ua/ecom/0.0.1";
 
         //private static HttpClient Client;
         private static string _server;
         private static string _authorizationBearer;
+        private static string _authorizationBearerTracking;
         private static string _userToken;
 
-        public Controller(string bearer, string token, string server = "")
+        public Controller(string bearer, string token, string bearerTracking, string server = "")
         {
+            _authorizationBearerTracking = bearerTracking;
             Init(bearer, token, server);
         }
 
@@ -45,11 +48,11 @@ namespace ApiUkrPost
             //Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        private static HttpWebRequest GetHttpWebRequest(string url)
+        private static HttpWebRequest GetHttpWebRequest(string url, string bearer = "")
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.PreAuthenticate = true;
-            request.Headers.Add("Authorization", "Bearer " + _authorizationBearer);
+            request.Headers.Add("Authorization", "Bearer " + (bearer == "" ? _authorizationBearer : bearer));
             request.Accept = "application/json";
             return request;
         }
@@ -288,9 +291,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public static void GetRegionsXml(string bearer, string token, out string result)
+        public static void GetRegionsXml(string bearer, out string result)
         {
-            Init(bearer, token, "");
+            Init(bearer, "", "");
             result = GetRegions("").ToXml<List<Region>>();
         }
 
@@ -309,9 +312,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public static void GetDistrictsXml(string bearer, string token, long region, out string result)
+        public static void GetDistrictsXml(string bearer, long region, out string result)
         {
-            Init(bearer, token, "");
+            Init(bearer, "", "");
             result = GetDistricts(region, "").ToXml<List<District>>();
         }
 
@@ -330,9 +333,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public static void GetCitiesXml(string bearer, string token, long region, long district, out string result)
+        public static void GetCitiesXml(string bearer, long region, long district, out string result)
         {
-            Init(bearer, token, "");
+            Init(bearer, "", "");
             result = GetCities(region, district, "").ToXml<List<City>>();
         }
 
@@ -351,9 +354,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public static void GetStreetsXml(string bearer, string token, long region, long district, long city, out string result)
+        public static void GetStreetsXml(string bearer, long region, long district, long city, out string result)
         {
-            Init(bearer, token, "");
+            Init(bearer, "", "");
             result = GetStreets(region, district, city, "").ToXml<List<Street>>();
         }
 
@@ -372,9 +375,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public static void GetHousesXml(string bearer, string token, long street, out string result)
+        public static void GetHousesXml(string bearer, long street, out string result)
         {
-            Init(bearer, token, "");
+            Init(bearer, "", "");
             result = GetHouses(street, "").ToXml<List<House>>();
         }
 
@@ -437,9 +440,9 @@ namespace ApiUkrPost
             return result;
         }
 
-        public static void GetCityByPostcodeXml(string bearer, string token, int postindex, out string result)
+        public static void GetCityByPostcodeXml(string bearer, int postindex, out string result)
         {
-            Init(bearer, token, "");
+            Init(bearer, "", "");
             result = GetCityByPostcode(postindex).ToXml<City>();
         }
 
@@ -458,17 +461,48 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetPostofficesXml(string bearer, string token, long city)
+        public string GetPostofficesXml(string bearer, long city)
         {
-            Init(bearer, token, "");
+            Init(bearer, "", "");
             return GetPostoffices(city).ToXml<List<Postoffice>>();
+        }
+
+        public static List<Status> GetStatuses(string barcode)
+        {
+            var result = new List<Status>();
+            var response = GetFromStatuses($"/statuses?barcode={barcode}", out bool success, out string message);
+            if (success)
+            {
+                try
+                {
+                    result = JsonConvert.DeserializeObject<List<Status>>(response);
+                }
+                catch { }
+            }
+            return result;
+        }
+
+        public static string GetStatusesXml(string bearer, string barcode)
+        {
+            Init(bearer, "", "");
+            return GetStatuses(barcode).ToXml<List<Status>>();
         }
 
         private static string GetFromAddress(string url, out bool success, out string message)
         {
-            var request = GetHttpWebRequest(AddressLink + url);
+            var request = GetHttpWebRequest(ApiLinkAddress + url);
             request.Method = "GET";
-            var response = (HttpWebResponse)request.GetResponse();
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+                return null;
+            }
             var result =  ParseResponse(response, out success, out message);
             response.Close();
             return result;
@@ -489,6 +523,43 @@ namespace ApiUkrPost
         //    }
         //    return ParseResponse(response, out success, out message);
         //}
+
+        private static string GetFromStatuses(string url, out bool success, out string message)
+        {
+            var request = GetHttpWebRequest(ApiLinkStatuses + url, _authorizationBearerTracking);
+            request.Method = "GET";
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                success = false;
+                message = ex.Message;
+                return null;
+            }
+            var result = ParseResponse(response, out success, out message);
+            response.Close();
+            return result;
+        }
+
+        //private string GetFromStatuses(string url, out bool success, out string message)
+        //{
+        //    HttpResponseMessage response;
+        //    try
+        //    {
+        //        response = Client.GetAsync(ApiLinkStatuses + url).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        success = false;
+        //        message = ex.Message;
+        //        return null;
+        //    }
+        //    return ParseResponse(response, out success, out message);
+        //}
+
         #endregion
 
         #region Base Method: GET, POST, PUT, DELETE

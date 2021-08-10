@@ -23,6 +23,8 @@ namespace PostAPI
         private readonly User _user;
         private readonly Controller _controller;
 
+        private static string _authorizationBearerTracking = "ec449353-4e4f-3b6c-877b-0b93e8d45601";
+
         private List<Region> _regions;
         private List<District> _districts;
         private List<City> _cities;
@@ -41,13 +43,14 @@ namespace PostAPI
         public UkrPostMain(User user, string server = "") : this()
         {
             _user = user;
+            _authorizationBearerTracking = "ec449353-4e4f-3b6c-877b-0b93e8d45601";
             if (server == "Test")
             {
-                _controller = new Controller(_user.AuthorizationBearer, _user.UserToken, "Test");
+                _controller = new Controller(_user.AuthorizationBearer, _user.UserToken, _authorizationBearerTracking, "Test");
             }
             else
             {
-                _controller = new Controller(_user.AuthorizationBearer, _user.UserToken);
+                _controller = new Controller(_user.AuthorizationBearer, _user.UserToken, _authorizationBearerTracking);
             }
         }
 
@@ -252,7 +255,8 @@ namespace PostAPI
                                                      length, 
                                                      _tbWidth.Text.ParseNullableInt(), 
                                                      _tbHeight.Text.ParseNullableInt(), 
-                                                     _tbDeclaredPrice.Text.ParseNullableInt());
+                                                     _tbDeclaredPrice.Text.ParseNullableInt(),
+                                                     _rtbDescription.Text.Trim());
                 if (Shipment == null)
                 {
                     MessageBox.Show("Відправлення не створено!");
@@ -294,6 +298,7 @@ namespace PostAPI
                     _tbWeight.Text = Shipment.parcels[0].weight.ToString();
                     _tbLength.Text = Shipment.parcels[0].length.ToString();
                     _tbDeclaredPrice.Text = Shipment.parcels[0].declaredPrice.ToString();
+                    _rtbDescription.Text = Shipment.description;
                 }
             }
         }
@@ -359,8 +364,7 @@ namespace PostAPI
 
         private void _btGetSticker_Click(object sender, EventArgs e)
         {
-            var fileNameJPG = Path.GetTempPath() + @"UkrPost.jpg";
-            try { if (File.Exists(fileNameJPG)) File.Delete(fileNameJPG); } catch { return; }
+            var fileNameJPG = Path.GetTempPath() + Guid.NewGuid().ToString() + ".jpg";
 
             var fileNamePDF = Controller.GetStickerFile(_tbShipmentUuid.Text.Trim());
             if (fileNamePDF == null) return;
@@ -370,7 +374,8 @@ namespace PostAPI
             {
                 document.Save(fileNameJPG);
             }
-
+            dataGridView1.Visible = false;
+            pictureBox1.Visible = true;
             pictureBox1.Image = Image.FromFile(fileNameJPG);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
@@ -383,7 +388,7 @@ namespace PostAPI
                 var saveFileDialog = new SaveFileDialog() { Filter = "PDF-files|*.pdf" };
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    File.Copy(fileNamePDF, saveFileDialog.FileName);
+                    File.Copy(fileNamePDF, saveFileDialog.FileName, true);
                 }
             }
         }
@@ -496,6 +501,33 @@ namespace PostAPI
                     _cbStreet.Text = "";
                     _cbHouse.Text = "";
                     _tbApartment.Text = "";
+                }
+            }
+        }
+
+        private void _btStatuses_Click(object sender, EventArgs e)
+        {
+            if (_tbShipmentUuid.Text.Trim() != "")
+            {
+                Shipment = Controller.GetShipment(_tbShipmentUuid.Text.Trim());
+                if (Shipment == null)
+                {
+                    MessageBox.Show("Відправлення не знайдено!");
+                }
+                else
+                {
+                    var Statuses = Controller.GetStatuses(Shipment.barcode);
+                    if (Statuses != null && Statuses.Count != 0)
+                    {
+                        pictureBox1.Visible = false;
+                        dataGridView1.Visible = true;
+                        dataGridView1.DataSource = Statuses;
+                        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Відправлення не трекається. Ймовірно воно ще не відправлене.");
+                    }
                 }
             }
         }

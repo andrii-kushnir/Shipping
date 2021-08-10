@@ -118,6 +118,9 @@ namespace PostAPI
             this._dgvShipments = new System.Windows.Forms.DataGridView();
             this._tbSenderAll = new System.Windows.Forms.TextBox();
             this._btGetShipmentBySender = new System.Windows.Forms.Button();
+            this._rtbDescription = new System.Windows.Forms.RichTextBox();
+            this._btStatuses = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -127,6 +130,7 @@ namespace PostAPI
             ((System.ComponentModel.ISupportInitialize)(this._dgvClients)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvShipments)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // _bLogOut
@@ -578,6 +582,9 @@ namespace PostAPI
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.dataGridView1);
+            this.tabPage3.Controls.Add(this._btStatuses);
+            this.tabPage3.Controls.Add(this._rtbDescription);
             this.tabPage3.Controls.Add(this.label33);
             this.tabPage3.Controls.Add(this._cbPostPayPaidByRecipient);
             this.tabPage3.Controls.Add(this._tbPostPay);
@@ -623,17 +630,17 @@ namespace PostAPI
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label33.Location = new System.Drawing.Point(49, 675);
+            this.label33.Location = new System.Drawing.Point(6, 608);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(287, 20);
+            this.label33.Size = new System.Drawing.Size(367, 20);
             this.label33.TabIndex = 71;
-            this.label33.Text = "післяоплату сплачує одержувач:";
+            this.label33.Text = "комісію за післяплату сплачує одержувач:";
             // 
             // _cbPostPayPaidByRecipient
             // 
             this._cbPostPayPaidByRecipient.AutoSize = true;
             this._cbPostPayPaidByRecipient.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._cbPostPayPaidByRecipient.Location = new System.Drawing.Point(340, 680);
+            this._cbPostPayPaidByRecipient.Location = new System.Drawing.Point(379, 613);
             this._cbPostPayPaidByRecipient.Name = "_cbPostPayPaidByRecipient";
             this._cbPostPayPaidByRecipient.Size = new System.Drawing.Size(15, 14);
             this._cbPostPayPaidByRecipient.TabIndex = 70;
@@ -642,7 +649,7 @@ namespace PostAPI
             // _tbPostPay
             // 
             this._tbPostPay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbPostPay.Location = new System.Drawing.Point(210, 621);
+            this._tbPostPay.Location = new System.Drawing.Point(210, 569);
             this._tbPostPay.Name = "_tbPostPay";
             this._tbPostPay.Size = new System.Drawing.Size(128, 29);
             this._tbPostPay.TabIndex = 69;
@@ -651,17 +658,17 @@ namespace PostAPI
             // 
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label32.Location = new System.Drawing.Point(85, 627);
+            this.label32.Location = new System.Drawing.Point(85, 575);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(119, 20);
+            this.label32.Size = new System.Drawing.Size(109, 20);
             this.label32.TabIndex = 68;
-            this.label32.Text = "післяоплата:";
+            this.label32.Text = "післяплата:";
             // 
             // _cbReview
             // 
             this._cbReview.AutoSize = true;
             this._cbReview.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._cbReview.Location = new System.Drawing.Point(210, 586);
+            this._cbReview.Location = new System.Drawing.Point(210, 543);
             this._cbReview.Name = "_cbReview";
             this._cbReview.Size = new System.Drawing.Size(15, 14);
             this._cbReview.TabIndex = 67;
@@ -671,7 +678,7 @@ namespace PostAPI
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label31.Location = new System.Drawing.Point(139, 580);
+            this.label31.Location = new System.Drawing.Point(139, 537);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(65, 20);
             this.label31.TabIndex = 66;
@@ -681,7 +688,7 @@ namespace PostAPI
             // 
             this._cbPaidByRecipient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbPaidByRecipient.FormattingEnabled = true;
-            this._cbPaidByRecipient.Location = new System.Drawing.Point(210, 527);
+            this._cbPaidByRecipient.Location = new System.Drawing.Point(210, 500);
             this._cbPaidByRecipient.Name = "_cbPaidByRecipient";
             this._cbPaidByRecipient.Size = new System.Drawing.Size(398, 28);
             this._cbPaidByRecipient.TabIndex = 65;
@@ -690,7 +697,7 @@ namespace PostAPI
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label30.Location = new System.Drawing.Point(129, 530);
+            this.label30.Location = new System.Drawing.Point(129, 503);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(75, 20);
             this.label30.TabIndex = 64;
@@ -699,9 +706,9 @@ namespace PostAPI
             // _btSaveFile
             // 
             this._btSaveFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btSaveFile.Location = new System.Drawing.Point(1073, 107);
+            this._btSaveFile.Location = new System.Drawing.Point(987, 107);
             this._btSaveFile.Name = "_btSaveFile";
-            this._btSaveFile.Size = new System.Drawing.Size(338, 44);
+            this._btSaveFile.Size = new System.Drawing.Size(314, 44);
             this._btSaveFile.TabIndex = 63;
             this._btSaveFile.Text = "Зберегти PDF-файл";
             this._btSaveFile.UseVisualStyleBackColor = true;
@@ -714,13 +721,14 @@ namespace PostAPI
             this.pictureBox1.Size = new System.Drawing.Size(950, 681);
             this.pictureBox1.TabIndex = 62;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // _btGetSticker
             // 
             this._btGetSticker.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._btGetSticker.Location = new System.Drawing.Point(669, 107);
             this._btGetSticker.Name = "_btGetSticker";
-            this._btGetSticker.Size = new System.Drawing.Size(338, 44);
+            this._btGetSticker.Size = new System.Drawing.Size(314, 44);
             this._btGetSticker.TabIndex = 61;
             this._btGetSticker.Text = "Отримання ярлику";
             this._btGetSticker.UseVisualStyleBackColor = true;
@@ -740,7 +748,7 @@ namespace PostAPI
             // _tbDeclaredPrice
             // 
             this._tbDeclaredPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbDeclaredPrice.Location = new System.Drawing.Point(210, 473);
+            this._tbDeclaredPrice.Location = new System.Drawing.Point(210, 452);
             this._tbDeclaredPrice.Name = "_tbDeclaredPrice";
             this._tbDeclaredPrice.Size = new System.Drawing.Size(128, 29);
             this._tbDeclaredPrice.TabIndex = 56;
@@ -749,7 +757,7 @@ namespace PostAPI
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label26.Location = new System.Drawing.Point(19, 479);
+            this.label26.Location = new System.Drawing.Point(19, 458);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(185, 20);
             this.label26.TabIndex = 55;
@@ -795,7 +803,7 @@ namespace PostAPI
             // _btCreateShipment
             // 
             this._btCreateShipment.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btCreateShipment.Location = new System.Drawing.Point(108, 742);
+            this._btCreateShipment.Location = new System.Drawing.Point(151, 791);
             this._btCreateShipment.Name = "_btCreateShipment";
             this._btCreateShipment.Size = new System.Drawing.Size(338, 44);
             this._btCreateShipment.TabIndex = 57;
@@ -806,7 +814,7 @@ namespace PostAPI
             // _tbHeight
             // 
             this._tbHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbHeight.Location = new System.Drawing.Point(210, 418);
+            this._tbHeight.Location = new System.Drawing.Point(210, 403);
             this._tbHeight.Name = "_tbHeight";
             this._tbHeight.Size = new System.Drawing.Size(128, 29);
             this._tbHeight.TabIndex = 54;
@@ -814,7 +822,7 @@ namespace PostAPI
             // _tbWidth
             // 
             this._tbWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbWidth.Location = new System.Drawing.Point(210, 365);
+            this._tbWidth.Location = new System.Drawing.Point(210, 354);
             this._tbWidth.Name = "_tbWidth";
             this._tbWidth.Size = new System.Drawing.Size(128, 29);
             this._tbWidth.TabIndex = 52;
@@ -822,7 +830,7 @@ namespace PostAPI
             // _tbLength
             // 
             this._tbLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbLength.Location = new System.Drawing.Point(210, 312);
+            this._tbLength.Location = new System.Drawing.Point(210, 306);
             this._tbLength.Name = "_tbLength";
             this._tbLength.Size = new System.Drawing.Size(128, 29);
             this._tbLength.TabIndex = 50;
@@ -830,7 +838,7 @@ namespace PostAPI
             // _tbWeight
             // 
             this._tbWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._tbWeight.Location = new System.Drawing.Point(210, 259);
+            this._tbWeight.Location = new System.Drawing.Point(210, 256);
             this._tbWeight.Name = "_tbWeight";
             this._tbWeight.Size = new System.Drawing.Size(128, 29);
             this._tbWeight.TabIndex = 48;
@@ -848,7 +856,7 @@ namespace PostAPI
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label22.Location = new System.Drawing.Point(131, 419);
+            this.label22.Location = new System.Drawing.Point(131, 404);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(73, 20);
             this.label22.TabIndex = 53;
@@ -858,7 +866,7 @@ namespace PostAPI
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label21.Location = new System.Drawing.Point(126, 367);
+            this.label21.Location = new System.Drawing.Point(126, 356);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(78, 20);
             this.label21.TabIndex = 51;
@@ -868,7 +876,7 @@ namespace PostAPI
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label20.Location = new System.Drawing.Point(116, 315);
+            this.label20.Location = new System.Drawing.Point(116, 309);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(88, 20);
             this.label20.TabIndex = 49;
@@ -878,7 +886,7 @@ namespace PostAPI
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label19.Location = new System.Drawing.Point(67, 263);
+            this.label19.Location = new System.Drawing.Point(67, 260);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(137, 20);
             this.label19.TabIndex = 47;
@@ -1066,6 +1074,34 @@ namespace PostAPI
             this._btGetShipmentBySender.UseVisualStyleBackColor = true;
             this._btGetShipmentBySender.Click += new System.EventHandler(this._btGetShipmentBySender_Click);
             // 
+            // _rtbDescription
+            // 
+            this._rtbDescription.Location = new System.Drawing.Point(23, 644);
+            this._rtbDescription.Name = "_rtbDescription";
+            this._rtbDescription.Size = new System.Drawing.Size(626, 124);
+            this._rtbDescription.TabIndex = 72;
+            this._rtbDescription.Text = "";
+            // 
+            // _btStatuses
+            // 
+            this._btStatuses.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btStatuses.Location = new System.Drawing.Point(1305, 107);
+            this._btStatuses.Name = "_btStatuses";
+            this._btStatuses.Size = new System.Drawing.Size(314, 44);
+            this._btStatuses.TabIndex = 73;
+            this._btStatuses.Text = "Трекінг";
+            this._btStatuses.UseVisualStyleBackColor = true;
+            this._btStatuses.Click += new System.EventHandler(this._btStatuses_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.Location = new System.Drawing.Point(669, 171);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 8;
+            this.dataGridView1.Size = new System.Drawing.Size(950, 681);
+            this.dataGridView1.TabIndex = 74;
+            this.dataGridView1.Visible = false;
+            // 
             // UkrPostMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1090,6 +1126,7 @@ namespace PostAPI
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvShipments)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1185,5 +1222,8 @@ namespace PostAPI
         private System.Windows.Forms.CheckBox _cbPostPayPaidByRecipient;
         private System.Windows.Forms.TextBox _tbPostPay;
         private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.RichTextBox _rtbDescription;
+        private System.Windows.Forms.Button _btStatuses;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

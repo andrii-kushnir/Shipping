@@ -58,6 +58,7 @@
     <Compile Include="Base\ClientDto.cs" />
     <Compile Include="Base\ParcelDto.cs" />
     <Compile Include="Base\ShipmentDto.cs" />
+    <Compile Include="Base\Status.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="EnumExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
