@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using ApiUkrPost.Base;
 using ApiUkrPost.Adresses;
 using System.Linq;
+using System.Data.SqlClient;
+using System.Data;
 //using System.Net.Http;
 //using System.Net.Http.Headers;
 
@@ -24,6 +26,8 @@ namespace ApiUkrPost
         private static string _authorizationBearer;
         private static string _authorizationBearerTracking;
         private static string _userToken;
+
+        //File.WriteAllText(@"E:\temp\log.txt", "1. " + success.ToString() + message + " текст: " + response);
 
         public Controller(string bearer, string token, string bearerTracking, string server = "")
         {
@@ -197,7 +201,7 @@ namespace ApiUkrPost
         {
             var shipment = new ShipmentDto()
             {
-                sender = new ClientDto { uuid = sender }, 
+                sender = new ClientDto { uuid = sender },
                 recipient = new ClientDto { uuid = recipient },
                 deliveryType = deliveryType,
                 type = type,
@@ -217,6 +221,7 @@ namespace ApiUkrPost
                 description = description
             };
             var response = SendPost($"/shipments?token={_userToken}", shipment.ToJson(), out bool success, out string message);
+            //File.WriteAllText(@"E:\temp\log.txt", "1. " + success.ToString() + message + " текст: " + response + "data" + shipment.ToJson());
             if (!success) return null;
             var result = JsonConvert.DeserializeObject<ShipmentDto>(response);
             return result;
@@ -446,7 +451,7 @@ namespace ApiUkrPost
             result = GetCityByPostcode(postindex).ToXml<City>();
         }
 
-        public List<Postoffice> GetPostoffices(long city)
+        public static List<Postoffice> GetPostoffices(long city)
         {
             var result = new List<Postoffice>();
             var response = GetFromAddress($"/get_postoffices_by_city_id?city_id={city}", out bool success, out string message);
@@ -461,10 +466,10 @@ namespace ApiUkrPost
             return result;
         }
 
-        public string GetPostofficesXml(string bearer, long city)
+        public static void GetPostofficesXml(string bearer, long city, out string result)
         {
             Init(bearer, "", "");
-            return GetPostoffices(city).ToXml<List<Postoffice>>();
+            result = GetPostoffices(city).ToXml<List<Postoffice>>();
         }
 
         public static List<Status> GetStatuses(string barcode)
@@ -482,10 +487,10 @@ namespace ApiUkrPost
             return result;
         }
 
-        public static string GetStatusesXml(string bearer, string barcode)
+        public static void GetStatusesXml(string bearer, string barcode, out string result)
         {
-            Init(bearer, "", "");
-            return GetStatuses(barcode).ToXml<List<Status>>();
+            _authorizationBearerTracking = bearer;
+            result = GetStatuses(barcode).ToXml<List<Status>>();
         }
 
         private static string GetFromAddress(string url, out bool success, out string message)
@@ -503,7 +508,7 @@ namespace ApiUkrPost
                 message = ex.Message;
                 return null;
             }
-            var result =  ParseResponse(response, out success, out message);
+            var result = ParseResponse(response, out success, out message);
             response.Close();
             return result;
         }
@@ -785,7 +790,7 @@ namespace ApiUkrPost
 
         public static string GetStickerFile(string uuid)
         {
-            var fileNamePDF = Path.GetTempPath() + Guid.NewGuid().ToString() + ".pdf" ;
+            var fileNamePDF = Path.GetTempPath() + Guid.NewGuid().ToString() + ".pdf";
 
             try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
             catch { return null; }
@@ -815,30 +820,27 @@ namespace ApiUkrPost
             return fileNamePDF;
         }
 
-        //public string GetStickerFile(string uuid)
-        //{
-        //    var fileNamePDF = Path.GetTempPath() + Guid.NewGuid().ToString();
-
-        //    try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
-        //    catch { return null; }
-
-        //    var response = Client.GetAsync(_server + $"/shipments/{uuid}/sticker?token={_userToken}").Result;
-
-        //    if (response.StatusCode == HttpStatusCode.OK)
-        //    {
-        //        using (var file = new FileStream(fileNamePDF, FileMode.CreateNew))
-        //        {
-        //            response.Content.CopyToAsync(file).Wait();
-        //        }
-        //        return fileNamePDF;
-        //    }
-        //    return null;
-        //}
-
-        public static void GetStickerFileXml(string bearer, string token, string uuid, out string result)
+        public static void GetStickerFileXml(string bearer, string token, string uuid)
         {
             Init(bearer, token, "");
-            result = GetStickerFile(uuid);
+            string fileName = GetStickerFile(uuid);
+
+            byte[] imageData;
+            using (var fs = new FileStream(fileName, FileMode.Open))
+            {
+                imageData = new byte[fs.Length];
+                fs.Read(imageData, 0, imageData.Length);
+            }
+            using (SqlConnection connection = new SqlConnection("Context Connection = true;"))
+            {
+                connection.Open();
+                using (var query = new SqlCommand(@"INSERT INTO #tablePdf (data) Values(@File)", connection))
+                {
+                    query.Parameters.Add("@File", SqlDbType.Image).Value = imageData;
+                    query.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
         }
     }
 }

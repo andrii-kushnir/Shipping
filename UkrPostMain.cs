@@ -143,6 +143,8 @@ namespace PostAPI
 
         private void _cbRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_cbRegion.SelectedIndex < 0)
+                return;
             _cbDistrict.Items.Clear();
             _cbDistrict.Text = "";
             _cbCity.Text = "";
@@ -154,6 +156,8 @@ namespace PostAPI
 
         private void _cbDistrict_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_cbDistrict.SelectedIndex < 0)
+                return;
             _cbCity.Items.Clear();
             _cbCity.Text = "";
             _cbStreet.Text = "";
@@ -164,6 +168,8 @@ namespace PostAPI
 
         private void _cbCity_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_cbCity.SelectedIndex < 0)
+                return;
             _cbStreet.Items.Clear();
             _cbStreet.Text = "";
             _cbHouse.Text = "";
@@ -173,10 +179,18 @@ namespace PostAPI
 
         private void _cbStreet_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_cbStreet.SelectedIndex < 0)
+                return;
             _cbHouse.Items.Clear();
             _cbHouse.Text = "";
             _houses = Controller.GetHouses(Convert.ToInt64(_streets[_cbStreet.SelectedIndex].STREETID), "");
             _cbHouse.Items.AddRange(_houses.Select(d => d.ToString()).ToArray());
+        }
+        private void _cbHouse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_cbHouse.SelectedIndex < 0)
+                return;
+            _tbPostCode.Text = _houses[_cbHouse.SelectedIndex].POSTCODE;
         }
 
         private void _btCreateClient_Click(object sender, EventArgs e)
@@ -517,6 +531,7 @@ namespace PostAPI
                 else
                 {
                     var Statuses = Controller.GetStatuses(Shipment.barcode);
+                    //Controller.GetStatusesXml("ec449353-4e4f-3b6c-877b-0b93e8d45601", "1111111111111", out string result);
                     if (Statuses != null && Statuses.Count != 0)
                     {
                         pictureBox1.Visible = false;

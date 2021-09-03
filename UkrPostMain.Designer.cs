@@ -72,6 +72,9 @@ namespace PostAPI
             this.label9 = new System.Windows.Forms.Label();
             this._btCreateClient = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this._btStatuses = new System.Windows.Forms.Button();
+            this._rtbDescription = new System.Windows.Forms.RichTextBox();
             this.label33 = new System.Windows.Forms.Label();
             this._cbPostPayPaidByRecipient = new System.Windows.Forms.CheckBox();
             this._tbPostPay = new System.Windows.Forms.TextBox();
@@ -118,19 +121,16 @@ namespace PostAPI
             this._dgvShipments = new System.Windows.Forms.DataGridView();
             this._tbSenderAll = new System.Windows.Forms.TextBox();
             this._btGetShipmentBySender = new System.Windows.Forms.Button();
-            this._rtbDescription = new System.Windows.Forms.RichTextBox();
-            this._btStatuses = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvClients)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvShipments)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // _bLogOut
@@ -251,6 +251,7 @@ namespace PostAPI
             this._cbHouse.Name = "_cbHouse";
             this._cbHouse.Size = new System.Drawing.Size(251, 28);
             this._cbHouse.TabIndex = 11;
+            this._cbHouse.SelectedIndexChanged += new System.EventHandler(this._cbHouse_SelectedIndexChanged);
             // 
             // _tbPostCode
             // 
@@ -625,6 +626,34 @@ namespace PostAPI
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Створення відправлення";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.Location = new System.Drawing.Point(669, 171);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 8;
+            this.dataGridView1.Size = new System.Drawing.Size(950, 681);
+            this.dataGridView1.TabIndex = 74;
+            this.dataGridView1.Visible = false;
+            // 
+            // _btStatuses
+            // 
+            this._btStatuses.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btStatuses.Location = new System.Drawing.Point(1305, 107);
+            this._btStatuses.Name = "_btStatuses";
+            this._btStatuses.Size = new System.Drawing.Size(314, 44);
+            this._btStatuses.TabIndex = 73;
+            this._btStatuses.Text = "Трекінг";
+            this._btStatuses.UseVisualStyleBackColor = true;
+            this._btStatuses.Click += new System.EventHandler(this._btStatuses_Click);
+            // 
+            // _rtbDescription
+            // 
+            this._rtbDescription.Location = new System.Drawing.Point(23, 644);
+            this._rtbDescription.Name = "_rtbDescription";
+            this._rtbDescription.Size = new System.Drawing.Size(626, 124);
+            this._rtbDescription.TabIndex = 72;
+            this._rtbDescription.Text = "";
             // 
             // label33
             // 
@@ -1074,34 +1103,6 @@ namespace PostAPI
             this._btGetShipmentBySender.UseVisualStyleBackColor = true;
             this._btGetShipmentBySender.Click += new System.EventHandler(this._btGetShipmentBySender_Click);
             // 
-            // _rtbDescription
-            // 
-            this._rtbDescription.Location = new System.Drawing.Point(23, 644);
-            this._rtbDescription.Name = "_rtbDescription";
-            this._rtbDescription.Size = new System.Drawing.Size(626, 124);
-            this._rtbDescription.TabIndex = 72;
-            this._rtbDescription.Text = "";
-            // 
-            // _btStatuses
-            // 
-            this._btStatuses.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btStatuses.Location = new System.Drawing.Point(1305, 107);
-            this._btStatuses.Name = "_btStatuses";
-            this._btStatuses.Size = new System.Drawing.Size(314, 44);
-            this._btStatuses.TabIndex = 73;
-            this._btStatuses.Text = "Трекінг";
-            this._btStatuses.UseVisualStyleBackColor = true;
-            this._btStatuses.Click += new System.EventHandler(this._btStatuses_Click);
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.Location = new System.Drawing.Point(669, 171);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 8;
-            this.dataGridView1.Size = new System.Drawing.Size(950, 681);
-            this.dataGridView1.TabIndex = 74;
-            this.dataGridView1.Visible = false;
-            // 
             // UkrPostMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1119,6 +1120,7 @@ namespace PostAPI
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
@@ -1126,7 +1128,6 @@ namespace PostAPI
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvShipments)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
