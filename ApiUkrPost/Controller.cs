@@ -124,13 +124,13 @@ namespace ApiUkrPost
             if (_one) return null;
             var client = new ClientDto()
             {
-                name = "ФОП Кельнер Олег Володимирович",
+                name = "АРС-Кераміка",
                 addressId = addressId,
-                //edrpou = "",
-                tin = "3413904819",
+                //tin = "3413904819",
+                edrpou = "32549732",
                 phoneNumber = phoneNumber,
-                type = ClientIndivType.PRIVATE_ENTREPRENEUR,
-                contactPersonName = "Кельнер Олег Володимирович"
+                type = ClientIndivType.COMPANY,
+                contactPersonName = "АРС-Кераміка"
             };
             var response = SendPost($"/clients?token={_userToken}", client.ToJson(), out bool success, out string message);
             if (!success) return null;
@@ -247,6 +247,15 @@ namespace ApiUkrPost
         {
             Init(bearer, token, "");
             result = GetShipment(uuid).ToXml<ShipmentDto>();
+        }
+
+        public static void GetLifecycleXml(string bearer, string token, string barcodeOrUuid, out string result)
+        {
+            result = "";
+            Init(bearer, token, "");
+            var response = SendGet($"/shipments/{barcodeOrUuid}/lifecycle?token={_userToken}", out bool success, out string message);
+            if (!success) return;
+            result = JsonConvert.DeserializeObject<MinifiedShipmentLifecycleRequestDto>(response).ToXml<MinifiedShipmentLifecycleRequestDto>();
         }
 
         public static List<ShipmentDto> GetShipmentBySender(string uuid)

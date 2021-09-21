@@ -35,5 +35,11 @@ namespace ApiUkrPost
                 return string.Empty;
             }
         }
+
+        public static T ConvertXml<T>(this string xml)
+        {
+            var serializer = new XmlSerializer(typeof(T));
+            return (T)serializer.Deserialize(new StringReader(xml));
+        }
     }
 }

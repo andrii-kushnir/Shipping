@@ -56,7 +56,15 @@ namespace ApiUkrPost.Base
         }
     }
 
-    public enum ShipmentType
+    public class MinifiedShipmentLifecycleRequestDto{
+        public string shipmentUuid { get; set; }
+        public string shipmentBarcode { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Status1 status { get; set; }
+        public string statusDate { get; set; }
+    }
+
+public enum ShipmentType
     {
         EXPRESS = 0,
         STANDARD = 1,
@@ -122,7 +130,7 @@ namespace ApiUkrPost.Base
     {
         [JsonConverter(typeof(StringEnumConverter))]
         public Status1 status { get; set; }
-        public string statusDate { get; set; }  // переписати на номальну дату для вибору тільки "активних" відправлень 
+        public string statusDate { get; set; }
         public override string ToString()
         {
             return status.GetEnumMember() + " встановлено " + statusDate;

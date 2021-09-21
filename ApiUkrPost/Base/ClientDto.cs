@@ -27,7 +27,7 @@ namespace ApiUkrPost.Base
             set { value = null; }
         }
         public string edrpou { get; set; } // Обов"язкове для юр. особи
-        public string tin { get; set; } // Обов"язкове для юр. особи
+        public string tin { get; set; } // Обов"язкове для ФОП
         public string phoneNumber { get; set; }
         public string latinName { get; set; }
         public string middleName { get; set; }
