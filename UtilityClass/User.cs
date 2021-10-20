@@ -9,5 +9,7 @@ namespace PostAPI
         public string ApiKeyNovaPost;
         public string AuthorizationBearer;
         public string UserToken;
+        public string DapiKey;
+        public string DapiSecretKey;
     }
 }

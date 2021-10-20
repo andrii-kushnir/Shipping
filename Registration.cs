@@ -38,7 +38,9 @@ namespace PostAPI
                     Password = HashPassword.Hash(_tbPassword.Text.Trim()),
                     ApiKeyNovaPost = _tbApiKey.Text.Trim() == "" ? null : _tbApiKey.Text.Trim(),
                     AuthorizationBearer = _tbBearer.Text.Trim() == "" ? null : _tbBearer.Text.Trim(),
-                    UserToken = _tbToken.Text.Trim() == "" ? null : _tbToken.Text.Trim()
+                    UserToken = _tbToken.Text.Trim() == "" ? null : _tbToken.Text.Trim(),
+                    DapiKey = _tbDapiKey.Text.Trim() == "" ? null : _tbDapiKey.Text.Trim(),
+                    DapiSecretKey = _tbDapiSecretKey.Text.Trim() == "" ? null : _tbDapiSecretKey.Text.Trim()
                 };
                 if (Program._users.Any(u => u.Login == user.Login))
                 {

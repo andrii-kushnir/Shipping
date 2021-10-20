@@ -127,7 +127,8 @@
             this._cbOperator.Items.AddRange(new object[] {
             "Нова Пошта",
             "Укрпошта",
-            "Укрпошта(тестовий)"});
+            "Укрпошта(тестовий)",
+            "Делівері"});
             this._cbOperator.Location = new System.Drawing.Point(178, 59);
             this._cbOperator.Name = "_cbOperator";
             this._cbOperator.Size = new System.Drawing.Size(167, 32);

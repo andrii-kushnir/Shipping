@@ -38,6 +38,10 @@ namespace PostAPI
                         main = new UkrPostMain(user, "Test");
                         main.ShowDialog();
                         break;
+                    case 3:
+                        main = new DeliveryMain(user);
+                        main.ShowDialog();
+                        break;
                 }
                 this.Close();
             }

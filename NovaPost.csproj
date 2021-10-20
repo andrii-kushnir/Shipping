@@ -56,6 +56,9 @@
     <StartupObject>PostAPI.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiDelivery">
+      <HintPath>..\ApiDelivery\bin\Debug\ApiDelivery.dll</HintPath>
+    </Reference>
     <Reference Include="ApiNovaPost">
       <HintPath>ApiNovaPost\bin\Debug\ApiNovaPost.dll</HintPath>
     </Reference>
@@ -93,6 +96,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeliveryCargo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeliveryCargo.Designer.cs">
+      <DependentUpon>DeliveryCargo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeliveryMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeliveryMain.Designer.cs">
+      <DependentUpon>DeliveryMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="UkrPostMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +137,12 @@
     </Compile>
     <Compile Include="UtilityClass\IntegerExtensions.cs" />
     <Compile Include="UtilityClass\User.cs" />
+    <EmbeddedResource Include="DeliveryCargo.resx">
+      <DependentUpon>DeliveryCargo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeliveryMain.resx">
+      <DependentUpon>DeliveryMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogIn.resx">
       <DependentUpon>LogIn.cs</DependentUpon>
     </EmbeddedResource>
