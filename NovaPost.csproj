@@ -56,9 +56,6 @@
     <StartupObject>PostAPI.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApiDelivery">
-      <HintPath>..\ApiDelivery\bin\Debug\ApiDelivery.dll</HintPath>
-    </Reference>
     <Reference Include="ApiNovaPost">
       <HintPath>ApiNovaPost\bin\Debug\ApiNovaPost.dll</HintPath>
     </Reference>
@@ -185,6 +182,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="ApiDelivery\ApiDelivery.csproj">
+      <Project>{6d94e770-56f0-4f18-9b55-3cdb29df4d6a}</Project>
+      <Name>ApiDelivery</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -8,7 +8,7 @@ namespace PostAPI
 {
     static class Program
     {
-        internal const string FileUsers = "file015.dat";
+        internal static string FileUsers = Directory.GetCurrentDirectory() + @"\" + "UserInfo.dat";
         public static List<User> _users = new List<User>();
         /// <summary>
         /// The main entry point for the application.
@@ -25,8 +25,7 @@ namespace PostAPI
 
         static void Previously()
         {
-            var fileUsers = Path.GetTempPath() + FileUsers;
-            if (!File.Exists(fileUsers))
+            if (!File.Exists(FileUsers))
             {
                 MessageBox.Show("File Users not found");
             }
@@ -34,7 +33,7 @@ namespace PostAPI
             {
                 try
                 {
-                    _users = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(fileUsers));
+                    _users = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(FileUsers));
                 }
                 catch
                 {

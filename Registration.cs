@@ -49,7 +49,7 @@ namespace PostAPI
                 else
                 {
                     Program._users.Add(user);
-                    File.WriteAllText(Path.GetTempPath() + Program.FileUsers, JsonConvert.SerializeObject(Program._users));
+                    File.WriteAllText(Program.FileUsers, JsonConvert.SerializeObject(Program._users));
                     Close();
                 }
             }

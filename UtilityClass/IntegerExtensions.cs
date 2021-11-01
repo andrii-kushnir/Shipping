@@ -10,21 +10,12 @@ namespace PostAPI.UtilityClass
     {
         public static int ParseInt(this string value)
         {
-            int parsedInt;
-            if (int.TryParse(value, out parsedInt))
-            {
-                return parsedInt;
-            }
-
-            return 0;
+            return int.TryParse(value, out int parsedInt) ? parsedInt : 0;
         }
 
         public static int? ParseNullableInt(this string value)
         {
-            if (string.IsNullOrEmpty(value))
-                return null;
-
-            return value.ParseInt();
+            return string.IsNullOrEmpty(value) ? null : (int?)value.ParseInt();
         }
     }
 }
