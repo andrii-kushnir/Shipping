@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiUkrPost", "ApiUkrPost\Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiDelivery", "ApiDelivery\ApiDelivery.csproj", "{6D94E770-56F0-4F18-9B55-3CDB29DF4D6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "..\ConsoleApp1\ConsoleApp1.csproj", "{4CB91068-49A4-4A63-B301-FB1D7C71D6E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiDeliveryExtension", "..\ConsoleApp1\ApiDeliveryExtension.csproj", "{4CB91068-49A4-4A63-B301-FB1D7C71D6E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

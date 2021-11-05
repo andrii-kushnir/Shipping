@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace ApiDelivery.Requests
 {
@@ -12,6 +13,10 @@ namespace ApiDelivery.Requests
         public string flSave { get; set; }  //Флаг сохраниния
         public string debugMode { get; set; } //Флаг режима дебага
         public List<ReceiptsList> receiptsList { get; set; }
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+        }
     }
 
     public class ReceiptsList
@@ -64,7 +69,7 @@ namespace ApiDelivery.Requests
         public string pickUpContactName { get; set; } //контактное лицо для забора
         public string pickUpContactPhone { get; set; } //Контактный телефон для забора
         public string pickUpAddressId { get; set; } //Адрес забора
-        public int descentFromFloor { get; set; } //спуск с этажа
+        public int? descentFromFloor { get; set; } //спуск с этажа
         public List<Cargo> category { get; set; }
     }
 

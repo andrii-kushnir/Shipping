@@ -157,6 +157,30 @@ namespace ApiDelivery
             return result;
         }
 
+        public static List<Reciver> GetPayer(string CitySendId, string CityReceiveId, string ClientSenderId)
+        {
+            var result = new List<Reciver>();
+            var response = SendGet($"v4/Public/GetPayer?CitySendId={CitySendId}&CityReceiveId={CityReceiveId}&ClientSenderId={ClientSenderId}", out bool success, out string message);
+            if (success)
+            {
+                //var mess = JsonConvert.DeserializeObject<ReciverListResponse>(response);
+                //if (mess.status) result = mess.data;
+            }
+            return result;
+        }
+
+        public static List<Reciver> GetClientPaymentType(string ClientId)
+        {
+            var result = new List<Reciver>();
+            var response = SendGet($"v4/Public/GetClientPaymentType?ClientId={ClientId}", out bool success, out string message);
+            if (success)
+            {
+                //var mess = JsonConvert.DeserializeObject<ReciverListResponse>(response);
+                //if (mess.status) result = mess.data;
+            }
+            return result;
+        }
+
         public static AddressAndClient CreateClient(string firstName, string lastName, string middleName, string phoneNumber, string cityId, string street, string house, string appartament, string senderId)
         {
             var result = new AddressAndClient();
@@ -179,6 +203,18 @@ namespace ApiDelivery
             {
                 var mess = JsonConvert.DeserializeObject<AddressAndClientResponse>(response);
                 if (mess.status) result = mess.data;
+            }
+            return result;
+        }
+
+        public static string PostCreateReceipts(CreateReceipts receipt)
+        {
+            var result = string.Empty;
+            var response = SendPost($"v4/Public/PostCreateReceipts", receipt.ToJson(), out bool success, out string message);
+            if (success)
+            {
+                //var mess = JsonConvert.DeserializeObject<AddressAndClientResponse>(response);
+                //if (mess.status) result = mess.data;
             }
             return result;
         }

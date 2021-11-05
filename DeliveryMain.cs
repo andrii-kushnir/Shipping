@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ApiDelivery;
 using ApiDelivery.Requests;
 using ApiDelivery.Responses;
+using PostAPI.UtilityClass;
 using Region = ApiDelivery.Responses.Region;
 
 namespace PostAPI
@@ -26,7 +27,10 @@ namespace PostAPI
         private List<Warehouse> _warehouses2;
         private List<Tariff> _tariff;
         private List<Sender> _senders;
-        private List<Reciver> _reciver;
+        private Sender _sender;
+
+        private readonly string[] _payer = { "Відправник(ми)", "Отримувач" };
+        private readonly string[] _payerInsurance = { "Відправник(ми)", "Отримувач" };
 
         private List<Cargo> _cargoList = new List<Cargo>();
         private BindingSource _cargoSource = new BindingSource() { AllowNew = false };
@@ -45,6 +49,7 @@ namespace PostAPI
         private void DeliveryMain_Load(object sender, EventArgs e)
         {
             _senders = Controller.GetSenderList();
+            _sender = _senders[0];
 
             _cargoSource.DataSource = _cargoList;
             _dgvCategory.DataSource = _cargoSource;
@@ -57,6 +62,11 @@ namespace PostAPI
             _cbDeliveryType.Items.AddRange(Enum.GetValues(typeof(DeliveryType)).Cast<DeliveryType>().Select(c => c.ToString()).ToArray());
             _cbDeliveryType.SelectedIndex = 0;
 
+            _cbPayerInsurance.Items.AddRange(_payerInsurance);
+            _cbPayerInsurance.SelectedIndex = 0;
+
+            _cbPayer.Items.AddRange(_payer);
+            _cbPayer.SelectedIndex = 0;
         }
 
         private void BLogOut_Click(object sender, EventArgs e)
@@ -114,83 +124,67 @@ namespace PostAPI
 
         private void _btCreateShipment_Click(object sender, EventArgs e)
         {
-            var invoices = Controller.GetClientInvoices(); // temp!!!!!!
-            var client = Controller.CreateClient("Андрій", "Кушнір", "Батькович", "0681234567", _areas2[_cbArea2.SelectedIndex].id, "15-Квітня", "37", "112", _senders[0].id);
-            return;
+            if (_cbArea.SelectedIndex < 0 || _cbWarehouse.SelectedIndex < 0 || _cbArea2.SelectedIndex < 0 || _cbWarehouse2.SelectedIndex < 0)
+            {
+                MessageBox.Show("Виберіть звідки і куди доставляти");
+                return;
+            }
+            if (_tbInsuranceValue.Text.ParseInt() == 0)
+            {
+                MessageBox.Show("Введіть коректні дані");
+                return;
+            }
+            //var invoices = Controller.GetClientInvoices(); // temp!!!!!!
+            //var recivers = Controller.GetPosibleReciver(_sender.cityId, _sender.id);  // temp!!!!!!
 
-
-            _reciver = Controller.GetPosibleReciver(_senders[0].cityId, _senders[0].id);
+            var client = Controller.CreateClient(_tbFirstName.Text.Trim(), _tbLastName.Text.Trim(), _tbMiddleName.Text.Trim(), _tbPhone.Text.Trim(), _areas2[_cbArea2.SelectedIndex].id, "15-Квітня", "37", "115", _sender.id);
             var receipt = new CreateReceipts()
             {
                 culture = "uk-UA",
-                flSave = "false",
-                debugMode = "true",
+                flSave = "true",
+                debugMode = "false",
                 receiptsList = new List<ReceiptsList>
                 {
                     new ReceiptsList
                     {
-                        senderId = _senders[0].id,             // буде братись з таблиці
-                        areasSendId = _senders[0].cityId,      // буде братись з таблиці
-                        warehouseSendId = _warehouses[_cbWarehouse.SelectedIndex].id,  // буде братись з таблиці
+                        areasSendId = _sender.cityId,                                   // буде братись з таблиці
+                        warehouseSendId = _warehouses[_cbWarehouse.SelectedIndex].id,   // буде братись з таблиці
                         areasResiveId = _areas2[_cbArea2.SelectedIndex].id,
                         warehouseResiveId = _warehouses2[_cbWarehouse2.SelectedIndex].id,
-                        dateSend = DateTime.Now,
                         deliveryScheme = 0,
-                        receiverName = _tbName.Text.Trim(),
-                        receiverPhone = _tbPhone.Text.Trim(),
+                        senderId = _sender.id,                                          // буде братись з таблиці
+                        receiverName = client.account.Name,
+                        receiverPhone = client.account.PhoneNumber,
                         receiverType = false,
+                        payerType = _cbPayer.SelectedIndex,
+                        paymentType = 0,   //0 - готівка, 1 - безготівка
+                        dateSend = DateTime.Now,
                         currency = 100000000,
-                        InsuranceValue = 500,                  // ввести
-                        payerInsuranceId = "",                 //не знаю
-                        payerId = null,
-                        payerType = 1,                         // ввести
-                        paymentType = 0,                       //не знаю
-                        paymentTypeInsuranse = 0,              //не знаю
-                        deliveryAddress = "",                  // ввести //???????
-                        deliveryContactName = "Тест Тест Тестович",  //?????
-                        deliveryContactPhone = "0689559241",         //????? 
+                        InsuranceValue = _tbInsuranceValue.Text.ParseInt(),
+                        payerInsuranceId = _cbPayerInsurance.SelectedIndex == 0 ? _sender.id : client.account.AccountId,
+                        paymentTypeInsuranse = 0,  //страховка: 0 - готівка, 1 - безготівка                    
+                        deliveryContactName = client.account.Name,
+                        deliveryContactPhone = client.account.PhoneNumber,
                         DeliveryComment = _rtbDescription.Text.Trim(),
                         ReturnDocuments = false,
                         climbingToFloor = 0,
                         EconomDelivery = true,
-                        cashOnDeliveryType = 2,                      //?????
-                        CashOnDeliveryValuta = 100000000,
-                        CashOnDeliveryValue = 0,                     // ввести
-                        CashOnDeliveryWarehouseId = _warehouses[_cbWarehouse.SelectedIndex].id,  // буде братись з таблиці
-                        CashOnDeliveryPayerAccountId = "",           //?????
-                        CashOnDeliverySenderFullName = "",           //?????
-                        CashOnDeliverySenderPhone = "",              //?????
-                        CashOnDeliveryReceiverFullName = "",         //?????
-                        CashOnDeliveryReceiverPhone = "",            //?????
-                        CashOnDeliveryDescription = "описание наложки",
+                        //cashOnDeliveryType = 2,                      //?????
+                        //CashOnDeliveryValuta = 100000000,
+                        //CashOnDeliveryValue = 0,                     // ввести
+                        //CashOnDeliveryWarehouseId = _warehouses[_cbWarehouse.SelectedIndex].id,  // буде братись з таблиці
+                        //CashOnDeliveryPayerAccountId = "",           //?????
+                        //CashOnDeliverySenderFullName = "",           //?????
+                        //CashOnDeliverySenderPhone = "",              //?????
+                        //CashOnDeliveryReceiverFullName = "",         //?????
+                        //CashOnDeliveryReceiverPhone = "",            //?????
+                        //CashOnDeliveryDescription = "описание наложки",
                         descentFromFloor = 0,
                         category = _cargoList
                     }
                 }
             };
-
-            //Shipment = Controller.GetShipment(_tbShipmentUuid.Text.Trim());
-            //if (Shipment == null)
-            //{
-            //    MessageBox.Show("Відправлення не знайдено!");
-            //}
-            //else
-            //{
-            //    var Statuses = Controller.GetStatuses(Shipment.barcode);
-            //    //Controller.GetStatusesXml("ec449353-4e4f-3b6c-877b-0b93e8d45601", "1111111111111", out string result);
-            //    if (Statuses != null && Statuses.Count != 0)
-            //    {
-            //        pictureBox1.Visible = false;
-            //        dataGridView1.Visible = true;
-            //        dataGridView1.DataSource = Statuses;
-            //        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("Відправлення не трекається. Ймовірно воно ще не відправлене.");
-            //    }
-            //}
-
+            Controller.PostCreateReceipts(receipt);
         }
 
         private void _btAddCargo_Click(object sender, EventArgs e)
@@ -214,7 +208,7 @@ namespace PostAPI
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-
+            Controller.GetClientPaymentType(_sender.id);
         }
     }
 }
