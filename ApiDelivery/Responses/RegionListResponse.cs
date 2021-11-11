@@ -7,7 +7,7 @@ namespace ApiDelivery.Responses
 {
     public class RegionListResponse : BaseResponse
     {
-        public List<Region> data;
+        public List<Region> data { get; set; }
     }
 
     public class Region

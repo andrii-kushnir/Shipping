@@ -52,7 +52,10 @@
     <Compile Include="Responses\AreaListResponse.cs" />
     <Compile Include="Responses\BaseResponse.cs" />
     <Compile Include="Responses\CargoCategoryListResponse.cs" />
+    <Compile Include="Responses\ClientPaymentTypeResponse.cs" />
     <Compile Include="Responses\InvoiceResponse.cs" />
+    <Compile Include="Responses\PayerResponse.cs" />
+    <Compile Include="Responses\ReceiptResponse.cs" />
     <Compile Include="Responses\ReciverListResponse.cs" />
     <Compile Include="Responses\SenderListResponse.cs" />
     <Compile Include="Responses\TariffListResponse.cs" />

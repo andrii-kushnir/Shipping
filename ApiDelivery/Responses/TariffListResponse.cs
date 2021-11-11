@@ -7,7 +7,7 @@ namespace ApiDelivery.Responses
 {
     public class TariffListResponse : BaseResponse
     {
-        public List<Tariff> data;
+        public List<Tariff> data { get; set; }
     }
 
     public class Tariff

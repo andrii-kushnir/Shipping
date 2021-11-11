@@ -7,7 +7,7 @@ namespace ApiDelivery.Responses
 {
     public class ReciverListResponse : BaseResponse
     {
-        public List<Reciver> data;
+        public List<Reciver> data { get; set; }
     }
 
     public class Reciver

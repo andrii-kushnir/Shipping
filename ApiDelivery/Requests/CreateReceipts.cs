@@ -88,11 +88,11 @@ namespace ApiDelivery.Requests
     {
         [Description("Відділення на відділення")]
         W2W = 0,
-        [Description("Відділення на дім")]
-        W2D = 1,
-        [Description("З дому на відділення")]
-        D2W = 2,
         [Description("З дому на дім")]
-        D2D = 3
+        D2D = 1,
+        [Description("Відділення на дім")]
+        W2D = 2,
+        [Description("З дому на відділення")]
+        D2W = 3,
     }
 }

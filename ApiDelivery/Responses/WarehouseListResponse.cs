@@ -7,7 +7,7 @@ namespace ApiDelivery.Responses
 {
     public class WarehouseListResponse : BaseResponse
     {
-        public List<Warehouse> data;
+        public List<Warehouse> data { get; set; }
     }
 
     public class Warehouse

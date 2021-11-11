@@ -5,18 +5,15 @@ using System.Text;
 
 namespace ApiDelivery.Responses
 {
-    public class InvoiceResponse : BaseResponse
+    public class PayerResponse : BaseResponse
     {
-        public List<Invoice> data { get; set; }
+        public List<Payer> data { get; set; }
     }
 
-    public class Invoice
+    public class Payer
     {
         public string id { get; set; }
         public string name { get; set; }
-        public override string ToString()
-        {
-            return name;
-        }
     }
+
 }

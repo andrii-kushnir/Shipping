@@ -18,7 +18,7 @@ namespace PostAPI
     {
         private List<CargoCategory> _cargoCategory;
         private List<Tariff> _tariff;
-        private readonly string[] _isEconomList = {"Так", "Ні"};
+        private readonly string[] _isEconomList = { "Так", "Ні" };
 
         public Cargo cargo { get; set; } = null;
 
@@ -56,7 +56,7 @@ namespace PostAPI
                 cargo.helf = float.Parse(_tbHelf.Text);
                 cargo.size = float.Parse(_tbSize.Text);
             }
-            catch
+            catch (Exception ex) when (ex is FormatException || ex is OverflowException)
             {
                 MessageBox.Show("Некорректно введені дані!");
                 cargo = null;

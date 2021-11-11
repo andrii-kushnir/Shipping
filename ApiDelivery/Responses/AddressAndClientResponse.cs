@@ -9,7 +9,7 @@ namespace ApiDelivery.Requests
 {
     public class AddressAndClientResponse : BaseResponse
     {
-        public AddressAndClient data;
+        public AddressAndClient data { get; set; }
     }
 
     public class AddressAndClient

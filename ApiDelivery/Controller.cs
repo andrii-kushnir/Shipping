@@ -37,30 +37,6 @@ namespace ApiDelivery
             return;
         }
 
-        //public static bool PostLogin()
-        //{
-        //    var result = false;
-        //    var response = SendPost($"v4/Public/PostLogin", $"{{\"UserName\": \"{UserName}\", \"Password\": \"{Password}\", \"RememberMe\": false }}", out bool success, out string message);
-        //    if (success)
-        //    {
-        //        var mess = JsonConvert.DeserializeObject<BaseResponse>(response);
-        //        if (mess.status) result = true;
-        //    }
-        //    return result;
-        //}
-
-        //public static bool PostLogoff()
-        //{
-        //    var result = false;
-        //    var response = SendPost($"v4/Public/PostLogoff", $"{{}}", out bool success, out string message);
-        //    if (success)
-        //    {
-        //        var mess = JsonConvert.DeserializeObject<BaseResponse>(response);
-        //        if (mess.status) result = true;
-        //    }
-        //    return result;
-        //}
-
         public static List<Invoice> GetClientInvoices()
         {
             var result = new List<Invoice>();
@@ -69,6 +45,18 @@ namespace ApiDelivery
             {
                 var mess = JsonConvert.DeserializeObject<InvoiceResponse>(response);
                 if (mess.status) result = mess.data;
+            }
+            return result;
+        }
+
+        public static string GetClientCards()
+        {
+            var result = string.Empty;
+            var response = SendGet($"v4/Public/GetClientCards", out bool success, out string message);
+            if (success)
+            {
+                //var mess = JsonConvert.DeserializeObject<InvoiceResponse>(response);
+                //if (mess.status) result = mess.data;
             }
             return result;
         }
@@ -157,27 +145,29 @@ namespace ApiDelivery
             return result;
         }
 
-        public static List<Reciver> GetPayer(string CitySendId, string CityReceiveId, string ClientSenderId)
+        public static List<Payer> GetPayer(string CitySendId, string CityReceiveId, string ClientSenderId)
         {
-            var result = new List<Reciver>();
+            var result = new List<Payer>();
             var response = SendGet($"v4/Public/GetPayer?CitySendId={CitySendId}&CityReceiveId={CityReceiveId}&ClientSenderId={ClientSenderId}", out bool success, out string message);
             if (success)
             {
-                //var mess = JsonConvert.DeserializeObject<ReciverListResponse>(response);
-                //if (mess.status) result = mess.data;
+                var mess = JsonConvert.DeserializeObject<PayerResponse>(response);
+                if (mess.status) result = mess.data;
             }
             return result;
         }
 
-        public static List<Reciver> GetClientPaymentType(string ClientId)
+        public static bool GetClientPaymentType(string ClientId)
         {
-            var result = new List<Reciver>();
+            var result = false;
             var response = SendGet($"v4/Public/GetClientPaymentType?ClientId={ClientId}", out bool success, out string message);
             if (success)
             {
-                //var mess = JsonConvert.DeserializeObject<ReciverListResponse>(response);
-                //if (mess.status) result = mess.data;
+                var mess = JsonConvert.DeserializeObject<ClientPaymentTypeResponse>(response);
+                if (mess.status) result = mess.data;
             }
+            //true - готівка
+            //false - безготівка
             return result;
         }
 
@@ -207,14 +197,14 @@ namespace ApiDelivery
             return result;
         }
 
-        public static string PostCreateReceipts(CreateReceipts receipt)
+        public static List<ReceiptResp> PostCreateReceipts(CreateReceipts receipt)
         {
-            var result = string.Empty;
+            var result = new List<ReceiptResp>();
             var response = SendPost($"v4/Public/PostCreateReceipts", receipt.ToJson(), out bool success, out string message);
             if (success)
             {
-                //var mess = JsonConvert.DeserializeObject<AddressAndClientResponse>(response);
-                //if (mess.status) result = mess.data;
+                var mess = JsonConvert.DeserializeObject<ReceiptResponse>(response);
+                if (mess.status) result = mess.receipts;
             }
             return result;
         }

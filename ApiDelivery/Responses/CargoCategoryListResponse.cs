@@ -7,7 +7,7 @@ namespace ApiDelivery.Responses
 {
     public class CargoCategoryListResponse : BaseResponse
     {
-        public List<CargoCategory> data;
+        public List<CargoCategory> data { get; set; }
     }
 
     public class CargoCategory
