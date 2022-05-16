@@ -18,7 +18,6 @@ namespace PostAPI
     {
         private List<CargoCategory> _cargoCategory;
         private List<Tariff> _tariff;
-        private readonly string[] _isEconomList = { "Так", "Ні" };
 
         public Cargo cargo { get; set; } = null;
 
@@ -35,9 +34,6 @@ namespace PostAPI
 
             _cargoCategory = Controller.GetCargoCategory();
             _cbCargoCategory.Items.AddRange(_cargoCategory.Select(r => r.ToString()).ToArray());
-
-            _cbIsEconom.Items.AddRange(_isEconomList);
-            _cbIsEconom.SelectedIndex = 0;
         }
 
         private void _btAdd_Click(object sender, EventArgs e)
@@ -62,7 +58,6 @@ namespace PostAPI
                 cargo = null;
                 return;
             }
-            cargo.isEconom = _cbIsEconom.SelectedIndex == 0;
             Close();
         }
 

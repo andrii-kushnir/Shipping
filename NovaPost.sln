@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiDelivery", "ApiDelivery\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiDeliveryExtension", "..\ConsoleApp1\ApiDeliveryExtension.csproj", "{4CB91068-49A4-4A63-B301-FB1D7C71D6E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UkrPostTest", "UkrPostTest\UkrPostTest.csproj", "{93C9D04C-C4D5-4283-BF0F-C17F0890DEEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UkrPostTest1", "..\UkrPostTest1\UkrPostTest1.csproj", "{94E85EE7-D1F1-4025-8435-9AB67BAD7650}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{4CB91068-49A4-4A63-B301-FB1D7C71D6E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CB91068-49A4-4A63-B301-FB1D7C71D6E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CB91068-49A4-4A63-B301-FB1D7C71D6E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93C9D04C-C4D5-4283-BF0F-C17F0890DEEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93C9D04C-C4D5-4283-BF0F-C17F0890DEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93C9D04C-C4D5-4283-BF0F-C17F0890DEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93C9D04C-C4D5-4283-BF0F-C17F0890DEEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94E85EE7-D1F1-4025-8435-9AB67BAD7650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E85EE7-D1F1-4025-8435-9AB67BAD7650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E85EE7-D1F1-4025-8435-9AB67BAD7650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E85EE7-D1F1-4025-8435-9AB67BAD7650}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

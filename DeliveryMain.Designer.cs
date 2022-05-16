@@ -31,6 +31,14 @@ namespace PostAPI
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this._cbIsEconom = new System.Windows.Forms.ComboBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this._tbCashOnDeliveryValue = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this._cbPaymentTypeInsuranse = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this._cbPaymentType = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
             this._cbPayer = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this._tbMiddleName = new System.Windows.Forms.TextBox();
@@ -69,10 +77,6 @@ namespace PostAPI
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this._bLogOut = new System.Windows.Forms.Button();
-            this._cbPaymentType = new System.Windows.Forms.ComboBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this._cbPaymentTypeInsuranse = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvCategory)).BeginInit();
@@ -90,6 +94,10 @@ namespace PostAPI
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this._cbIsEconom);
+            this.tabPage1.Controls.Add(this.label20);
+            this.tabPage1.Controls.Add(this._tbCashOnDeliveryValue);
+            this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this._cbPaymentTypeInsuranse);
             this.tabPage1.Controls.Add(this.label18);
             this.tabPage1.Controls.Add(this._cbPaymentType);
@@ -138,6 +146,82 @@ namespace PostAPI
             this.tabPage1.Text = "Створити відправлення";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // _cbIsEconom
+            // 
+            this._cbIsEconom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._cbIsEconom.FormattingEnabled = true;
+            this._cbIsEconom.Location = new System.Drawing.Point(307, 400);
+            this._cbIsEconom.Name = "_cbIsEconom";
+            this._cbIsEconom.Size = new System.Drawing.Size(111, 28);
+            this._cbIsEconom.TabIndex = 15;
+            this._cbIsEconom.SelectedIndexChanged += new System.EventHandler(this._cbIsEconom_SelectedIndexChanged);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label20.Location = new System.Drawing.Point(227, 403);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(77, 20);
+            this.label20.TabIndex = 96;
+            this.label20.Text = "Економ:";
+            // 
+            // _tbCashOnDeliveryValue
+            // 
+            this._tbCashOnDeliveryValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this._tbCashOnDeliveryValue.Location = new System.Drawing.Point(873, 298);
+            this._tbCashOnDeliveryValue.Name = "_tbCashOnDeliveryValue";
+            this._tbCashOnDeliveryValue.Size = new System.Drawing.Size(210, 26);
+            this._tbCashOnDeliveryValue.TabIndex = 17;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label19.Location = new System.Drawing.Point(778, 301);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(89, 20);
+            this.label19.TabIndex = 94;
+            this.label19.Text = "Наложка:";
+            // 
+            // _cbPaymentTypeInsuranse
+            // 
+            this._cbPaymentTypeInsuranse.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._cbPaymentTypeInsuranse.FormattingEnabled = true;
+            this._cbPaymentTypeInsuranse.Location = new System.Drawing.Point(873, 460);
+            this._cbPaymentTypeInsuranse.Name = "_cbPaymentTypeInsuranse";
+            this._cbPaymentTypeInsuranse.Size = new System.Drawing.Size(179, 28);
+            this._cbPaymentTypeInsuranse.TabIndex = 20;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label18.Location = new System.Drawing.Point(669, 464);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(201, 20);
+            this.label18.TabIndex = 92;
+            this.label18.Text = "Тип оплати страховки:";
+            // 
+            // _cbPaymentType
+            // 
+            this._cbPaymentType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._cbPaymentType.FormattingEnabled = true;
+            this._cbPaymentType.Location = new System.Drawing.Point(307, 366);
+            this._cbPaymentType.Name = "_cbPaymentType";
+            this._cbPaymentType.Size = new System.Drawing.Size(179, 28);
+            this._cbPaymentType.TabIndex = 14;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label17.Location = new System.Drawing.Point(194, 371);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(110, 20);
+            this.label17.TabIndex = 90;
+            this.label17.Text = "Тип оплати:";
+            // 
             // _cbPayer
             // 
             this._cbPayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -145,7 +229,7 @@ namespace PostAPI
             this._cbPayer.Location = new System.Drawing.Point(307, 332);
             this._cbPayer.Name = "_cbPayer";
             this._cbPayer.Size = new System.Drawing.Size(335, 28);
-            this._cbPayer.TabIndex = 89;
+            this._cbPayer.TabIndex = 13;
             // 
             // label16
             // 
@@ -163,7 +247,7 @@ namespace PostAPI
             this._tbMiddleName.Location = new System.Drawing.Point(307, 234);
             this._tbMiddleName.Name = "_tbMiddleName";
             this._tbMiddleName.Size = new System.Drawing.Size(210, 26);
-            this._tbMiddleName.TabIndex = 87;
+            this._tbMiddleName.TabIndex = 10;
             // 
             // label15
             // 
@@ -181,7 +265,7 @@ namespace PostAPI
             this._tbLastName.Location = new System.Drawing.Point(307, 202);
             this._tbLastName.Name = "_tbLastName";
             this._tbLastName.Size = new System.Drawing.Size(210, 26);
-            this._tbLastName.TabIndex = 85;
+            this._tbLastName.TabIndex = 9;
             // 
             // label14
             // 
@@ -197,16 +281,16 @@ namespace PostAPI
             // 
             this._cbPayerInsurance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._cbPayerInsurance.FormattingEnabled = true;
-            this._cbPayerInsurance.Location = new System.Drawing.Point(307, 432);
+            this._cbPayerInsurance.Location = new System.Drawing.Point(873, 426);
             this._cbPayerInsurance.Name = "_cbPayerInsurance";
             this._cbPayerInsurance.Size = new System.Drawing.Size(335, 28);
-            this._cbPayerInsurance.TabIndex = 83;
+            this._cbPayerInsurance.TabIndex = 19;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(129, 437);
+            this.label13.Location = new System.Drawing.Point(695, 431);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(175, 20);
             this.label13.TabIndex = 82;
@@ -215,16 +299,16 @@ namespace PostAPI
             // _tbInsuranceValue
             // 
             this._tbInsuranceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this._tbInsuranceValue.Location = new System.Drawing.Point(307, 400);
+            this._tbInsuranceValue.Location = new System.Drawing.Point(873, 394);
             this._tbInsuranceValue.Name = "_tbInsuranceValue";
             this._tbInsuranceValue.Size = new System.Drawing.Size(210, 26);
-            this._tbInsuranceValue.TabIndex = 81;
+            this._tbInsuranceValue.TabIndex = 18;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(132, 404);
+            this.label11.Location = new System.Drawing.Point(698, 398);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(172, 20);
             this.label11.TabIndex = 80;
@@ -236,10 +320,10 @@ namespace PostAPI
             this.button1.Location = new System.Drawing.Point(1026, 24);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(238, 42);
-            this.button1.TabIndex = 79;
+            this.button1.TabIndex = 7;
             this.button1.Text = "Отримати";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // _cbDeliveryType
             // 
@@ -248,7 +332,7 @@ namespace PostAPI
             this._cbDeliveryType.Location = new System.Drawing.Point(307, 298);
             this._cbDeliveryType.Name = "_cbDeliveryType";
             this._cbDeliveryType.Size = new System.Drawing.Size(335, 28);
-            this._cbDeliveryType.TabIndex = 78;
+            this._cbDeliveryType.TabIndex = 12;
             // 
             // label9
             // 
@@ -267,7 +351,7 @@ namespace PostAPI
             this._dgvCategory.ReadOnly = true;
             this._dgvCategory.RowHeadersWidth = 8;
             this._dgvCategory.Size = new System.Drawing.Size(1268, 101);
-            this._dgvCategory.TabIndex = 76;
+            this._dgvCategory.TabIndex = 21;
             // 
             // _btAddCargo
             // 
@@ -275,7 +359,7 @@ namespace PostAPI
             this._btAddCargo.Location = new System.Drawing.Point(215, 607);
             this._btAddCargo.Name = "_btAddCargo";
             this._btAddCargo.Size = new System.Drawing.Size(238, 42);
-            this._btAddCargo.TabIndex = 75;
+            this._btAddCargo.TabIndex = 21;
             this._btAddCargo.Text = "Додати місце";
             this._btAddCargo.UseVisualStyleBackColor = true;
             this._btAddCargo.Click += new System.EventHandler(this._btAddCargo_Click);
@@ -296,7 +380,7 @@ namespace PostAPI
             this._rtbDescription.Location = new System.Drawing.Point(648, 184);
             this._rtbDescription.Name = "_rtbDescription";
             this._rtbDescription.Size = new System.Drawing.Size(626, 89);
-            this._rtbDescription.TabIndex = 73;
+            this._rtbDescription.TabIndex = 16;
             this._rtbDescription.Text = "";
             // 
             // _tbFirstName
@@ -305,7 +389,7 @@ namespace PostAPI
             this._tbFirstName.Location = new System.Drawing.Point(307, 170);
             this._tbFirstName.Name = "_tbFirstName";
             this._tbFirstName.Size = new System.Drawing.Size(210, 26);
-            this._tbFirstName.TabIndex = 31;
+            this._tbFirstName.TabIndex = 8;
             // 
             // label25
             // 
@@ -323,7 +407,7 @@ namespace PostAPI
             this._tbPhone.Location = new System.Drawing.Point(307, 266);
             this._tbPhone.Name = "_tbPhone";
             this._tbPhone.Size = new System.Drawing.Size(210, 26);
-            this._tbPhone.TabIndex = 35;
+            this._tbPhone.TabIndex = 11;
             // 
             // label12
             // 
@@ -341,7 +425,7 @@ namespace PostAPI
             this._btCreateShipment.Location = new System.Drawing.Point(809, 607);
             this._btCreateShipment.Name = "_btCreateShipment";
             this._btCreateShipment.Size = new System.Drawing.Size(238, 42);
-            this._btCreateShipment.TabIndex = 25;
+            this._btCreateShipment.TabIndex = 22;
             this._btCreateShipment.Text = "Створити відправлення";
             this._btCreateShipment.UseVisualStyleBackColor = true;
             this._btCreateShipment.Click += new System.EventHandler(this._btCreateShipment_Click);
@@ -373,7 +457,7 @@ namespace PostAPI
             this._cbWarehouse2.Location = new System.Drawing.Point(661, 124);
             this._cbWarehouse2.Name = "_cbWarehouse2";
             this._cbWarehouse2.Size = new System.Drawing.Size(251, 28);
-            this._cbWarehouse2.TabIndex = 20;
+            this._cbWarehouse2.TabIndex = 6;
             // 
             // label4
             // 
@@ -392,7 +476,7 @@ namespace PostAPI
             this._cbArea2.Location = new System.Drawing.Point(661, 81);
             this._cbArea2.Name = "_cbArea2";
             this._cbArea2.Size = new System.Drawing.Size(251, 28);
-            this._cbArea2.TabIndex = 18;
+            this._cbArea2.TabIndex = 5;
             this._cbArea2.SelectedIndexChanged += new System.EventHandler(this.CbArea2_SelectedIndexChanged);
             // 
             // label5
@@ -412,7 +496,7 @@ namespace PostAPI
             this._cbRegion2.Location = new System.Drawing.Point(661, 38);
             this._cbRegion2.Name = "_cbRegion2";
             this._cbRegion2.Size = new System.Drawing.Size(251, 28);
-            this._cbRegion2.TabIndex = 16;
+            this._cbRegion2.TabIndex = 4;
             this._cbRegion2.SelectedIndexChanged += new System.EventHandler(this.CbRegion2_SelectedIndexChanged);
             // 
             // label6
@@ -432,7 +516,7 @@ namespace PostAPI
             this._cbWarehouse1.Location = new System.Drawing.Point(133, 124);
             this._cbWarehouse1.Name = "_cbWarehouse1";
             this._cbWarehouse1.Size = new System.Drawing.Size(251, 28);
-            this._cbWarehouse1.TabIndex = 13;
+            this._cbWarehouse1.TabIndex = 3;
             // 
             // label2
             // 
@@ -451,7 +535,7 @@ namespace PostAPI
             this._cbArea1.Location = new System.Drawing.Point(133, 81);
             this._cbArea1.Name = "_cbArea1";
             this._cbArea1.Size = new System.Drawing.Size(251, 28);
-            this._cbArea1.TabIndex = 11;
+            this._cbArea1.TabIndex = 2;
             this._cbArea1.SelectedIndexChanged += new System.EventHandler(this.CbArea_SelectedIndexChanged);
             // 
             // label3
@@ -471,7 +555,7 @@ namespace PostAPI
             this._cbRegion1.Location = new System.Drawing.Point(133, 38);
             this._cbRegion1.Name = "_cbRegion1";
             this._cbRegion1.Size = new System.Drawing.Size(251, 28);
-            this._cbRegion1.TabIndex = 9;
+            this._cbRegion1.TabIndex = 1;
             this._cbRegion1.SelectedIndexChanged += new System.EventHandler(this.CbRegion_SelectedIndexChanged);
             // 
             // label1
@@ -500,48 +584,10 @@ namespace PostAPI
             this._bLogOut.Location = new System.Drawing.Point(1297, 24);
             this._bLogOut.Name = "_bLogOut";
             this._bLogOut.Size = new System.Drawing.Size(157, 42);
-            this._bLogOut.TabIndex = 1;
+            this._bLogOut.TabIndex = 23;
             this._bLogOut.Text = "LogOut";
             this._bLogOut.UseVisualStyleBackColor = true;
             this._bLogOut.Click += new System.EventHandler(this.BLogOut_Click);
-            // 
-            // _cbPaymentType
-            // 
-            this._cbPaymentType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._cbPaymentType.FormattingEnabled = true;
-            this._cbPaymentType.Location = new System.Drawing.Point(307, 366);
-            this._cbPaymentType.Name = "_cbPaymentType";
-            this._cbPaymentType.Size = new System.Drawing.Size(179, 28);
-            this._cbPaymentType.TabIndex = 91;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label17.Location = new System.Drawing.Point(194, 371);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(110, 20);
-            this.label17.TabIndex = 90;
-            this.label17.Text = "Тип оплати:";
-            // 
-            // _cbPaymentTypeInsuranse
-            // 
-            this._cbPaymentTypeInsuranse.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._cbPaymentTypeInsuranse.FormattingEnabled = true;
-            this._cbPaymentTypeInsuranse.Location = new System.Drawing.Point(307, 466);
-            this._cbPaymentTypeInsuranse.Name = "_cbPaymentTypeInsuranse";
-            this._cbPaymentTypeInsuranse.Size = new System.Drawing.Size(179, 28);
-            this._cbPaymentTypeInsuranse.TabIndex = 93;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label18.Location = new System.Drawing.Point(103, 470);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(201, 20);
-            this.label18.TabIndex = 92;
-            this.label18.Text = "Тип оплати страховки:";
             // 
             // DeliveryMain
             // 
@@ -607,5 +653,9 @@ namespace PostAPI
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox _cbPaymentTypeInsuranse;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox _tbCashOnDeliveryValue;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox _cbIsEconom;
+        private System.Windows.Forms.Label label20;
     }
 }

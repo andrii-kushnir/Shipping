@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,7 @@ namespace PostAPI
         private readonly string[] _payer = { "Відправник(ми)", "Отримувач" };
         private readonly string[] _payerInsurance = { "Відправник(ми)", "Отримувач" };
         private readonly string[] _paymentType = { "Готівка", "Безгтівка" };
+        private readonly string[] _isEconomList = { "Так", "Ні" };
 
         private List<Cargo> _cargoList = new List<Cargo>();
         private BindingSource _cargoSource = new BindingSource() { AllowNew = false };
@@ -59,7 +61,7 @@ namespace PostAPI
             _regions = Controller.GetRegionList();
             _cbRegion1.Items.AddRange(_regions.Select(r => r.ToString()).ToArray());
             _cbRegion1.SelectedIndex = 21;
-            _cbArea1.SelectedIndex = 8;
+            _cbArea1.SelectedIndex = 9;
             _cbWarehouse1.SelectedIndex = 1;
             _cbRegion2.Items.AddRange(_regions.Select(r => r.ToString()).ToArray());
 
@@ -77,6 +79,9 @@ namespace PostAPI
 
             _cbPaymentTypeInsuranse.Items.AddRange(_paymentType);
             _cbPaymentTypeInsuranse.SelectedIndex = 0;
+
+            _cbIsEconom.Items.AddRange(_isEconomList);
+            _cbIsEconom.SelectedIndex = 0;
         }
 
         private void BLogOut_Click(object sender, EventArgs e)
@@ -141,7 +146,7 @@ namespace PostAPI
             //var invoices = Controller.GetClientInvoices();                            // temp!!!!!!
             //var recivers = Controller.GetPosibleReciver(_sender.cityId, _sender.id);  // temp!!!!!!
 
-            var client = Controller.CreateClient(_tbFirstName.Text.Trim(), _tbLastName.Text.Trim(), _tbMiddleName.Text.Trim(), _tbPhone.Text.Trim(), _areas2[_cbArea2.SelectedIndex].id, "15-Квітня", "37", "115", _sender.id);
+            var client = Controller.CreateClient(_tbFirstName.Text.Trim(), _tbLastName.Text.Trim(), _tbMiddleName.Text.Trim(), _tbPhone.Text.Trim(), _areas2[_cbArea2.SelectedIndex].id, " ", " ", " ", _sender.id);
             var receipt = new CreateReceipts()
             {
                 culture = "uk-UA",
@@ -162,28 +167,27 @@ namespace PostAPI
                         receiverType = false,
                         payerType = _cbPayer.SelectedIndex,
                         paymentType = _cbPaymentType.SelectedIndex,
-                        dateSend = DateTime.Now,
+                        dateSend = DateTime.Now,                                       // ВВодити!!!!!!!!
                         currency = 100000000,
                         InsuranceValue = _tbInsuranceValue.Text.ParseInt(),
                         payerInsuranceId = _cbPayerInsurance.SelectedIndex == 0 ? _sender.id : client.account.AccountId,
-                        paymentTypeInsuranse = _cbPaymentTypeInsuranse.SelectedIndex, 
-                        deliveryContactName = client.account.Name,
-                        deliveryContactPhone = client.account.PhoneNumber,
+                        paymentTypeInsuranse = _cbPaymentTypeInsuranse.SelectedIndex,
+                        deliveryContactName = client.account.Name,                  // Вияснити хто!!
+                        deliveryContactPhone = client.account.PhoneNumber,          // Вияснити хто!!
                         DeliveryComment = _rtbDescription.Text.Trim(),
-                        ReturnDocuments = false,
-                        climbingToFloor = 0,
-                        EconomDelivery = true,
-                        //cashOnDeliveryType = 2,                      //?????
-                        //CashOnDeliveryValuta = 100000000,
-                        //CashOnDeliveryValue = 0,                     // ввести
-                        //CashOnDeliveryWarehouseId = _warehouses1[_cbWarehouse1.SelectedIndex].id,  // буде братись з таблиці
-                        //CashOnDeliveryPayerAccountId = "",           //?????
-                        //CashOnDeliverySenderFullName = "",           //?????
-                        //CashOnDeliverySenderPhone = "",              //?????
-                        //CashOnDeliveryReceiverFullName = "",         //?????
-                        //CashOnDeliveryReceiverPhone = "",            //?????
-                        //CashOnDeliveryDescription = "описание наложки",
-                        descentFromFloor = 0,
+                        //ReturnDocuments = false,
+                        //climbingToFloor = 0,
+                        //EconomDelivery = true,
+                        cashOnDeliveryType = 2,
+                        CashOnDeliveryValuta = 100000000,
+                        CashOnDeliveryValue = _tbCashOnDeliveryValue.Text.ParseInt(),
+                        CashOnDeliveryWarehouseId = _warehouses1[_cbWarehouse1.SelectedIndex].id, // буде братись з БД
+                        CashOnDeliveryPayerAccountId = client.account.AccountId,
+                        CashOnDeliverySenderFullName = _sender.name,
+                        CashOnDeliverySenderPhone = "0689559240",                                 //ЗМІНИТИ НА ТЕЛЕФОН НАШ(ВІДПРАВНИКА)!!!!!!!!!!!!!!!
+                        //CashOnDeliveryReceiverFullName = client.account.Name,
+                        //CashOnDeliveryReceiverPhone = client.account.PhoneNumber,
+                        //descentFromFloor = 0,
                         category = _cargoList
                     }
                 }
@@ -205,16 +209,36 @@ namespace PostAPI
                 if (deliveryCargo.cargo != null)
                 {
                     _cargoList.Add(deliveryCargo.cargo);
+                    _cargoList.Select(c => { c.isEconom = _cbIsEconom.SelectedIndex == 0; return c; }).ToList();
                     ((BindingSource)_dgvCategory.DataSource).ResetBindings(false);
                 }
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void Button1_Click_1(object sender, EventArgs e)
         {
-            var fff = Controller.GetClientPaymentType(_sender.id);
-            var ddd = Controller.GetPayer(_areas1[_cbArea1.SelectedIndex].id, _areas2[_cbArea2.SelectedIndex].id, _sender.id);
-            var ggg = Controller.GetClientCards();
+            var ggg = Controller.GetPdfDocument("9901729672");
+
+            //var fff = Controller.GetWarehousesInfo(_warehouses2[_cbWarehouse2.SelectedIndex].id);
+
+            //var fff = Controller.GetClientPaymentType(_sender.id);
+            //var ddd = Controller.GetPayer(_areas1[_cbArea1.SelectedIndex].id, _areas2[_cbArea2.SelectedIndex].id, _sender.id);
+            //var ggg = Controller.GetClientCards();
+        }
+
+        string result;
+        async System.Threading.Tasks.Task<string> SaySomething()
+        {
+            await System.Threading.Tasks.Task.Delay(1000);
+
+            result = "Hello world!";
+            return result;
+        }
+
+        private void _cbIsEconom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _cargoList.Select(c => { c.isEconom = _cbIsEconom.SelectedIndex == 0; return c; }).ToList();
+            ((BindingSource)_dgvCategory.DataSource).ResetBindings(false);
         }
     }
 }

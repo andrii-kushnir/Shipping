@@ -40,8 +40,6 @@ namespace PostAPI
             this._tbSize = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this._btAdd = new System.Windows.Forms.Button();
-            this._cbIsEconom = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this._btClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -140,7 +138,7 @@ namespace PostAPI
             // _btAdd
             // 
             this._btAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btAdd.Location = new System.Drawing.Point(124, 346);
+            this._btAdd.Location = new System.Drawing.Point(124, 313);
             this._btAdd.Name = "_btAdd";
             this._btAdd.Size = new System.Drawing.Size(138, 42);
             this._btAdd.TabIndex = 76;
@@ -148,29 +146,10 @@ namespace PostAPI
             this._btAdd.UseVisualStyleBackColor = true;
             this._btAdd.Click += new System.EventHandler(this._btAdd_Click);
             // 
-            // _cbIsEconom
-            // 
-            this._cbIsEconom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._cbIsEconom.FormattingEnabled = true;
-            this._cbIsEconom.Location = new System.Drawing.Point(180, 284);
-            this._cbIsEconom.Name = "_cbIsEconom";
-            this._cbIsEconom.Size = new System.Drawing.Size(111, 28);
-            this._cbIsEconom.TabIndex = 78;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(100, 287);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 20);
-            this.label5.TabIndex = 77;
-            this.label5.Text = "Економ:";
-            // 
             // _btClose
             // 
             this._btClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btClose.Location = new System.Drawing.Point(335, 346);
+            this._btClose.Location = new System.Drawing.Point(335, 313);
             this._btClose.Name = "_btClose";
             this._btClose.Size = new System.Drawing.Size(138, 42);
             this._btClose.TabIndex = 79;
@@ -182,10 +161,8 @@ namespace PostAPI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(596, 406);
+            this.ClientSize = new System.Drawing.Size(596, 384);
             this.Controls.Add(this._btClose);
-            this.Controls.Add(this._cbIsEconom);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this._btAdd);
             this.Controls.Add(this._tbSize);
             this.Controls.Add(this.label4);
@@ -218,8 +195,6 @@ namespace PostAPI
         private System.Windows.Forms.TextBox _tbSize;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button _btAdd;
-        private System.Windows.Forms.ComboBox _cbIsEconom;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button _btClose;
     }
 }

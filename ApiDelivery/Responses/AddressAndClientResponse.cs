@@ -52,7 +52,7 @@ namespace ApiDelivery.Requests
         public string Egrpo { get; set; }       //ОКПО клиента
         public object Inn { get; set; }
         public object Kpp { get; set; }
-        public int OwnershipCode { get; set; }
+        public object OwnershipCode { get; set; }
         public string PhoneNumber { get; set; } //Телефон Клиента
         public string SmsPhoneNumber { get; set; }
         public object ParentAccountId { get; set; }
