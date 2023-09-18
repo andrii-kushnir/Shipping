@@ -34,6 +34,7 @@ namespace PostAPI
         public AddressDto Address;
         public ClientDto Client;
         public ShipmentDto Shipment;
+        public GroupDto Group;
 
         public UkrPostMain()
         {
@@ -443,7 +444,6 @@ namespace PostAPI
 
                 _tbApartment.Text = Address.apartmentNumber;
             }
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -544,6 +544,80 @@ namespace PostAPI
                         MessageBox.Show("Відправлення не трекається. Ймовірно воно ще не відправлене.");
                     }
                 }
+            }
+        }
+
+        private void _btPostpay_Click(object sender, EventArgs e)
+        {
+            if (_tbShipmentUuid.Text.Trim() != "")
+            {
+                Shipment = Controller.GetShipment(_tbShipmentUuid.Text.Trim());
+                if (Shipment == null)
+                {
+                    MessageBox.Show("Відправлення не знайдено!");
+                }
+                else
+                {
+                    var Postpay = Controller.GetPostpay(Shipment.barcode);
+                    if (Postpay != null && Postpay.lastStatus != null)
+                    {
+                        MessageBox.Show($"Статус {Postpay.lastStatus}. {Postpay.lastStatusNameUa}. Дата {Postpay.lastStatusTime}.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Післяоплата не знайдена. Або післяоплата відсутня або відправлення ще не отримане.");
+                    }
+                }
+            }
+        }
+
+        private void _btCreateGroup_Click(object sender, EventArgs e)
+        {
+            //var ggg = Controller.GetShipmentByGroup("6281b7f8-cc8f-43c1-a2fe-fef840d5e22f");
+            if (_tbGroupName.Text.Trim() != "")
+            {
+                Group = Controller.CreateGroup(_tbGroupName.Text.Trim(), ShipmentType.STANDARD);
+                if (Group != null)
+                    _tbGroupUuid.Text = Group.uuid;
+            }
+        }
+
+        private void _btToGroup_Click(object sender, EventArgs e)
+        {
+            if (_tbGroupUuid.Text.Trim() != "" && _tbShipmentUuid.Text.Trim() != "")
+            {
+                var result = Controller.AddShipmentToGroup(_tbGroupUuid.Text.Trim(), _tbShipmentUuid.Text.Trim());
+                MessageBox.Show(result.message);
+            }
+        }
+
+        private void _btGetShipments_Click(object sender, EventArgs e)
+        {
+            if (_tbGroupUuid.Text.Trim() != "")
+            {
+                var list = Controller.GetShipmentByGroup(_tbGroupUuid.Text.Trim());
+                if (list != null)
+                {
+                    _dgvShipmentsInGroup.DataSource = list.OrderBy(s => s.lastModified).ToList();
+                    _dgvShipmentsInGroup.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                }
+            }
+        }
+
+        private void _btToGroup1_Click(object sender, EventArgs e)
+        {
+            if (_tbGroupUuid.Text.Trim() != "" && _tbShipmentGroupUuid.Text.Trim() != "")
+            {
+                var result = Controller.AddShipmentToGroup(_tbGroupUuid.Text.Trim(), _tbShipmentGroupUuid.Text.Trim());
+                MessageBox.Show(result.message);
+            }
+        }
+
+        private void _btGetForma103_Click(object sender, EventArgs e)
+        {
+            if (_tbGroupUuid.Text.Trim() != "")
+            {
+                var file = Controller.GetForm103(_tbGroupUuid.Text.Trim());
             }
         }
     }

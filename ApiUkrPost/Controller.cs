@@ -258,6 +258,20 @@ namespace ApiUkrPost
             result = JsonConvert.DeserializeObject<MinifiedShipmentLifecycleRequestDto>(response).ToXml<MinifiedShipmentLifecycleRequestDto>();
         }
 
+        public static Postpay GetPostpay(string barcode)
+        {
+            var response = SendGet($"/transfers/shipment-postpays/{barcode}/with-recipient?token={_userToken}", out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<Postpay>(response);
+            return result;
+        }
+
+        public static void GetPostpayXml(string bearer, string token, string barcode, out string result)
+        {
+            Init(bearer, token, "");
+            result = GetPostpay(barcode).ToXml<Postpay>();
+        }
+
         public static List<ShipmentDto> GetShipmentBySender(string uuid)
         {
             var response = SendGet($"/shipments?token={_userToken}&senderUuid={uuid}", out bool success, out string message);
@@ -294,6 +308,7 @@ namespace ApiUkrPost
         {
             var result = new List<Region>();
             var response = GetFromAddress($"/get_regions_by_region_ua?region_name={region}", out bool success, out string message);
+            //var response = GetFromAddress($"/get_regions_by_region_ua", out bool success, out string message);
             if (success)
             {
                 try
@@ -556,6 +571,54 @@ namespace ApiUkrPost
             var result = ParseResponse(response, out success, out message);
             response.Close();
             return result;
+        }
+
+        public static GroupDto CreateGroup(string groupName, ShipmentType type)
+        {
+            var group = new GroupDto()
+            {
+                name = groupName,
+                type = type
+            };
+            var response = SendPost($"/shipment-groups?token={_userToken}", group.ToJson(), out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<GroupDto>(response);
+            return result;
+        }
+
+        public static void CreateGroupXml(string bearer, string token, string groupName, string type, out string result)
+        {
+            var typeEnum = (ShipmentType)Enum.Parse(typeof(ShipmentType), type);
+            Init(bearer, token, "");
+            result = CreateGroup(groupName, typeEnum).ToXml<GroupDto>();
+        }
+
+        public static GroupAddResponse AddShipmentToGroup(string groupUuid, string shipmentUuid)
+        {
+            var response = SendPut($"/shipment-groups/{groupUuid}/shipments?token={_userToken}", $"[\"{shipmentUuid}\"]", out bool success, out string message);
+            if (!success) return null;
+            var listShipments = JsonConvert.DeserializeObject<List<GroupAddResponse>>(response);
+            return (listShipments != null && listShipments.Count != 0) ? listShipments[0] : null;
+        }
+
+        public static void AddShipmentToGroupXml(string bearer, string token, string groupUuid, string shipmentUuid, out string result)
+        {
+            Init(bearer, token, "");
+            result = AddShipmentToGroup(groupUuid, shipmentUuid).ToXml<GroupAddResponse>();
+        }
+
+        public static List<ShipmentDto> GetShipmentByGroup(string groupUuid)
+        {
+            var response = SendGet($"/shipment-groups/{groupUuid}/shipments?token={_userToken}", out bool success, out string message);
+            if (!success) return null;
+            var result = JsonConvert.DeserializeObject<List<ShipmentDto>>(response);
+            return result;
+        }
+
+        public static bool DeleteShipmentByGroup(string shipmentUuid)
+        {
+            var response = SendDelete($"/shipments/{shipmentUuid}/shipment-group?token={_userToken}", out bool success, out string message);
+            return success;
         }
 
         //private string GetFromStatuses(string url, out bool success, out string message)
@@ -833,6 +896,61 @@ namespace ApiUkrPost
         {
             Init(bearer, token, "");
             string fileName = GetStickerFile(uuid);
+
+            byte[] imageData;
+            using (var fs = new FileStream(fileName, FileMode.Open))
+            {
+                imageData = new byte[fs.Length];
+                fs.Read(imageData, 0, imageData.Length);
+            }
+            using (SqlConnection connection = new SqlConnection("Context Connection = true;"))
+            {
+                connection.Open();
+                using (var query = new SqlCommand(@"INSERT INTO #tablePdf (data) Values(@File)", connection))
+                {
+                    query.Parameters.Add("@File", SqlDbType.Image).Value = imageData;
+                    query.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+
+        public static string GetForm103(string groupUuid)
+        {
+            var fileNamePDF = Path.GetTempPath() + Guid.NewGuid().ToString() + ".pdf";
+
+            try { if (File.Exists(fileNamePDF)) File.Delete(fileNamePDF); }
+            catch { return null; }
+
+            var request = GetHttpWebRequest(_server + $"/shipment-groups/{groupUuid}/form103a?token={_userToken}");
+            HttpWebResponse response;
+            try { response = (HttpWebResponse)request.GetResponse(); }
+            catch { return null; }
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                using (Stream inputStream = response.GetResponseStream())
+                {
+                    using (Stream outputStream = File.OpenWrite(fileNamePDF))
+                    {
+                        var buffer = new byte[4096];
+                        int bytesRead;
+                        do
+                        {
+                            bytesRead = inputStream.Read(buffer, 0, buffer.Length);
+                            outputStream.Write(buffer, 0, bytesRead);
+                        } while (bytesRead != 0);
+                    }
+                }
+            }
+            response.Close();
+            return fileNamePDF;
+        }
+
+        public static void GetForm103Xml(string bearer, string token, string groupUuid)
+        {
+            Init(bearer, token, "");
+            string fileName = GetForm103(groupUuid);
 
             byte[] imageData;
             using (var fs = new FileStream(fileName, FileMode.Open))

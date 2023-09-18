@@ -121,6 +121,20 @@ namespace PostAPI
             this._dgvShipments = new System.Windows.Forms.DataGridView();
             this._tbSenderAll = new System.Windows.Forms.TextBox();
             this._btGetShipmentBySender = new System.Windows.Forms.Button();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this._btCreateGroup = new System.Windows.Forms.Button();
+            this._tbGroupName = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this._btPostpay = new System.Windows.Forms.Button();
+            this._btToGroup = new System.Windows.Forms.Button();
+            this._tbGroupUuid = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this._dgvShipmentsInGroup = new System.Windows.Forms.DataGridView();
+            this._btGetShipments = new System.Windows.Forms.Button();
+            this._tbShipmentGroupUuid = new System.Windows.Forms.TextBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this._btToGroup1 = new System.Windows.Forms.Button();
+            this._btGetForma103 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -131,6 +145,8 @@ namespace PostAPI
             ((System.ComponentModel.ISupportInitialize)(this._dgvClients)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvShipments)).BeginInit();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._dgvShipmentsInGroup)).BeginInit();
             this.SuspendLayout();
             // 
             // _bLogOut
@@ -162,6 +178,7 @@ namespace PostAPI
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(1, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -583,6 +600,8 @@ namespace PostAPI
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this._btToGroup);
+            this.tabPage3.Controls.Add(this._btPostpay);
             this.tabPage3.Controls.Add(this.dataGridView1);
             this.tabPage3.Controls.Add(this._btStatuses);
             this.tabPage3.Controls.Add(this._rtbDescription);
@@ -639,9 +658,9 @@ namespace PostAPI
             // _btStatuses
             // 
             this._btStatuses.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btStatuses.Location = new System.Drawing.Point(1305, 107);
+            this._btStatuses.Location = new System.Drawing.Point(1049, 107);
             this._btStatuses.Name = "_btStatuses";
-            this._btStatuses.Size = new System.Drawing.Size(314, 44);
+            this._btStatuses.Size = new System.Drawing.Size(190, 44);
             this._btStatuses.TabIndex = 73;
             this._btStatuses.Text = "Трекінг";
             this._btStatuses.UseVisualStyleBackColor = true;
@@ -734,10 +753,10 @@ namespace PostAPI
             // 
             // _btSaveFile
             // 
-            this._btSaveFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this._btSaveFile.Location = new System.Drawing.Point(987, 107);
+            this._btSaveFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btSaveFile.Location = new System.Drawing.Point(859, 107);
             this._btSaveFile.Name = "_btSaveFile";
-            this._btSaveFile.Size = new System.Drawing.Size(314, 44);
+            this._btSaveFile.Size = new System.Drawing.Size(190, 44);
             this._btSaveFile.TabIndex = 63;
             this._btSaveFile.Text = "Зберегти PDF-файл";
             this._btSaveFile.UseVisualStyleBackColor = true;
@@ -754,10 +773,10 @@ namespace PostAPI
             // 
             // _btGetSticker
             // 
-            this._btGetSticker.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btGetSticker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._btGetSticker.Location = new System.Drawing.Point(669, 107);
             this._btGetSticker.Name = "_btGetSticker";
-            this._btGetSticker.Size = new System.Drawing.Size(314, 44);
+            this._btGetSticker.Size = new System.Drawing.Size(190, 44);
             this._btGetSticker.TabIndex = 61;
             this._btGetSticker.Text = "Отримання ярлику";
             this._btGetSticker.UseVisualStyleBackColor = true;
@@ -1103,6 +1122,157 @@ namespace PostAPI
             this._btGetShipmentBySender.UseVisualStyleBackColor = true;
             this._btGetShipmentBySender.Click += new System.EventHandler(this._btGetShipmentBySender_Click);
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this._btGetForma103);
+            this.tabPage6.Controls.Add(this._btToGroup1);
+            this.tabPage6.Controls.Add(this._tbShipmentGroupUuid);
+            this.tabPage6.Controls.Add(this.label36);
+            this.tabPage6.Controls.Add(this._btGetShipments);
+            this.tabPage6.Controls.Add(this._dgvShipmentsInGroup);
+            this.tabPage6.Controls.Add(this._tbGroupUuid);
+            this.tabPage6.Controls.Add(this.label35);
+            this.tabPage6.Controls.Add(this._tbGroupName);
+            this.tabPage6.Controls.Add(this.label34);
+            this.tabPage6.Controls.Add(this._btCreateGroup);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(1622, 855);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Групи відправлень";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // _btCreateGroup
+            // 
+            this._btCreateGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btCreateGroup.Location = new System.Drawing.Point(407, 19);
+            this._btCreateGroup.Name = "_btCreateGroup";
+            this._btCreateGroup.Size = new System.Drawing.Size(338, 44);
+            this._btCreateGroup.TabIndex = 33;
+            this._btCreateGroup.Text = "Створити групу";
+            this._btCreateGroup.UseVisualStyleBackColor = true;
+            this._btCreateGroup.Click += new System.EventHandler(this._btCreateGroup_Click);
+            // 
+            // _tbGroupName
+            // 
+            this._tbGroupName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbGroupName.Location = new System.Drawing.Point(121, 26);
+            this._tbGroupName.Name = "_tbGroupName";
+            this._tbGroupName.Size = new System.Drawing.Size(245, 29);
+            this._tbGroupName.TabIndex = 35;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label34.Location = new System.Drawing.Point(24, 32);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(100, 20);
+            this.label34.TabIndex = 34;
+            this.label34.Text = "Ім\"я групи:";
+            // 
+            // _btPostpay
+            // 
+            this._btPostpay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btPostpay.Location = new System.Drawing.Point(1239, 107);
+            this._btPostpay.Name = "_btPostpay";
+            this._btPostpay.Size = new System.Drawing.Size(190, 44);
+            this._btPostpay.TabIndex = 75;
+            this._btPostpay.Text = "Статус бабла";
+            this._btPostpay.UseVisualStyleBackColor = true;
+            this._btPostpay.Click += new System.EventHandler(this._btPostpay_Click);
+            // 
+            // _btToGroup
+            // 
+            this._btToGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btToGroup.Location = new System.Drawing.Point(1429, 107);
+            this._btToGroup.Name = "_btToGroup";
+            this._btToGroup.Size = new System.Drawing.Size(190, 44);
+            this._btToGroup.TabIndex = 76;
+            this._btToGroup.Text = "Прив\'язати до групи";
+            this._btToGroup.UseVisualStyleBackColor = true;
+            this._btToGroup.Click += new System.EventHandler(this._btToGroup_Click);
+            // 
+            // _tbGroupUuid
+            // 
+            this._tbGroupUuid.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbGroupUuid.Location = new System.Drawing.Point(189, 90);
+            this._tbGroupUuid.Name = "_tbGroupUuid";
+            this._tbGroupUuid.Size = new System.Drawing.Size(398, 29);
+            this._tbGroupUuid.TabIndex = 42;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label35.Location = new System.Drawing.Point(84, 96);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(99, 20);
+            this.label35.TabIndex = 41;
+            this.label35.Text = "uuid групи:";
+            // 
+            // _dgvShipmentsInGroup
+            // 
+            this._dgvShipmentsInGroup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._dgvShipmentsInGroup.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this._dgvShipmentsInGroup.Location = new System.Drawing.Point(3, 189);
+            this._dgvShipmentsInGroup.Name = "_dgvShipmentsInGroup";
+            this._dgvShipmentsInGroup.RowHeadersWidth = 80;
+            this._dgvShipmentsInGroup.Size = new System.Drawing.Size(1616, 663);
+            this._dgvShipmentsInGroup.TabIndex = 65;
+            // 
+            // _btGetShipments
+            // 
+            this._btGetShipments.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btGetShipments.Location = new System.Drawing.Point(606, 83);
+            this._btGetShipments.Name = "_btGetShipments";
+            this._btGetShipments.Size = new System.Drawing.Size(338, 44);
+            this._btGetShipments.TabIndex = 66;
+            this._btGetShipments.Text = "Отримати відправлення";
+            this._btGetShipments.UseVisualStyleBackColor = true;
+            this._btGetShipments.Click += new System.EventHandler(this._btGetShipments_Click);
+            // 
+            // _tbShipmentGroupUuid
+            // 
+            this._tbShipmentGroupUuid.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._tbShipmentGroupUuid.Location = new System.Drawing.Point(189, 143);
+            this._tbShipmentGroupUuid.Name = "_tbShipmentGroupUuid";
+            this._tbShipmentGroupUuid.Size = new System.Drawing.Size(398, 29);
+            this._tbShipmentGroupUuid.TabIndex = 68;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label36.Location = new System.Drawing.Point(16, 149);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(170, 20);
+            this.label36.TabIndex = 67;
+            this.label36.Text = "uuid відправлення:";
+            // 
+            // _btToGroup1
+            // 
+            this._btToGroup1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btToGroup1.Location = new System.Drawing.Point(606, 136);
+            this._btToGroup1.Name = "_btToGroup1";
+            this._btToGroup1.Size = new System.Drawing.Size(338, 44);
+            this._btToGroup1.TabIndex = 69;
+            this._btToGroup1.Text = "Прив\'язати до групи";
+            this._btToGroup1.UseVisualStyleBackColor = true;
+            this._btToGroup1.Click += new System.EventHandler(this._btToGroup1_Click);
+            // 
+            // _btGetForma103
+            // 
+            this._btGetForma103.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._btGetForma103.Location = new System.Drawing.Point(950, 83);
+            this._btGetForma103.Name = "_btGetForma103";
+            this._btGetForma103.Size = new System.Drawing.Size(338, 44);
+            this._btGetForma103.TabIndex = 70;
+            this._btGetForma103.Text = "Отримати \"Форму103а\"";
+            this._btGetForma103.UseVisualStyleBackColor = true;
+            this._btGetForma103.Click += new System.EventHandler(this._btGetForma103_Click);
+            // 
             // UkrPostMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1128,6 +1298,9 @@ namespace PostAPI
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dgvShipments)).EndInit();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._dgvShipmentsInGroup)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1226,5 +1399,19 @@ namespace PostAPI
         private System.Windows.Forms.RichTextBox _rtbDescription;
         private System.Windows.Forms.Button _btStatuses;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TextBox _tbGroupName;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Button _btCreateGroup;
+        private System.Windows.Forms.Button _btToGroup;
+        private System.Windows.Forms.Button _btPostpay;
+        private System.Windows.Forms.TextBox _tbGroupUuid;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Button _btGetShipments;
+        private System.Windows.Forms.DataGridView _dgvShipmentsInGroup;
+        private System.Windows.Forms.Button _btToGroup1;
+        private System.Windows.Forms.TextBox _tbShipmentGroupUuid;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Button _btGetForma103;
     }
 }

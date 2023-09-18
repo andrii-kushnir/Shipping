@@ -56,7 +56,9 @@
     <Compile Include="Adresses\Streets.cs" />
     <Compile Include="Base\AddressDto.cs" />
     <Compile Include="Base\ClientDto.cs" />
+    <Compile Include="Base\GroupDto.cs" />
     <Compile Include="Base\ParcelDto.cs" />
+    <Compile Include="Base\Postpay.cs" />
     <Compile Include="Base\ShipmentDto.cs" />
     <Compile Include="Base\Status.cs" />
     <Compile Include="Controller.cs" />
